@@ -115,5 +115,5 @@ class RepositoryTest extends TestCase
 
 class TestRepository extends Repository
 {
-
+	// Empty Stub repository
 }
