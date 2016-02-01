@@ -1,14 +1,10 @@
 <?php
 
-namespace integration\Repositories\Eloquent;
 
-
-use DatabaseCreator;
 use ExpoHub\Category;
 use ExpoHub\Repositories\Eloquent\CategoryRepository;
 use ExpoHub\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use TestCase;
 
 class CategoryRepositoryTest extends TestCase
 {

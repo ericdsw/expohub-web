@@ -1,13 +1,9 @@
 <?php
 
-namespace integration\Repositories\Eloquent;
 
-
-use DatabaseCreator;
 use ExpoHub\Comment;
 use ExpoHub\Repositories\Eloquent\CommentRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use TestCase;
 
 class CommentRepositoryTest extends TestCase
 {
