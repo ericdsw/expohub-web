@@ -23,11 +23,9 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
+	/**
+	 * Create a new authentication controller instance.
+	 */
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
