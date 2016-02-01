@@ -51,7 +51,7 @@ class FairEventRepository extends Repository implements FairEventRepositoryContr
 	public function getByAttendingUser($userId)
 	{
 		return $this->model->whereHas('attendingUsers', function($query) use ($userId) {
-			$query->where('users.id', $userId);
+			$query->where('users.id', '=', $userId);
 		})->get();
 	}
 
