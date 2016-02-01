@@ -22,4 +22,33 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         return $app;
     }
+
+	/**
+	 * Returns a mock for the given class and binds it to the service container
+	 *
+	 * @param $class
+	 * @param null $parameters
+	 * @return \Mockery\Mock
+	 */
+	protected function mock($class, $parameters = null)
+	{
+		$mock = null;
+		if($parameters == null) {
+			$mock = Mockery::mock($class);
+		}
+		else {
+			$mock = Mockery::mock($class, $parameters);
+		}
+		$this->app->instance($class, $mock);
+		return $mock;
+	}
+
+	/**
+	 * Removes all registered mocks
+	 */
+	public function tearDown()
+	{
+		Mockery::close();
+		parent::tearDown();
+	}
 }
