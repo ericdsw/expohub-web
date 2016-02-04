@@ -2,7 +2,16 @@
 
 namespace ExpoHub\Http;
 
+use ExpoHub\Http\Middleware\Authenticate;
+use ExpoHub\Http\Middleware\EncryptCookies;
+use ExpoHub\Http\Middleware\RedirectIfAuthenticated;
+use ExpoHub\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class Kernel extends HttpKernel
 {
@@ -12,12 +21,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \ExpoHub\Http\Middleware\EncryptCookies::class,
-        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-        \Illuminate\Session\Middleware\StartSession::class,
-        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \ExpoHub\Http\Middleware\VerifyCsrfToken::class,
+        CheckForMaintenanceMode::class,
+        EncryptCookies::class,
+        AddQueuedCookiesToResponse::class,
+        StartSession::class,
+        ShareErrorsFromSession::class,
     ];
 
     /**
@@ -26,8 +34,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \ExpoHub\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest' => \ExpoHub\Http\Middleware\RedirectIfAuthenticated::class,
+        'auth' => Authenticate::class,
+        'auth.basic' => AuthenticateWithBasicAuth::class,
+        'guest' => RedirectIfAuthenticated::class,
+		'csrf.token' => VerifyCsrfToken::class
     ];
 }

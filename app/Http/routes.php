@@ -1,16 +1,32 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+/**
+ * Api defined routes
+ */
+Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
+	Route::group(['prefix' => 'v1'], function() {
 
-Route::get('/', function () {
-    return view('welcome');
+		// Categories
+		get('categories', [
+			'as' => 'categories.index',
+			'uses' => 'CategoryController@index'
+		]);
+		get('categories/{id}', [
+			'as' => 'categories.show',
+			'uses' => 'CategoryController@show'
+		]);
+		post('categories', [
+			'as' => 'categories.store',
+			'uses' => 'CategoryController@store'
+		]);
+		put('categories/{id}', [
+			'as' => 'categories.update',
+			'uses' => 'CategoryController@update'
+		]);
+		delete('categories/{id}', [
+			'as' => 'categories.destroy',
+			'uses' => 'CategoryController@destroy'
+		]);
+
+	});
 });

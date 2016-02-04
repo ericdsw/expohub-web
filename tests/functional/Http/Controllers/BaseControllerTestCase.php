@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class BaseControllerTest extends TestCase
+abstract class BaseControllerTestCase extends TestCase
 {
 	public function authenticate()
 	{

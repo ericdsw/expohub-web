@@ -12,7 +12,7 @@
         "laravelcollective/html": "^5.1",
         "zizaco/entrust": "^1.4",
         "intervention/image": "^2.3",
-        "league/fractal": "dev-master"
+        "league/fractal": "^0.13.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -33,6 +33,7 @@
         "classmap": [
             "tests/TestCase.php",
             "tests/DatabaseCreator.php",
+            "tests/functional/Http/Controllers/BaseControllerTestCase.php",
             "tests/stubs"
         ]
     },
@@ -43,8 +44,7 @@
         ],
         "pre-update-cmd": [
             "php artisan clear-compiled",
-            "php artisan ide-helper:generate",
-            "php artisan ide-helper:models --dir=\"app/Models\"",
+            "php artisan ide-helper:generate -M",
             "php artisan optimize"
         ],
         "post-update-cmd": [
