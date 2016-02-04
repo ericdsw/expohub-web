@@ -22,9 +22,8 @@ class CategoryController extends ApiController
 	 * @param JsonApiSerializer $serializer
 	 * @param CategoryTransformer $categoryTransformer
 	 */
-	public function __construct(CategoryRepository $categoryRepository,
-								Manager $fractal, JsonApiSerializer $serializer,
-								CategoryTransformer $categoryTransformer)
+	public function __construct(CategoryRepository $categoryRepository, Manager $fractal,
+								JsonApiSerializer $serializer, CategoryTransformer $categoryTransformer)
 	{
 		parent::__construct($fractal, $serializer, $categoryTransformer);
 		$this->categoryRepository = $categoryRepository;
@@ -88,5 +87,16 @@ class CategoryController extends ApiController
 	{
 		$this->categoryRepository->delete($id);
 		return $this->respondNoContent();
+	}
+
+	/**
+	 * Returns a list of categories by fair
+	 *
+	 * @param $fairId
+	 * @return JsonResponse
+	 */
+	public function getByFair($fairId)
+	{
+		return $this->respondJson($this->categoryRepository->getByFair($fairId));
 	}
 }

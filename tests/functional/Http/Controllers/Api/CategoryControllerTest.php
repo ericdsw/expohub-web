@@ -59,6 +59,16 @@ class CategoryControllerTest extends BaseControllerTestCase
 		$this->assertResponseStatus(204);
 	}
 
+	/** @test */
+	public function it_displays_categories_by_fair()
+	{
+		$this->get('api/v1/fairs/1/categories');
+
+		$this->assertResponseOk();
+		$this->seeJson();
+		$this->seeJsonContains(['type' => 'category']);
+	}
+
 	/**
 	 * @return array
 	 */

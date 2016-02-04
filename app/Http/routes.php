@@ -28,5 +28,43 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 			'uses' => 'CategoryController@destroy'
 		]);
 
+		// Categories - SubResource
+		get('fairs/{id}/categories', [
+			'as' => 'categories.byFair',
+			'uses' => 'CategoryController@getByFair'
+		]);
+
+		// Comments
+		get('comments', [
+			'as' => 'comments.index',
+			'uses' => 'CommentController@index'
+		]);
+		get('comments/{id}', [
+			'as' => 'comments.show',
+			'uses' => 'CommentController@show'
+		]);
+		post('comments', [
+			'as' => 'comments.store',
+			'uses' => 'CommentController@store'
+		]);
+		put('comments/{id}', [
+			'as' => 'comments.update',
+			'uses' => 'CommentController@update'
+		]);
+		delete('comments/{id}', [
+			'as' => 'comments.destroy',
+			'uses' => 'CommentController@destroy'
+		]);
+
+		// Comments - SubResource
+		get('users/{id}/comments', [
+			'as' => 'comments.byUser',
+			'uses' => 'CommentController@getByUser'
+		]);
+		get('news/{id}/comments', [
+			'as' => 'comments.byNews',
+			'uses' => 'CommentController@getByNews'
+		]);
+
 	});
 });

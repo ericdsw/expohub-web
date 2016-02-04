@@ -7,6 +7,12 @@ use ExpoHub\Comment;
 
 class CommentTransformer extends BaseTransformer
 {
+	/**
+	 * Convert Comments to valid json representation
+	 *
+	 * @param Comment $comment
+	 * @return array
+	 */
 	public function transform(Comment $comment)
 	{
 		return [
@@ -15,6 +21,9 @@ class CommentTransformer extends BaseTransformer
 		];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getType()
 	{
 		return "comment";

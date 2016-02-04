@@ -6,6 +6,12 @@ use ExpoHub\Category;
 
 class CategoryTransformer extends BaseTransformer
 {
+	/**
+	 * Converts Category to valid json representation
+	 *
+	 * @param Category $category
+	 * @return array
+	 */
 	public function transform(Category $category)
 	{
 		return [
@@ -14,6 +20,9 @@ class CategoryTransformer extends BaseTransformer
 		];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getType()
 	{
 		return "category";
