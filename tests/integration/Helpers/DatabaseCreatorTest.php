@@ -371,6 +371,42 @@ class DatabaseCreatorTest extends TestCase
 			'user_id' => $user->id
 		], $commentParameters));
 	}
+
+	/** @test */
+	public function it_creates_a_stand()
+	{
+		$user = User::create([
+			'name' => 'foo',
+			'username' => str_random(),
+			'email' => str_random(),
+			'password' => 'qux'
+		]);
+
+		$fair = Fair::create([
+			'name' => 'foo',
+			'image' => 'bar',
+			'description' => 'baz',
+			'website' => 'qux',
+			'starting_date' => Carbon::now(),
+			'ending_date' => Carbon::now(),
+			'address' => 'foo-bar',
+			'latitude' => 9.9,
+			'longitude' => 8.8,
+			'user_id' => $user->id
+		]);
+
+		$standParameters = [
+			'name' => 'foo',
+			'description' => 'bar',
+			'image' => 'baz.jpg'
+		];
+
+		$this->systemUnderTest->createStand($fair->id, $standParameters);
+
+		$this->seeInDatabase('stands', array_merge([
+			'fair_id' => $fair->id
+		], $standParameters));
+	}
 }
 
 /**

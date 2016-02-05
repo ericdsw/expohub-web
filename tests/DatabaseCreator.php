@@ -11,6 +11,7 @@ use ExpoHub\News;
 use ExpoHub\Speaker;
 use ExpoHub\Sponsor;
 use ExpoHub\SponsorRank;
+use ExpoHub\Stand;
 use ExpoHub\User;
 
 trait DatabaseCreator
@@ -218,7 +219,8 @@ trait DatabaseCreator
 	 * @param array $parameters
 	 * @return Comment
 	 */
-	public function createComment($newsId, $userId, array $parameters = []) {
+	public function createComment($newsId, $userId, array $parameters = [])
+	{
 		Comment::unguard();
 		$comment = Comment::create(array_merge([
 			"text" => "foo",
@@ -228,5 +230,26 @@ trait DatabaseCreator
 		Comment::reguard();
 
 		return $comment;
+	}
+
+	/**
+	 * Requires Fair object before creation
+	 *
+	 * @param $fairId
+	 * @param array $parameters
+	 * @return Stand
+	 */
+	public function createStand($fairId, array $parameters = [])
+	{
+		Stand::unguard();
+		$stand = Stand::create(array_merge([
+			'name' => 'foo',
+			'description' => 'bar',
+			'image' => 'baz.jpg',
+			'fair_id' => $fairId
+		], $parameters));
+		Stand::reguard();
+
+		return $stand;
 	}
 }

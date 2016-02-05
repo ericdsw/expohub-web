@@ -92,4 +92,14 @@ class Fair extends Model
 	{
 		return $this->hasMany(News::class);
 	}
+
+	/**
+	 * Registered stands
+	 *
+	 * @return HasMany
+	 */
+	public function stands()
+	{
+		return $this->hasMany(Stand::class);
+	}
 }

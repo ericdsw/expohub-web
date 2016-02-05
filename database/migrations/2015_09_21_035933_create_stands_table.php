@@ -17,9 +17,10 @@ class CreateStandsTable extends Migration
 			$table->string("name");
 			$table->text("description");
 			$table->string("image");
-			$table->unsignedInteger("fair_event_id");
+			$table->unsignedInteger("fair_id");
+			$table->timestamps();
 
-			$table->foreign("fair_event_id")->references("id")->on("fair_events");
+			$table->foreign("fair_id")->references("id")->on("fairs");
 		});
     }
 

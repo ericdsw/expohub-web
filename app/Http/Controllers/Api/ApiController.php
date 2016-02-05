@@ -29,6 +29,7 @@ abstract class ApiController extends Controller
 
 	/**
 	 * ApiController constructor.
+	 *
 	 * @param Manager $fractal
 	 * @param SerializerAbstract $serializer
 	 * @param BaseTransformer $transformer
