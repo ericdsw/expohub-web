@@ -18,13 +18,25 @@ class CommentTransformerTest extends TestCase
 	/** @test */
 	public function it_transforms_comment()
 	{
-		$comment = new Comment;
-		$comment->id = 1;
-		$comment->text = 'foo';
+		$comment = $this->makeComment();
 
 		$transformedArray = $this->transformer->transform($comment);
 
-		$this->assertEquals(1, $transformedArray['id']);
-		$this->assertEquals('foo', $transformedArray['text']);
+		$this->assertEquals([
+			'id' => 1,
+			'text' => 'comment-text'
+		], $transformedArray);
+	}
+
+	/**
+	 * @return Comment
+	 */
+	private function makeComment()
+	{
+		$comment = new Comment;
+		$comment->id = 1;
+		$comment->text = 'comment-text';
+
+		return $comment;
 	}
 }

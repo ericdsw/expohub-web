@@ -6,6 +6,8 @@ use ExpoHub\Category;
 
 class CategoryTransformer extends BaseTransformer
 {
+	protected $availableIncludes = ['fair'];
+
 	/**
 	 * Converts Category to valid json representation
 	 *

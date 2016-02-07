@@ -17,13 +17,25 @@ class CategoryTransformerTest extends TestCase
 	/** @test */
 	public function it_transforms_category()
 	{
-		$category = new Category;
-		$category->id = 1;
-		$category->name = "foo";
+		$category = $this->makeCategory();
 
 		$transformedArray = $this->transformer->transform($category);
 
-		$this->assertEquals(1, $transformedArray['id']);
-		$this->assertEquals('foo', $transformedArray['name']);
+		$this->assertEquals([
+			'id' => 1,
+			'name' => 'category-name'
+		], $transformedArray);
+	}
+
+	/**
+	 * @return Category
+	 */
+	private function makeCategory()
+	{
+		$category = new Category;
+		$category->id = 1;
+		$category->name = "category-name";
+
+		return $category;
 	}
 }
