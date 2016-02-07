@@ -7,6 +7,32 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * ExpoHub\Fair
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $image
+ * @property string $description
+ * @property string $website
+ * @property \Carbon\Carbon $starting_date
+ * @property \Carbon\Carbon $ending_date
+ * @property string $address
+ * @property float $latitude
+ * @property float $longitude
+ * @property integer $user_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \ExpoHub\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\User[] $bannedUsers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\User[] $helperUsers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Sponsor[] $sponsors
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Map[] $maps
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Category[] $categories
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\FairEvent[] $fairEvents
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\News[] $news
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Stand[] $stands
+ */
 class Fair extends Model
 {
     protected $fillable = ["name", "image", "description", "website", "starting_date", "ending_date", "address", "latitude", "longitude", "user_id"];

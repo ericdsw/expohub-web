@@ -7,6 +7,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * ExpoHub\FairEvent
+ *
+ * @property integer $id
+ * @property string $title
+ * @property string $image
+ * @property string $description
+ * @property string $date
+ * @property string $location
+ * @property integer $fair_id
+ * @property integer $event_type_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \ExpoHub\Fair $fair
+ * @property-read \ExpoHub\EventType $eventType
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Speaker[] $speakers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\User[] $attendingUsers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Category[] $categories
+ */
 class FairEvent extends Model
 {
 	protected $table = "fair_events";

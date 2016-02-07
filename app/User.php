@@ -13,6 +13,23 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+/**
+ * ExpoHub\User
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $username
+ * @property string $email
+ * @property string $password
+ * @property string $remember_token
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Fair[] $fairs
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Fair[] $bannedFairs
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Fair[] $helpingFairs
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\FairEvent[] $attendingFairEvents
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Comment[] $comments
+ */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword;
