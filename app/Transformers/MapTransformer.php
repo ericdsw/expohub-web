@@ -2,9 +2,12 @@
 namespace ExpoHub\Transformers;
 
 use ExpoHub\Map;
+use League\Fractal\Resource\Item;
 
 class MapTransformer extends BaseTransformer
 {
+	protected $availableIncludes = ['fair'];
+
 	/**
 	 * Converts map to valid json
 	 *
@@ -26,5 +29,18 @@ class MapTransformer extends BaseTransformer
 	public function getType()
 	{
 		return 'map';
+	}
+
+	/**
+	 * Includes related Fair
+	 *
+	 * @param Map $map
+	 * @return Item
+	 */
+	public function includeFair(Map $map)
+	{
+		$fair = $map->fair;
+		$fairTransformer = app()->make(FairTransformer::class);
+		return $this->item($fair, $fairTransformer, $fairTransformer->getType());
 	}
 }

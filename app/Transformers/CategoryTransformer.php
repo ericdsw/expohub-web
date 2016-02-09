@@ -3,6 +3,7 @@
 namespace ExpoHub\Transformers;
 
 use ExpoHub\Category;
+use League\Fractal\Resource\Item;
 
 class CategoryTransformer extends BaseTransformer
 {
@@ -28,5 +29,18 @@ class CategoryTransformer extends BaseTransformer
 	public function getType()
 	{
 		return "category";
+	}
+
+	/**
+	 * Includes related Fair
+	 *
+	 * @param Category $category
+	 * @return Item
+	 */
+	public function includeFair(Category $category)
+	{
+		$fair = $category->fair;
+		$fairTransformer = app()->make(FairTransformer::class);
+		return $this->item($fair, $fairTransformer, $fairTransformer->getType());
 	}
 }

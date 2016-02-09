@@ -4,9 +4,12 @@ namespace ExpoHub\Transformers;
 
 
 use ExpoHub\News;
+use League\Fractal\Resource\Item;
 
 class NewsTransformer extends BaseTransformer
 {
+	protected $availableIncludes = ['fair'];
+
 	/**
 	 * Converts News to json
 	 *
@@ -29,5 +32,18 @@ class NewsTransformer extends BaseTransformer
 	public function getType()
 	{
 		return "news";
+	}
+
+	/**
+	 * Includes related Fair
+	 *
+	 * @param News $news
+	 * @return Item
+	 */
+	public function includeFair(News $news)
+	{
+		$fair = $news->fair;
+		$fairTransformer = app()->make(FairTransformer::class);
+		return $this->item($fair, $fairTransformer, $fairTransformer->getType());
 	}
 }

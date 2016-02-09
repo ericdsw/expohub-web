@@ -4,9 +4,12 @@ namespace ExpoHub\Transformers;
 
 
 use ExpoHub\Speaker;
+use League\Fractal\Resource\Item;
 
 class SpeakerTransformer extends BaseTransformer
 {
+	protected $availableIncludes = ['fairEvent'];
+
 	/**
 	 * Converts Speaker to json
 	 *
@@ -29,5 +32,18 @@ class SpeakerTransformer extends BaseTransformer
 	public function getType()
 	{
 		return "speaker";
+	}
+
+	/**
+	 * Includes related FairEvent
+	 *
+	 * @param Speaker $speaker
+	 * @return Item
+	 */
+	public function includeFairEvent(Speaker $speaker)
+	{
+		$fairEvent = $speaker->fairEvent;
+		$fairEventTransformer = app()->make(FairEventTransformer::class);
+		return $this->item($fairEvent, $fairEventTransformer, $fairEventTransformer->getType());
 	}
 }

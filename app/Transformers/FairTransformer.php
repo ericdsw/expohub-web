@@ -4,9 +4,12 @@ namespace ExpoHub\Transformers;
 
 
 use ExpoHub\Fair;
+use League\Fractal\Resource\Item;
 
 class FairTransformer extends BaseTransformer
 {
+	protected $availableIncludes = ['user'];
+
 	/**
 	 * Converts Fair to valid json
 	 *
@@ -35,5 +38,18 @@ class FairTransformer extends BaseTransformer
 	public function getType()
 	{
 		return "fair";
+	}
+
+	/**
+	 * Includes related User
+	 *
+	 * @param Fair $fair
+	 * @return Item
+	 */
+	public function includeUser(Fair $fair)
+	{
+		$user = $fair->user;
+		$userTransformer = app()->make(UserTransformer::class);
+		return $this->item($user, $userTransformer, $userTransformer->getType());
 	}
 }

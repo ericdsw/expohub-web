@@ -49,6 +49,10 @@ abstract class ApiController extends Controller
 	 */
 	protected function respondJson($data)
 	{
+		if(request()->has('include')) {
+			$this->fractal->parseIncludes(request()->get('include'));
+		}
+
 		if($data instanceof Collection) {
 			return $this->respondWithCollection($data);
 		}
