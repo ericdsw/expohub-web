@@ -7,6 +7,8 @@ use ExpoHub\SponsorRank;
 
 class SponsorRankTransformer extends BaseTransformer
 {
+	protected $availableIncludes = ['sponsors'];
+
 	/**
 	 * Converts SponsorRank to json
 	 *
@@ -27,5 +29,12 @@ class SponsorRankTransformer extends BaseTransformer
 	public function getType()
 	{
 		return "sponsor-rank";
+	}
+
+	public function includeSponsors(SponsorRank $sponsorRank)
+	{
+		$sponsors = $sponsorRank->sponsors;
+		$sponsorTransformer = app()->make(SponsorTransformer::class);
+		return $this->collection($sponsors, $sponsorTransformer, $sponsorTransformer->getType());
 	}
 }

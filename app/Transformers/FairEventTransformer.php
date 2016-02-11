@@ -8,7 +8,8 @@ use League\Fractal\Resource\Item;
 
 class FairEventTransformer extends BaseTransformer
 {
-	protected $availableIncludes = ['fair', 'event_type'];
+	protected $availableIncludes = ['fair', 'eventType',
+									'speakers', 'attendingUsers', 'categories'];
 
 	/**
 	 * Converts FairEvent to valid json
@@ -60,5 +61,26 @@ class FairEventTransformer extends BaseTransformer
 		$eventType = $fairEvent->eventType;
 		$eventTypeTransformer = app()->make(EventTypeTransformer::class);
 		return $this->item($eventType, $eventTypeTransformer, $eventTypeTransformer->getType());
+	}
+
+	public function includeSpeakers(FairEvent $fairEvent)
+	{
+		$speakers = $fairEvent->speakers;
+		$speakerTransformer = app()->make(SpeakerTransformer::class);
+		return $this->collection($speakers, $speakerTransformer, $speakerTransformer->getType());
+	}
+
+	public function includeAttendingUsers(FairEvent $fairEvent)
+	{
+		$attendingUsers = $fairEvent->attendingUsers;
+		$userTransformer = app()->make(UserTransformer::class);
+		return $this->collection($attendingUsers, $userTransformer, $userTransformer->getType());
+	}
+
+	public function includeCategories(FairEvent $fairEvent)
+	{
+		$categories = $fairEvent->categories;
+		$categoryTransformer = app()->make(CategoryTransformer::class);
+		return $this->collection($categories, $categoryTransformer, $categoryTransformer->getType());
 	}
 }

@@ -6,6 +6,8 @@ use ExpoHub\EventType;
 
 class EventTypeTransformer extends BaseTransformer
 {
+	protected $availableIncludes = ['events'];
+
 	/**
 	 * Converts EventType to valid json representation
 	 *
@@ -26,5 +28,12 @@ class EventTypeTransformer extends BaseTransformer
 	public function getType()
 	{
 		return "event-type";
+	}
+
+	public function includeEvents(EventType $eventType)
+	{
+		$events = $eventType->events;
+		$eventTransformer = app()->make(EventTransformer::class);
+		return $this->collection($events, $eventTransformer, $eventTransformer->getType());
 	}
 }

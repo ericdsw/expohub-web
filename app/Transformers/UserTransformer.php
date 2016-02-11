@@ -4,9 +4,12 @@ namespace ExpoHub\Transformers;
 
 
 use ExpoHub\User;
+use League\Fractal\Resource\Collection;
 
 class UserTransformer extends BaseTransformer
 {
+	protected $availableIncludes = ['fairs', 'bannedFairs', 'helpingFairs', 'attendingFairEvents', 'comments'];
+
 	/**
 	 * Converts User to json
 	 *
@@ -29,5 +32,60 @@ class UserTransformer extends BaseTransformer
 	public function getType()
 	{
 		return 'user';
+	}
+
+	/**
+	 * @param User $user
+	 * @return Collection
+	 */
+	public function includeFairs(User $user)
+	{
+		$fairs = $user->fairs;
+		$fairTransformer = app()->make(FairTransformer::class);
+		return $this->collection($fairs, $fairTransformer, $fairTransformer->getType());
+	}
+
+	/**
+	 * @param User $user
+	 * @return Collection
+	 */
+	public function includeBannedFairs(User $user)
+	{
+		$fairs = $user->bannedFairs;
+		$fairTransformer = app()->make(FairTransformer::class);
+		return $this->collection($fairs, $fairTransformer, $fairTransformer->getType());
+	}
+
+	/**
+	 * @param User $user
+	 * @return Collection
+	 */
+	public function includeHelpingFairs(User $user)
+	{
+		$fairs = $user->helpingFairs;
+		$fairTransformer = app()->make(FairTransformer::class);
+		return $this->collection($fairs, $fairTransformer, $fairTransformer->getType());
+	}
+
+	/**
+	 * @param User $user
+	 * @return Collection
+	 */
+	public function includeAttendingFairEvents(User $user)
+	{
+		$attendingFairEvents = $user->attendingFairEvents;
+		$fairEventTransformer = app()->make(FairEventTransformer::class);
+		return $this->collection($attendingFairEvents, $fairEventTransformer, $fairEventTransformer->getType());
+	}
+
+	/**
+	 * @param User $user
+	 * @return Collection
+	 */
+	public function includeComments(User $user)
+	{
+		$comments = $user->comments;
+		$commentTransformer = app()->make(CommentTransformer::class);
+		return $this->collection($comments, $commentTransformer, $commentTransformer->getType());
 	}
 }

@@ -49,6 +49,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 	}
 
 	/**
+	 * These are all categories user has registered under his/her fairs
+	 *
 	 * @return HasManyThrough
 	 */
 	public function categories()

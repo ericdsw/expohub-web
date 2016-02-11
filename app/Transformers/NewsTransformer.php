@@ -8,7 +8,8 @@ use League\Fractal\Resource\Item;
 
 class NewsTransformer extends BaseTransformer
 {
-	protected $availableIncludes = ['fair'];
+	protected $availableIncludes = ['fair',
+									'comments'];
 
 	/**
 	 * Converts News to json
@@ -45,5 +46,12 @@ class NewsTransformer extends BaseTransformer
 		$fair = $news->fair;
 		$fairTransformer = app()->make(FairTransformer::class);
 		return $this->item($fair, $fairTransformer, $fairTransformer->getType());
+	}
+
+	public function includeComments(News $news)
+	{
+		$comments = $news->comments;
+		$commentTransformer = app()->make(CommentTransformer::class);
+		return $this->collection($comments, $commentTransformer, $commentTransformer->getType());
 	}
 }
