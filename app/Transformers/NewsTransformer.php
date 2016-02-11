@@ -4,6 +4,7 @@ namespace ExpoHub\Transformers;
 
 
 use ExpoHub\News;
+use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 
 class NewsTransformer extends BaseTransformer
@@ -48,6 +49,12 @@ class NewsTransformer extends BaseTransformer
 		return $this->item($fair, $fairTransformer, $fairTransformer->getType());
 	}
 
+	/**
+	 * Include related Comments
+	 *
+	 * @param News $news
+	 * @return Collection
+	 */
 	public function includeComments(News $news)
 	{
 		$comments = $news->comments;

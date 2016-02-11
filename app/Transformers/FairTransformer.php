@@ -4,6 +4,7 @@ namespace ExpoHub\Transformers;
 
 
 use ExpoHub\Fair;
+use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 
 class FairTransformer extends BaseTransformer
@@ -54,6 +55,12 @@ class FairTransformer extends BaseTransformer
 		return $this->item($user, $userTransformer, $userTransformer->getType());
 	}
 
+	/**
+	 * Include related Fairs
+	 *
+	 * @param Fair $fair
+	 * @return Collection
+	 */
 	public function includeBannedUsers(Fair $fair)
 	{
 		$bannedUsers = $fair->bannedUsers;
@@ -61,6 +68,12 @@ class FairTransformer extends BaseTransformer
 		return $this->collection($bannedUsers, $userTransformer, $userTransformer->getType());
 	}
 
+	/**
+	 * Include related HelperUsers
+	 *
+	 * @param Fair $fair
+	 * @return Collection
+	 */
 	public function includeHelperUsers(Fair $fair)
 	{
 		$helperUsers = $fair->helperUsers;
@@ -68,6 +81,12 @@ class FairTransformer extends BaseTransformer
 		return $this->collection($helperUsers, $userTransformer, $userTransformer->getType());
 	}
 
+	/**
+	 * Include related Sponsors
+	 *
+	 * @param Fair $fair
+	 * @return Collection
+	 */
 	public function includeSponsors(Fair $fair)
 	{
 		$sponsors = $fair->sponsors;
@@ -75,6 +94,12 @@ class FairTransformer extends BaseTransformer
 		return $this->collection($sponsors, $sponsorTransformer, $sponsorTransformer->getType());
 	}
 
+	/**
+	 * Include related Maps
+	 *
+	 * @param Fair $fair
+	 * @return Collection
+	 */
 	public function includeMaps(Fair $fair)
 	{
 		$maps = $fair->maps;
@@ -82,6 +107,12 @@ class FairTransformer extends BaseTransformer
 		return $this->collection($maps, $mapTransformer, $mapTransformer->getType());
 	}
 
+	/**
+	 * Include related Categories
+	 *
+	 * @param Fair $fair
+	 * @return Collection
+	 */
 	public function includeCategories(Fair $fair)
 	{
 		$categories = $fair->categories;
@@ -89,6 +120,12 @@ class FairTransformer extends BaseTransformer
 		return $this->collection($categories , $categoryTransformer, $categoryTransformer->getType());
 	}
 
+	/**
+	 * Include related FairEvents
+	 *
+	 * @param Fair $fair
+	 * @return Collection
+	 */
 	public function includeFairEvents(Fair $fair)
 	{
 		$fairEvents = $fair->fairEvents;
@@ -96,6 +133,12 @@ class FairTransformer extends BaseTransformer
 		return $this->collection($fairEvents, $fairEventTransformer, $fairEventTransformer->getType());
 	}
 
+	/**
+	 * Include related News
+	 *
+	 * @param Fair $fair
+	 * @return Collection
+	 */
 	public function includeNews(Fair $fair)
 	{
 		$news = $fair->news;

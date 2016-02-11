@@ -3,6 +3,7 @@
 namespace ExpoHub\Transformers;
 
 use ExpoHub\EventType;
+use League\Fractal\Resource\Collection;
 
 class EventTypeTransformer extends BaseTransformer
 {
@@ -30,6 +31,12 @@ class EventTypeTransformer extends BaseTransformer
 		return "event-type";
 	}
 
+	/**
+	 * Include related EventTypes
+	 *
+	 * @param EventType $eventType
+	 * @return Collection
+	 */
 	public function includeEvents(EventType $eventType)
 	{
 		$events = $eventType->events;

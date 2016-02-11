@@ -4,6 +4,7 @@ namespace ExpoHub\Transformers;
 
 
 use ExpoHub\FairEvent;
+use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 
 class FairEventTransformer extends BaseTransformer
@@ -63,6 +64,12 @@ class FairEventTransformer extends BaseTransformer
 		return $this->item($eventType, $eventTypeTransformer, $eventTypeTransformer->getType());
 	}
 
+	/**
+	 * Include related FairEvents
+	 *
+	 * @param FairEvent $fairEvent
+	 * @return Collection
+	 */
 	public function includeSpeakers(FairEvent $fairEvent)
 	{
 		$speakers = $fairEvent->speakers;
@@ -70,6 +77,12 @@ class FairEventTransformer extends BaseTransformer
 		return $this->collection($speakers, $speakerTransformer, $speakerTransformer->getType());
 	}
 
+	/**
+	 * Include related AttendingUsers
+	 *
+	 * @param FairEvent $fairEvent
+	 * @return Collection
+	 */
 	public function includeAttendingUsers(FairEvent $fairEvent)
 	{
 		$attendingUsers = $fairEvent->attendingUsers;
@@ -77,6 +90,12 @@ class FairEventTransformer extends BaseTransformer
 		return $this->collection($attendingUsers, $userTransformer, $userTransformer->getType());
 	}
 
+	/**
+	 * Include related
+	 *
+	 * @param FairEvent $fairEvent
+	 * @return Collection
+	 */
 	public function includeCategories(FairEvent $fairEvent)
 	{
 		$categories = $fairEvent->categories;

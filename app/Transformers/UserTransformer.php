@@ -35,6 +35,8 @@ class UserTransformer extends BaseTransformer
 	}
 
 	/**
+	 * Include related Fairs
+	 *
 	 * @param User $user
 	 * @return Collection
 	 */
@@ -46,6 +48,8 @@ class UserTransformer extends BaseTransformer
 	}
 
 	/**
+	 * Include related Fairs where user was banned
+	 *
 	 * @param User $user
 	 * @return Collection
 	 */
@@ -57,6 +61,8 @@ class UserTransformer extends BaseTransformer
 	}
 
 	/**
+	 * Include related Fairs where user is helping
+	 *
 	 * @param User $user
 	 * @return Collection
 	 */
@@ -68,6 +74,8 @@ class UserTransformer extends BaseTransformer
 	}
 
 	/**
+	 * Include related Fairs where user is attending
+	 *
 	 * @param User $user
 	 * @return Collection
 	 */
@@ -79,6 +87,8 @@ class UserTransformer extends BaseTransformer
 	}
 
 	/**
+	 * Include related Comments
+	 *
 	 * @param User $user
 	 * @return Collection
 	 */
