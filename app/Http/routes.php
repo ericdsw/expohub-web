@@ -66,5 +66,27 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 			'uses' => 'CommentController@getByNews'
 		]);
 
+		// Event Types
+		get('eventTypes', [
+			'as' => 'eventTypes.index',
+			'uses' => 'EventTypeController@index'
+		]);
+		get('eventTypes/{id}', [
+			'as' => 'eventTypes.show',
+			'uses' => 'EventTypeController@show'
+		]);
+		post('eventTypes', [
+			'as' => 'eventTypes.store',
+			'uses' => 'EventTypeController@store'
+		]);
+		put('eventTypes/{id}', [
+			'as' => 'eventTypes.update',
+			'uses' => 'EventTypeController@update'
+		]);
+		delete('eventTypes/{id}', [
+			'as' => 'eventTypes.destroy',
+			'uses' => 'eventTypeController@destroy'
+		]);
+
 	});
 });
