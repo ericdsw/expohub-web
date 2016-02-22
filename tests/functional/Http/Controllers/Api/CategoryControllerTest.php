@@ -19,6 +19,30 @@ class CategoryControllerTest extends BaseControllerTestCase
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'category']);
+		$this->dontSeeJson(['type' => 'fair-event']);
+		$this->dontSeeJson(['type' => 'fair']);
+	}
+
+	/** @test */
+	public function it_displays_a_list_of_categories_with_included_fairs()
+	{
+		$this->get('api/v1/categories?include=fair');
+
+		$this->assertResponseOk();
+		$this->seeJson();
+		$this->seeJsonContains(['type' => 'category']);
+		$this->seeJsonContains(['type' => 'fair']);
+	}
+
+	/** @test */
+	public function it_displays_a_list_of_categories_with_included_fair_events()
+	{
+		$this->get('api/v1/categories?include=fairEvents');
+
+		$this->assertResponseOk();
+		$this->seeJson();
+		$this->seeJsonContains(['type' => 'category']);
+		$this->seeJsonContains(['type' => 'fair-event']);
 	}
 
 	/** @test */
@@ -29,6 +53,30 @@ class CategoryControllerTest extends BaseControllerTestCase
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'category']);
+		$this->dontSeeJson(['type' => 'fair-event']);
+		$this->dontSeeJson(['type' => 'fair']);
+	}
+
+	/** @test */
+	public function it_displays_a_single_category_with_included_fair()
+	{
+		$this->get('api/v1/categories/1?include=fair');
+
+		$this->assertResponseOk();
+		$this->seeJson();
+		$this->seeJsonContains(['type' => 'category']);
+		$this->seeJsonContains(['type' => 'fair']);
+	}
+
+	/** @test */
+	public function it_displays_a_single_category_with_included_fair_events()
+	{
+		$this->get('api/v1/categories/1?include=fairEvents');
+
+		$this->assertResponseOk();
+		$this->seeJson();
+		$this->seeJsonContains(['type' => 'category']);
+		$this->seeJsonContains(['type' => 'fair-event']);
 	}
 
 	/** @test */
@@ -67,6 +115,7 @@ class CategoryControllerTest extends BaseControllerTestCase
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'category']);
+		$this->dontSeeJson(['type' => 'fair-event']);
 	}
 
 	/**

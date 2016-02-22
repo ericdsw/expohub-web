@@ -1,6 +1,8 @@
 <?php
 
 use ExpoHub\Category;
+use ExpoHub\Fair;
+use ExpoHub\FairEvent;
 use ExpoHub\Repositories\Contracts\CategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -93,8 +95,15 @@ class StubCategoryRepository implements CategoryRepository
 	private function createCategory()
 	{
 		$category = new Category;
+
+		// Parameters
 		$category->id = 1;
 		$category->name = "foo";
+
+		// Relationships
+		$category->fair = new Fair;
+		$category->fairEvents = collect([new FairEvent]);
+
 		return $category;
 	}
 }

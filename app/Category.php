@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property integer $fair_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property-read \ExpoHub\Fair $fair
- * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\FairEvent[] $fairEvents
+ * @property \ExpoHub\Fair $fair
+ * @property \Illuminate\Database\Eloquent\Collection|\ExpoHub\FairEvent[] $fairEvents
  */
 class Category extends Model
 {

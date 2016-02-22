@@ -4,9 +4,12 @@ namespace ExpoHub\Transformers;
 
 
 use ExpoHub\SponsorRank;
+use League\Fractal\Resource\Collection;
 
 class SponsorRankTransformer extends BaseTransformer
 {
+	protected $availableIncludes = ['sponsors'];
+
 	/**
 	 * Converts SponsorRank to json
 	 *
@@ -27,5 +30,18 @@ class SponsorRankTransformer extends BaseTransformer
 	public function getType()
 	{
 		return "sponsor-rank";
+	}
+
+	/**
+	 * Include related Sponsors
+	 *
+	 * @param SponsorRank $sponsorRank
+	 * @return Collection
+	 */
+	public function includeSponsors(SponsorRank $sponsorRank)
+	{
+		$sponsors = $sponsorRank->sponsors;
+		$sponsorTransformer = app()->make(SponsorTransformer::class);
+		return $this->collection($sponsors, $sponsorTransformer, $sponsorTransformer->getType());
 	}
 }

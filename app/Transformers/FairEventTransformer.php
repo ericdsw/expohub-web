@@ -4,9 +4,14 @@ namespace ExpoHub\Transformers;
 
 
 use ExpoHub\FairEvent;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
 
 class FairEventTransformer extends BaseTransformer
 {
+	protected $availableIncludes = ['fair', 'eventType',
+									'speakers', 'attendingUsers', 'categories'];
+
 	/**
 	 * Converts FairEvent to valid json
 	 *
@@ -31,5 +36,70 @@ class FairEventTransformer extends BaseTransformer
 	public function getType()
 	{
 		return "fair-event";
+	}
+
+	/**
+	 * Includes related Fair
+	 *
+	 * @param FairEvent $fairEvent
+	 * @return Item
+	 */
+	public function includeFair(FairEvent $fairEvent)
+	{
+		$fair = $fairEvent->fair;
+		$fairEventTransformer = app()->make(FairEventTransformer::class);
+		return $this->item($fair, $fairEventTransformer, $fairEventTransformer->getType());
+	}
+
+	/**
+	 * Includes related EventType
+	 *
+	 * @param FairEvent $fairEvent
+	 * @return Item
+	 */
+	public function includeEventType(FairEvent $fairEvent)
+	{
+		$eventType = $fairEvent->eventType;
+		$eventTypeTransformer = app()->make(EventTypeTransformer::class);
+		return $this->item($eventType, $eventTypeTransformer, $eventTypeTransformer->getType());
+	}
+
+	/**
+	 * Include related FairEvents
+	 *
+	 * @param FairEvent $fairEvent
+	 * @return Collection
+	 */
+	public function includeSpeakers(FairEvent $fairEvent)
+	{
+		$speakers = $fairEvent->speakers;
+		$speakerTransformer = app()->make(SpeakerTransformer::class);
+		return $this->collection($speakers, $speakerTransformer, $speakerTransformer->getType());
+	}
+
+	/**
+	 * Include related AttendingUsers
+	 *
+	 * @param FairEvent $fairEvent
+	 * @return Collection
+	 */
+	public function includeAttendingUsers(FairEvent $fairEvent)
+	{
+		$attendingUsers = $fairEvent->attendingUsers;
+		$userTransformer = app()->make(UserTransformer::class);
+		return $this->collection($attendingUsers, $userTransformer, $userTransformer->getType());
+	}
+
+	/**
+	 * Include related
+	 *
+	 * @param FairEvent $fairEvent
+	 * @return Collection
+	 */
+	public function includeCategories(FairEvent $fairEvent)
+	{
+		$categories = $fairEvent->categories;
+		$categoryTransformer = app()->make(CategoryTransformer::class);
+		return $this->collection($categories, $categoryTransformer, $categoryTransformer->getType());
 	}
 }
