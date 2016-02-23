@@ -85,7 +85,37 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 		]);
 		delete('eventTypes/{id}', [
 			'as' => 'eventTypes.destroy',
-			'uses' => 'eventTypeController@destroy'
+			'uses' => 'EventTypeController@destroy'
+		]);
+
+		// Fairs
+		get('fairs', [
+			'as' => 'fairs.index',
+			'uses' => 'FairController@index'
+		]);
+		get('fairs/active', [
+			'as' => 'fairs.active',
+			'uses' => 'FairController@getActiveFairs'
+		]);
+		get('fairs/{id}', [
+			'as' => 'fairs.show',
+			'uses' => 'FairController@show'
+		]);
+		post('fairs', [
+			'as' => 'fairs.store',
+			'uses' => 'FairController@store'
+		]);
+		put('fairs/{id}', [
+			'as' => 'fairs.update',
+			'uses' => 'FairController@update'
+		]);
+		delete('fairs/{id}', [
+			'as' => 'fairs.destroy',
+			'uses' => 'FairController@destroy'
+		]);
+		get('users/{id}/fairs', [
+			'as' => 'users.fairs',
+			'uses' => 'FairController@getByUser'
 		]);
 
 	});

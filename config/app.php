@@ -145,6 +145,7 @@ return [
         ExpoHub\Providers\EventServiceProvider::class,
         ExpoHub\Providers\RouteServiceProvider::class,
 		ExpoHub\Providers\RepositoryServiceProvider::class,
+		ExpoHub\Providers\HelperServiceProvider::class,
 
 		/**
 		 * Third party Service providers

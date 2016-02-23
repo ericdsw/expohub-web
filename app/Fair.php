@@ -35,7 +35,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Fair extends Model
 {
-    protected $fillable = ["name", "image", "description", "website", "starting_date", "ending_date", "address", "latitude", "longitude", "user_id"];
+    protected $fillable = ["name", "image", "description", "website", "starting_date",
+		 				   "ending_date", "address", "latitude", "longitude", "user_id"];
+
 	protected $dates = ["starting_date", "ending_date"];
 
 	/**
