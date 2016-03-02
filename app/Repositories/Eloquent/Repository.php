@@ -61,7 +61,9 @@ abstract class Repository implements RepositoryContract
 	 */
 	public function update($id, array $parameters)
 	{
-		return $this->model->update($id, $parameters);
+		$model = $this->model->find($id);
+		$model->update($parameters);
+		return $model;
 	}
 
 	/**
