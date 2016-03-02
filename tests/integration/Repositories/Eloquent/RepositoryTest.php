@@ -84,10 +84,15 @@ class RepositoryTest extends TestCase
 	{
 		$targetId = [1];
 		$updateParameters = [];
-		$returnValue = new stdClass;
+		$returnValue = $this->mock(stdClass::class);
 
-		$this->modelMock->shouldReceive('update')
-			->with($targetId, $updateParameters)
+		$this->modelMock->shouldReceive('find')
+			->with($targetId)
+			->once()
+			->andReturn($returnValue);
+		
+		$returnValue->shouldReceive('update')
+			->with($updateParameters)
 			->once()
 			->andReturn($returnValue);
 
