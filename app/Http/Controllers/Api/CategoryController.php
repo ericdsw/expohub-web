@@ -32,22 +32,28 @@ class CategoryController extends ApiController
 	/**
 	 * Returns a list of categories
 	 *
+	 * @param Request $request
 	 * @return JsonResponse
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		return $this->respondJson($this->categoryRepository->all());
+		return $this->respondJson($this->categoryRepository->all(
+			$this->parseEagerLoading($request)
+		));
 	}
 
 	/**
 	 * Returns specified category
 	 *
+	 * @param Request $request
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function show($id)
+	public function show(Request $request, $id)
 	{
-		return $this->respondJson($this->categoryRepository->find($id));
+		return $this->respondJson($this->categoryRepository->find(
+			$id, $this->parseEagerLoading($request)
+		));
 	}
 
 	/**

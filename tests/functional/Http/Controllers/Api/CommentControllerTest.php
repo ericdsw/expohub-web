@@ -31,6 +31,20 @@ class CommentControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
+	public function it_shows_specific_comment_with_includes()
+	{
+		$includes = 'user,news';
+
+		$this->get('api/v1/comments/1?include=' . $includes);
+
+		$this->assertResponseOk();
+		$this->seeJson();
+		$this->seeJsonContains(['type' => 'comment']);
+		$this->seeJsonContains(['type' => 'user']);
+		$this->seeJsonContains(['type' => 'news']);
+	}
+
+	/** @test */
 	public function it_stores_comment()
 	{
 		$this->post('api/v1/comments', $this->createValidStoreRequest());

@@ -1,8 +1,15 @@
 <?php
 
 use Carbon\Carbon;
+use ExpoHub\Category;
 use ExpoHub\Fair;
+use ExpoHub\FairEvent;
+use ExpoHub\Map;
+use ExpoHub\News;
 use ExpoHub\Repositories\Contracts\FairRepository;
+use ExpoHub\Sponsor;
+use ExpoHub\Stand;
+use ExpoHub\User;
 
 class StubFairRepository implements FairRepository
 {
@@ -113,9 +120,10 @@ class StubFairRepository implements FairRepository
 	{
 		$fair = new Fair;
 
-		// HACKZ: date format is not set by default, to we set it to avoid consulting the database
+		// Overwrite date format
 		$fair->setDateFormat('Y');
 
+		// Parameters
 		$fair->id = 1;
 		$fair->name = 'name';
 		$fair->image = 'image';
@@ -126,6 +134,17 @@ class StubFairRepository implements FairRepository
 		$fair->address = 'address';
 		$fair->latitude = 19.9;
 		$fair->longitude = 20.0;
+
+		// Relationships
+		$fair->setRelation('user', new User);
+		$fair->setRelation('bannedUsers', collect([new User]));
+		$fair->setRelation('helperUsers', collect(new User));
+		$fair->setRelation('sponsors', collect([new Sponsor]));
+		$fair->setRelation('maps', collect([new Map]));
+		$fair->setRelation('categories', collect([new Category]));
+		$fair->setRelation('fairEvents', collect([new FairEvent]));
+		$fair->setRelation('news', collect([new News]));
+		$fair->setRelation('stands', collect([new Stand]));
 
 		return $fair;
 	}

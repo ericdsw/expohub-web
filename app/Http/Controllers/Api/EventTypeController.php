@@ -33,11 +33,14 @@ class EventTypeController extends ApiController
 	}
 
 	/**
+	 * @param Request $request
 	 * @return JsonResponse
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		return $this->respondJson($this->eventTypeRepository->all());
+		return $this->respondJson($this->eventTypeRepository->all(
+			$this->parseEagerLoading($request)
+		));
 	}
 
 	/**

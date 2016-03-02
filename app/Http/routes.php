@@ -6,7 +6,10 @@
 Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 	Route::group(['prefix' => 'v1'], function() {
 
-		// Categories
+		// =====================================================
+		// = Categories
+		// =====================================================
+
 		get('categories', [
 			'as' => 'categories.index',
 			'uses' => 'CategoryController@index'
@@ -27,14 +30,15 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 			'as' => 'categories.destroy',
 			'uses' => 'CategoryController@destroy'
 		]);
-
-		// Categories - SubResource
 		get('fairs/{id}/categories', [
 			'as' => 'categories.byFair',
 			'uses' => 'CategoryController@getByFair'
 		]);
 
-		// Comments
+		// =====================================================
+		// = Comments
+		// =====================================================
+
 		get('comments', [
 			'as' => 'comments.index',
 			'uses' => 'CommentController@index'
@@ -55,8 +59,6 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 			'as' => 'comments.destroy',
 			'uses' => 'CommentController@destroy'
 		]);
-
-		// Comments - SubResource
 		get('users/{id}/comments', [
 			'as' => 'comments.byUser',
 			'uses' => 'CommentController@getByUser'
@@ -66,7 +68,10 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 			'uses' => 'CommentController@getByNews'
 		]);
 
-		// Event Types
+		// =====================================================
+		// = Event Types
+		// =====================================================
+
 		get('eventTypes', [
 			'as' => 'eventTypes.index',
 			'uses' => 'EventTypeController@index'
@@ -88,7 +93,10 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 			'uses' => 'EventTypeController@destroy'
 		]);
 
-		// Fairs
+		// =====================================================
+		// = Fairs
+		// =====================================================
+
 		get('fairs', [
 			'as' => 'fairs.index',
 			'uses' => 'FairController@index'
@@ -116,6 +124,72 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 		get('users/{id}/fairs', [
 			'as' => 'users.fairs',
 			'uses' => 'FairController@getByUser'
+		]);
+
+		// =====================================================
+		// = FairEvents
+		// =====================================================
+
+		get('fairEvents', [
+			'as' => 'fairEvents.index',
+			'uses' => 'FairEventController@index'
+		]);
+		get('fairEvents/{id}', [
+			'as' => 'fairEvents.show',
+			'uses' => 'FairEventController@show'
+		]);
+		post('fairEvents', [
+			'as' => 'fairEvents.store',
+			'uses' => 'FairEventController@store'
+		]);
+		put('fairEvents/{id}', [
+			'as' => 'fairEvents.update',
+			'uses' => 'FairEventController@update'
+		]);
+		delete('fairEvents/{id}', [
+			'as' => 'fairEvents.destroy',
+			'uses' => 'FairEventController@destroy'
+		]);
+		get('fairs/{id}/fairEvents', [
+			'as' => 'fairs.fairEvents',
+			'uses' => 'FairEventController@getByFair'
+		]);
+		get('eventTypes/{id}/fairEvents', [
+			'as' => 'eventTypes.fairEvents',
+			'uses' => 'FairEventController@getByEventType'
+		]);
+		get('users/{id}/attendingFairEvents', [
+			'as' => 'users.attendingFairEvents',
+			'uses' => 'FairEventController@getByAttendingUser'
+		]);
+
+		// =====================================================
+		// = Maps
+		// =====================================================
+
+		get('maps', [
+			'as' => 'maps.index',
+			'uses' => 'MapController@index'
+		]);
+		get('maps/{id}', [
+			'as' => 'maps.show',
+			'uses' => 'MapController@show'
+		]);
+		post('maps', [
+			'as' => 'maps.store',
+			'uses' => 'MapController@store'
+		]);
+		put('maps/{id}', [
+			'as' => 'maps.update',
+			'uses' => 'MapController@update'
+		]);
+		delete('maps/{id}', [
+			'as' => 'maps.destroy',
+			'uses' => 'MapController@destroy'
+		]);
+		get('fairs/{id}/maps', [
+			'as' => 'fairs.maps',
+			'uses' => 'MapController@getByFair'
 		]);
 
 	});

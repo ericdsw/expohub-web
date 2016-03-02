@@ -21,13 +21,26 @@ class EventTypeControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_displays_event_type_by_id()
+	public function it_displays_specific_event_type()
 	{
 		$this->get('api/v1/eventTypes/1');
 
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'event-type']);
+	}
+
+	/** @test */
+	public function it_displays_specific_event_type_with_includes()
+	{
+		$includes = 'events';
+
+		$this->get('api/v1/eventTypes/1?include=' . $includes);
+
+		$this->assertResponseOk();
+		$this->seeJson();
+		$this->seeJsonContains(['type' => 'event-type']);
+		$this->seeJsonContains(['type' => 'fair-event']);
 	}
 
 	/** @test */

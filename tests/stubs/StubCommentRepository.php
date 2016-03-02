@@ -1,7 +1,9 @@
 <?php
 
 use ExpoHub\Comment;
+use ExpoHub\News;
 use ExpoHub\Repositories\Contracts\CommentRepository;
+use ExpoHub\User;
 
 class StubCommentRepository implements CommentRepository
 {
@@ -90,7 +92,17 @@ class StubCommentRepository implements CommentRepository
 	private function createComment()
 	{
 		$comment = new Comment;
+
+		// OverWrite date format
+		$comment->setDateFormat('Y');
+
+		// Parameters
 		$comment->text = "foo";
+
+		// Relationships
+		$comment->setRelation('user', new User);
+		$comment->setRelation('ownerNews', collect([new News]));
+
 		return $comment;
 	}
 }

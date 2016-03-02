@@ -24,59 +24,27 @@ class CategoryControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_displays_a_list_of_categories_with_included_fairs()
-	{
-		$this->get('api/v1/categories?include=fair');
-
-		$this->assertResponseOk();
-		$this->seeJson();
-		$this->seeJsonContains(['type' => 'category']);
-		$this->seeJsonContains(['type' => 'fair']);
-	}
-
-	/** @test */
-	public function it_displays_a_list_of_categories_with_included_fair_events()
-	{
-		$this->get('api/v1/categories?include=fairEvents');
-
-		$this->assertResponseOk();
-		$this->seeJson();
-		$this->seeJsonContains(['type' => 'category']);
-		$this->seeJsonContains(['type' => 'fair-event']);
-	}
-
-	/** @test */
-	public function it_displays_a_single_category()
+	public function it_displays_specific_category()
 	{
 		$this->get('api/v1/categories/1');
 
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'category']);
-		$this->dontSeeJson(['type' => 'fair-event']);
-		$this->dontSeeJson(['type' => 'fair']);
 	}
 
 	/** @test */
-	public function it_displays_a_single_category_with_included_fair()
+	public function it_displays_specific_category_with_includes()
 	{
-		$this->get('api/v1/categories/1?include=fair');
+		$includes = 'fair,fairEvents';
 
-		$this->assertResponseOk();
-		$this->seeJson();
-		$this->seeJsonContains(['type' => 'category']);
-		$this->seeJsonContains(['type' => 'fair']);
-	}
-
-	/** @test */
-	public function it_displays_a_single_category_with_included_fair_events()
-	{
-		$this->get('api/v1/categories/1?include=fairEvents');
+		$this->get('api/v1/categories/1?include=' . $includes);
 
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'category']);
 		$this->seeJsonContains(['type' => 'fair-event']);
+		$this->seeJsonContains(['type' => 'fair']);
 	}
 
 	/** @test */

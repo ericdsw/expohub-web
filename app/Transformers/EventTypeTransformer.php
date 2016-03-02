@@ -40,7 +40,7 @@ class EventTypeTransformer extends BaseTransformer
 	public function includeEvents(EventType $eventType)
 	{
 		$events = $eventType->events;
-		$eventTransformer = app()->make(EventTransformer::class);
+		$eventTransformer = app()->make(FairEventTransformer::class);
 		return $this->collection($events, $eventTransformer, $eventTransformer->getType());
 	}
 }

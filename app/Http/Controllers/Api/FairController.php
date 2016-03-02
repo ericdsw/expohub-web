@@ -9,6 +9,7 @@ use ExpoHub\Http\Requests\UpdateFairRequest;
 use ExpoHub\Repositories\Contracts\FairRepository;
 use ExpoHub\Transformers\FairTransformer;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 
@@ -33,20 +34,26 @@ class FairController extends ApiController
 	}
 
 	/**
+	 * @param Request $request
 	 * @return JsonResponse
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		return $this->respondJson($this->fairRepository->all());
+		return $this->respondJson($this->fairRepository->all(
+			$this->parseEagerLoading($request)
+		));
 	}
 
 	/**
+	 * @param Request $request
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function show($id)
+	public function show(Request $request, $id)
 	{
-		return $this->respondJson($this->fairRepository->find($id));
+		return $this->respondJson($this->fairRepository->find(
+			$id, $this->parseEagerLoading($request)
+		));
 	}
 
 	/**

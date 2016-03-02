@@ -10,7 +10,8 @@ use League\Fractal\Resource\Item;
 class FairTransformer extends BaseTransformer
 {
 	protected $availableIncludes = ['user',
-		'bannedUsers', 'helperUsers', 'sponsors', 'maps', 'categories', 'fairEvents', 'news', 'stands'];
+									'bannedUsers', 'helperUsers', 'sponsors', 'maps', 'categories',
+											'fairEvents', 'news', 'stands'];
 
 	/**
 	 * Converts Fair to valid json
@@ -144,5 +145,18 @@ class FairTransformer extends BaseTransformer
 		$news = $fair->news;
 		$newsTransformer = app()->make(NewsTransformer::class);
 		return $this->collection($news, $newsTransformer, $newsTransformer->getType());
+	}
+
+	/**
+	 * Include related Stands
+	 *
+	 * @param Fair $fair
+	 * @return Collection
+	 */
+	public function includeStands(Fair $fair)
+	{
+		$stands = $fair->stands;
+		$standTransformer = app()->make(StandTransformer::class);
+		return $this->collection($stands, $standTransformer, $standTransformer->getType());
 	}
 }

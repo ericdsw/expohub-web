@@ -34,22 +34,28 @@ class CommentController extends ApiController
 	/**
 	 * Returns a list of comments
 	 *
+	 * @param Request $request
 	 * @return JsonResponse
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		return $this->respondJson($this->commentRepository->all());
+		return $this->respondJson($this->commentRepository->all(
+			$this->parseEagerLoading($request)
+		));
 	}
 
 	/**
 	 * Returns specified comment
 	 *
+	 * @param Request $request
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function show($id)
+	public function show(Request $request, $id)
 	{
-		return $this->respondJson($this->commentRepository->find($id));
+		return $this->respondJson($this->commentRepository->find(
+			$id, $this->parseEagerLoading($request)
+		));
 	}
 
 	/**

@@ -47,7 +47,7 @@ class FairEventTransformer extends BaseTransformer
 	public function includeFair(FairEvent $fairEvent)
 	{
 		$fair = $fairEvent->fair;
-		$fairEventTransformer = app()->make(FairEventTransformer::class);
+		$fairEventTransformer = app()->make(FairTransformer::class);
 		return $this->item($fair, $fairEventTransformer, $fairEventTransformer->getType());
 	}
 

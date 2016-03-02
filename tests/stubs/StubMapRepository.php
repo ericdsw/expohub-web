@@ -1,32 +1,32 @@
 <?php
 
-use ExpoHub\EventType;
-use ExpoHub\FairEvent;
-use ExpoHub\Repositories\Contracts\EventTypeRepository;
+use ExpoHub\Fair;
+use ExpoHub\Map;
+use ExpoHub\Repositories\Contracts\MapRepository;
 
-class StubEventTypeRepository implements EventTypeRepository
+class StubMapRepository implements MapRepository
 {
 	/**
 	 * Returns resource with specified id
 	 *
 	 * @param  int $id
 	 * @param  array $eagerLoading
-	 * @return \ExpoHub\EventType
+	 * @return \ExpoHub\Map
 	 */
 	public function find($id, array $eagerLoading = [])
 	{
-		return $this->createEventType();
+		return $this->createMap();
 	}
 
 	/**
 	 * Creates resource with specified parameters
 	 *
 	 * @param  array $parameters
-	 * @return \ExpoHub\EventType
+	 * @return \ExpoHub\Map
 	 */
 	public function create(array $parameters)
 	{
-		return $this->createEventType();
+		return $this->createMap();
 	}
 
 	/**
@@ -34,11 +34,22 @@ class StubEventTypeRepository implements EventTypeRepository
 	 *
 	 * @param  int $id
 	 * @param  array $parameters
-	 * @return \ExpoHub\EventType
+	 * @return \ExpoHub\Map
 	 */
 	public function update($id, array $parameters)
 	{
-		return $this->createEventType();
+		return $this->createMap();
+	}
+
+	/**
+	 * Returns all maps registered on the specified fair
+	 *
+	 * @param $fairId
+	 * @return \Illuminate\Database\Eloquent\Collection
+	 */
+	public function getByFair($fairId)
+	{
+		return collect([$this->createMap()]);
 	}
 
 	/**
@@ -49,7 +60,7 @@ class StubEventTypeRepository implements EventTypeRepository
 	 */
 	public function all(array $eagerLoading = [])
 	{
-		return collect([$this->createEventType()]);
+		return collect([$this->createMap()]);
 	}
 
 	/**
@@ -64,22 +75,20 @@ class StubEventTypeRepository implements EventTypeRepository
 	}
 
 	/**
-	 * @return EventType
+	 * @return Map
 	 */
-	private function createEventType()
+	private function createMap()
 	{
-		$eventType = new EventType;
+		$map = new Map();
 
-		// Overwrite date format
-		$eventType->setDateFormat('Y');
+		// Properties
+		$map->id = 1;
+		$map->name = "foo";
+		$map->image = "bar.jpg";
 
-		// Parameters
-		$eventType->id = 1;
-		$eventType->name = "foo";
+		// Relations
+		$map->setRelation('fair', new Fair);
 
-		// Relationships
-		$eventType->setRelation('events', collect([new FairEvent]));
-
-		return $eventType;
+		return $map;
 	}
 }

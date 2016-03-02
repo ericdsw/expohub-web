@@ -96,13 +96,16 @@ class StubCategoryRepository implements CategoryRepository
 	{
 		$category = new Category;
 
+		// Overwrite date format
+		$category->setDateFormat('Y');
+
 		// Parameters
 		$category->id = 1;
 		$category->name = "foo";
 
 		// Relationships
-		$category->fair = new Fair;
-		$category->fairEvents = collect([new FairEvent]);
+		$category->setRelation('fair', new Fair);
+		$category->setRelation('fairEvents', collect([new FairEvent]));
 
 		return $category;
 	}

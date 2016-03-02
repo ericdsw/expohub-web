@@ -32,6 +32,25 @@ class FairControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
+	public function it_displays_specific_fair_with_includes()
+	{
+		$includes = 'user,bannedUsers,helperUsers,sponsors,maps,categories,fairEvents,news,stands';
+
+		$this->get('api/v1/fairs/1?include=' . $includes);
+
+		$this->assertResponseOk();
+		$this->seeJson();
+		$this->seeJsonContains(['type' => 'fair']);
+		$this->seeJsonContains(['type' => 'user']);
+		$this->seeJsonContains(['type' => 'sponsor']);
+		$this->seeJsonContains(['type' => 'map']);
+		$this->seeJsonContains(['type' => 'category']);
+		$this->seeJsonContains(['type' => 'fair-event']);
+		$this->seeJsonContains(['type' => 'news']);
+		$this->seeJsonContains(['type' => 'stand']);
+	}
+
+	/** @test */
 	public function it_creates_fair()
 	{
 		$parameters = [
@@ -168,7 +187,6 @@ class FairControllerTest extends BaseControllerTestCase
 		];
 
 		$file = $this->generateStubUploadedFile();
-
 		$this->mock(FileManager::class);
 
 		$this->call('PUT', 'api/v1/fairs/1', $parameters, [], ['image' => $file]);
@@ -191,7 +209,6 @@ class FairControllerTest extends BaseControllerTestCase
 		];
 
 		$file = $this->generateInvalidStubUploadedFile();
-
 		$this->mock(FileManager::class);
 
 		$this->call('PUT', 'api/v1/fairs/1', $parameters, [], ['image' => $file]);
