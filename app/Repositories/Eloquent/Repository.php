@@ -2,6 +2,7 @@
 
 namespace ExpoHub\Repositories\Eloquent;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use ExpoHub\Repositories\Contracts\Repository as RepositoryContract;
@@ -9,6 +10,10 @@ use ExpoHub\Repositories\Contracts\Repository as RepositoryContract;
 abstract class Repository implements RepositoryContract
 {
 	protected $model;
+	protected $eagerLoading;
+
+	protected $orderParameter;
+	protected $orderDirection;
 
 	/**
 	 * @param Model $model
@@ -26,7 +31,8 @@ abstract class Repository implements RepositoryContract
 	 */
 	public function all(array $eagerLoading = []) 
 	{
-		return $this->model->with($eagerLoading)->get();
+		return $this->prepareQuery()->get();
+//		return $this->model->with($eagerLoading)->get();
 	}
 
 	/**
@@ -38,7 +44,8 @@ abstract class Repository implements RepositoryContract
 	 */
 	public function find($id, array $eagerLoading = [])
 	{
-		return $this->model->with($eagerLoading)->findOrFail($id);
+		return $this->prepareQuery()->findOrFail($id);
+//		return $this->model->with($eagerLoading)->findOrFail($id);
 	}
 
 	/**
@@ -75,5 +82,51 @@ abstract class Repository implements RepositoryContract
 	public function delete($id)
 	{
 		return $this->model->delete($id);
+	}
+
+	/**
+	 * Prepares eager loading for consulting queries
+	 *
+	 * @param array $eagerLoading
+	 */
+	public function prepareEagerLoading(array $eagerLoading)
+	{
+		$this->eagerLoading = $eagerLoading;
+	}
+
+	/**
+	 * Prepares result order for consulting queries
+	 *
+	 * @param $parameter
+	 * @param $order
+	 */
+	public function prepareOrderBy($parameter, $order)
+	{
+		$this->orderParameter = $parameter;
+		$this->orderDirection = $order;
+	}
+
+	/**
+	 * Creates the query
+	 *
+	 * @param null $modelQuery
+	 * @return Builder
+	 */
+	protected function prepareQuery($modelQuery = null)
+	{
+		$query = $this->model->query();
+		if($modelQuery != null) {
+			$query = $modelQuery->query();
+		}
+
+		if($this->orderParameter != null && $this->orderDirection != null) {
+			$query = $query->orderBy($this->orderParameter, $this->orderDirection);
+		}
+
+		if($this->eagerLoading != null) {
+			$query = $query->with($this->eagerLoading);
+		}
+
+		return $query;
 	}
 }

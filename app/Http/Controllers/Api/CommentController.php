@@ -39,9 +39,8 @@ class CommentController extends ApiController
 	 */
 	public function index(Request $request)
 	{
-		return $this->respondJson($this->commentRepository->all(
-			$this->parseEagerLoading($request)
-		));
+		$this->prepareRepo($this->commentRepository, $request);
+		return $this->respondJson($this->commentRepository->all());
 	}
 
 	/**
@@ -53,9 +52,8 @@ class CommentController extends ApiController
 	 */
 	public function show(Request $request, $id)
 	{
-		return $this->respondJson($this->commentRepository->find(
-			$id, $this->parseEagerLoading($request)
-		));
+		$this->prepareRepo($this->commentRepository, $request);
+		return $this->respondJson($this->commentRepository->find($id));
 	}
 
 	/**
@@ -100,22 +98,26 @@ class CommentController extends ApiController
 	/**
 	 * Returns a list of comments by user
 	 *
+	 * @param Request $request
 	 * @param $userId
 	 * @return JsonResponse
 	 */
-	public function getByUser($userId)
+	public function getByUser(Request $request, $userId)
 	{
+		$this->prepareRepo($this->commentRepository, $request);
 		return $this->respondJson($this->commentRepository->getByUser($userId));
 	}
 
 	/**
 	 * Returns a list of comments by news
 	 *
+	 * @param Request $request
 	 * @param $newsId
 	 * @return JsonResponse
 	 */
-	public function getByNews($newsId)
+	public function getByNews(Request $request, $newsId)
 	{
+		$this->prepareRepo($this->commentRepository, $request);
 		return $this->respondJson($this->commentRepository->getByNews($newsId));
 	}
 }

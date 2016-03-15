@@ -192,5 +192,96 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 			'uses' => 'MapController@getByFair'
 		]);
 
+		// =====================================================
+		// = Maps
+		// =====================================================
+
+		get('news', [
+			'as' => 'news.index',
+			'uses' => 'NewsController@index'
+		]);
+		get('news/{id}', [
+			'as' => 'news.show',
+			'uses' => 'NewsController@show'
+		]);
+		post('news', [
+			'as' => 'news.store',
+			'uses' => 'NewsController@store'
+		]);
+		put('news/{id}', [
+			'as' => 'news.update',
+			'uses' => 'NewsController@update'
+		]);
+		delete('news/{id}', [
+			'as' => 'news.destroy',
+			'uses' => 'NewsController@destroy'
+		]);
+		get('fairs/{id}/news', [
+			'as' => 'fairs.news',
+			'uses' => 'NewsController@getByFair'
+		]);
+
+		// =====================================================
+		// = Speakers
+		// =====================================================
+
+		get('speakers', [
+			'as' => 'speakers.index',
+			'uses' => 'SpeakerController@index'
+		]);
+		get('speakers/{id}', [
+			'as' => 'speakers.show',
+			'uses' => 'SpeakerController@show'
+		]);
+		post('speakers', [
+			'as' => 'speakers.store',
+			'uses' => 'SpeakerController@store'
+		]);
+		put('speakers/{id}', [
+			'as' => 'speakers.update',
+			'uses' => 'SpeakerController@update'
+		]);
+		delete('speakers/{id}', [
+			'as' => 'speakers.destroy',
+			'uses' => 'SpeakerController@destroy'
+		]);
+		get('fairEvents/{id}/speakers', [
+			'as' => 'fairEvents.speakers',
+			'uses' => 'SpeakerController@getByFairEvent'
+		]);
+
+		// =====================================================
+		// = Sponsors
+		// =====================================================
+
+		get('sponsors', [
+			'as' => 'sponsors.index',
+			'uses' => 'SponsorController@index'
+		]);
+		get('sponsors/{id}', [
+			'as' => 'sponsors.show',
+			'uses' => 'SponsorController@show'
+		]);
+		post('sponsors', [
+			'as' => 'sponsors.store',
+			'uses' => 'SponsorController@store'
+		]);
+		put('sponsors/{id}', [
+			'as' => 'sponsors.update',
+			'uses' => 'SponsorController@update'
+		]);
+		delete('sponsors/{id}', [
+			'as' => 'sponsors.destroy',
+			'uses' => 'SponsorController@destroy'
+		]);
+		get('fairs/{id}/sponsors', [
+			'as' => 'fairs.sponsors',
+			'uses' => 'SponsorController@getByFair'
+		]);
+		get('sponsorRanks/{id}/sponsors', [
+			'as' => 'sponsorRanks.sponsors',
+			'uses' => 'SponsorController@getBySponsorRank'
+		]);
+
 	});
 });

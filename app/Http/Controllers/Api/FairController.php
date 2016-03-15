@@ -39,9 +39,8 @@ class FairController extends ApiController
 	 */
 	public function index(Request $request)
 	{
-		return $this->respondJson($this->fairRepository->all(
-			$this->parseEagerLoading($request)
-		));
+		$this->prepareRepo($this->fairRepository, $request);
+		return $this->respondJson($this->fairRepository->all());
 	}
 
 	/**
@@ -51,9 +50,8 @@ class FairController extends ApiController
 	 */
 	public function show(Request $request, $id)
 	{
-		return $this->respondJson($this->fairRepository->find(
-			$id, $this->parseEagerLoading($request)
-		));
+		$this->prepareRepo($this->fairRepository, $request);
+		return $this->respondJson($this->fairRepository->find($id));
 	}
 
 	/**
@@ -105,21 +103,25 @@ class FairController extends ApiController
 	}
 
 	/**
+	 * @param Request $request
 	 * @param $userId
 	 * @return JsonResponse
 	 */
-	public function getByUser($userId)
+	public function getByUser(Request $request, $userId)
 	{
+		$this->prepareRepo($this->fairRepository, $request);
 		return $this->respondJson(
 			$this->fairRepository->getByUser($userId)
 		);
 	}
 
 	/**
+	 * @param Request $request
 	 * @return JsonResponse
 	 */
-	public function getActiveFairs()
+	public function getActiveFairs(Request $request)
 	{
+		$this->prepareRepo($this->fairRepository, $request);
 		return $this->respondJson($this->fairRepository->getActiveFairs());
 	}
 }

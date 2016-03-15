@@ -26,6 +26,6 @@ class MapRepository extends Repository implements MapRepositoryContract
 	 */
 	public function getByFair($fairId)
 	{
-		return $this->model->where('fair_id', $fairId)->get();
+		return $this->prepareQuery()->where('fair_id', $fairId)->get();
 	}
 }

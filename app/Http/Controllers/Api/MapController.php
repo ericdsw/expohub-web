@@ -39,9 +39,8 @@ class MapController extends ApiController
 	 */
 	public function index(Request $request)
 	{
-		return $this->respondJson($this->repository->all(
-			$this->parseEagerLoading($request)
-		));
+		$this->prepareRepo($this->repository, $request);
+		return $this->respondJson($this->repository->all());
 	}
 
 	/**
@@ -51,9 +50,8 @@ class MapController extends ApiController
 	 */
 	public function show(Request $request, $id)
 	{
-		return $this->respondJson($this->repository->find(
-			$id, $this->parseEagerLoading($request)
-		));
+		$this->prepareRepo($this->repository, $request);
+		return $this->respondJson($this->repository->find($id));
 	}
 
 	/**
@@ -104,11 +102,13 @@ class MapController extends ApiController
 	}
 
 	/**
+	 * @param Request $request
 	 * @param $fairId
 	 * @return JsonResponse
 	 */
-	public function getByFair($fairId)
+	public function getByFair(Request $request, $fairId)
 	{
+		$this->prepareRepo($this->repository, $request);
 		return $this->respondJson($this->repository->getByFair($fairId));
 	}
 }

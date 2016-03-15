@@ -27,7 +27,7 @@ class SponsorRepository extends Repository implements SponsorRepositoryContract
 	 */
 	public function getByFair($fairId)
 	{
-		return $this->model->where('fair_id', $fairId)->get();
+		return $this->prepareQuery()->where('fair_id', $fairId)->get();
 	}
 
 	/**
@@ -38,6 +38,6 @@ class SponsorRepository extends Repository implements SponsorRepositoryContract
 	 */
 	public function getBySponsorRank($sponsorRankId)
 	{
-		return $this->model->where('sponsor_rank_id', $sponsorRankId)->get();
+		return $this->prepareQuery()->where('sponsor_rank_id', $sponsorRankId)->get();
 	}
 }

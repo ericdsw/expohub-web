@@ -23,11 +23,66 @@ class RepositoryTest extends TestCase
 	/** @test */
 	public function it_shows_all_resources()
 	{
-		$eagerLoading = [];
 		$collection = new Collection;
+
+		$this->modelMock->shouldReceive('query')
+			->withNoArgs()
+			->once()
+			->andReturn($this->modelMock);
+
+		$this->modelMock->shouldReceive('get')
+			->withNoArgs()
+			->once()
+			->andReturn($collection);
+
+		$result = $this->repository->all();
+
+		$this->assertEquals($collection, $result);
+	}
+
+	/** @test */
+	public function it_shows_all_resources_with_eager_loading()
+	{
+		$eagerLoading = ['foo'];
+		$collection = new Collection;
+		$this->repository->prepareEagerLoading($eagerLoading);
+
+		$this->modelMock->shouldReceive('query')
+			->withNoArgs()
+			->once()
+			->andReturn($this->modelMock);
 
 		$this->modelMock->shouldReceive('with')
 			->with($eagerLoading)
+			->once()
+			->andReturn($this->modelMock);
+
+		$this->modelMock->shouldReceive('get')
+			->withNoArgs()
+			->once()
+			->andReturn($collection);
+
+		$result = $this->repository->all();
+
+		$this->assertEquals($collection, $result);
+	}
+
+	/** @test */
+	public function it_shows_all_resources_with_order_by_parameters()
+	{
+		$orderField = 'foo';
+		$orderDirection = 'bar';
+		$collection = new Collection;
+
+		$this->repository->prepareOrderBy($orderField, $orderDirection);
+
+		$this->modelMock->shouldReceive('query')
+			->withNoArgs()
+			->once()
+			->andReturn($this->modelMock);
+
+		$this->modelMock->shouldReceive('orderBy')
+			->with($orderField, $orderDirection)
 			->once()
 			->andReturn($this->modelMock);
 
@@ -48,6 +103,35 @@ class RepositoryTest extends TestCase
 		$eagerLoading = [];
 		$returnValue = new stdClass;
 
+		$this->modelMock->shouldReceive('query')
+			->withNoArgs()
+			->once()
+			->andReturn($this->modelMock);
+
+		$this->modelMock->shouldReceive('findOrFail')
+			->with($targetId)
+			->once()
+			->andReturn($returnValue);
+
+		$result = $this->repository->find($targetId, $eagerLoading);
+
+		$this->assertEquals($returnValue, $result);
+	}
+
+	/** @test */
+	public function it_finds_a_resource_with_eager_loading()
+	{
+		$targetId = 1;
+		$eagerLoading = ['foo'];
+		$returnValue = new stdClass;
+
+		$this->repository->prepareEagerLoading($eagerLoading);
+
+		$this->modelMock->shouldReceive('query')
+			->withNoArgs()
+			->once()
+			->andReturn($this->modelMock);
+
 		$this->modelMock->shouldReceive('with')
 			->with($eagerLoading)
 			->once()
@@ -59,6 +143,36 @@ class RepositoryTest extends TestCase
 			->andReturn($returnValue);
 
 		$result = $this->repository->find($targetId, $eagerLoading);
+
+		$this->assertEquals($returnValue, $result);
+	}
+
+	/** @test */
+	public function it_finds_a_resource_with_order_by_parameters()
+	{
+		$targetId = 1;
+		$orderParameter = "foo";
+		$orderDirection = "bar";
+		$returnValue = new stdClass;
+
+		$this->repository->prepareOrderBy($orderParameter, $orderDirection);
+
+		$this->modelMock->shouldReceive('query')
+			->withNoArgs()
+			->once()
+			->andReturn($this->modelMock);
+
+		$this->modelMock->shouldReceive('orderBy')
+			->with($orderParameter, $orderDirection)
+			->once()
+			->andReturn($this->modelMock);
+
+		$this->modelMock->shouldReceive('findOrFail')
+			->with($targetId)
+			->once()
+			->andReturn($returnValue);
+
+		$result = $this->repository->find($targetId);
 
 		$this->assertEquals($returnValue, $result);
 	}
@@ -82,7 +196,7 @@ class RepositoryTest extends TestCase
 	/** @test */
 	public function it_updates_a_resource()
 	{
-		$targetId = [1];
+		$targetId = 1;
 		$updateParameters = [];
 		$returnValue = $this->mock(stdClass::class);
 
@@ -90,7 +204,7 @@ class RepositoryTest extends TestCase
 			->with($targetId)
 			->once()
 			->andReturn($returnValue);
-		
+
 		$returnValue->shouldReceive('update')
 			->with($updateParameters)
 			->once()

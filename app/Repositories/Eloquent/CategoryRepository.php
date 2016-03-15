@@ -31,7 +31,7 @@ class CategoryRepository extends Repository implements CategoryRepositoryContrac
 	 */
 	public function getByFair($fairId)
 	{
-		return $this->model->where('fair_id', $fairId)->get();
+		return $this->prepareQuery()->where('fair_id', $fairId)->get();
 	}
 
 	/**
@@ -42,6 +42,6 @@ class CategoryRepository extends Repository implements CategoryRepositoryContrac
 	 */
 	public function getByUser($userId)
 	{
-		return $this->userModel->findOrFail($userId)->categories;
+		return $this->prepareQuery($this->userModel)->findOrFail($userId)->categories;
 	}
 }

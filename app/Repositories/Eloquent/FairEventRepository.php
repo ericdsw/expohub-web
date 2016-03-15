@@ -28,7 +28,7 @@ class FairEventRepository extends Repository implements FairEventRepositoryContr
 	 */
 	public function getByFair($fairId)
 	{
-		return $this->model->where('fair_id', $fairId)->get();
+		return $this->prepareQuery()->where('fair_id', $fairId)->get();
 	}
 
 	/**
@@ -39,7 +39,7 @@ class FairEventRepository extends Repository implements FairEventRepositoryContr
 	 */
 	public function getByEventType($eventType)
 	{
-		return $this->model->where('event_type_id', $eventType)->get();
+		return $this->prepareQuery()->where('event_type_id', $eventType)->get();
 	}
 
 	/**
@@ -50,7 +50,7 @@ class FairEventRepository extends Repository implements FairEventRepositoryContr
 	 */
 	public function getByAttendingUser($userId)
 	{
-		return $this->model->whereHas('attendingUsers', function($query) use ($userId) {
+		return $this->prepareQuery()->whereHas('attendingUsers', function($query) use ($userId) {
 			$query->where('users.id', '=', $userId);
 		})->get();
 	}
@@ -63,7 +63,7 @@ class FairEventRepository extends Repository implements FairEventRepositoryContr
 	 */
 	public function getByCategories($categories = [])
 	{
-		return $this->model->whereHas('categories', function($query) use ($categories) {
+		return $this->prepareQuery()->whereHas('categories', function($query) use ($categories) {
 			$query->whereIn('categories.id', $categories);
 		})->get();
 	}

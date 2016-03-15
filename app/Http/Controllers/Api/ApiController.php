@@ -4,6 +4,7 @@ namespace ExpoHub\Http\Controllers\Api;
 
 
 use ExpoHub\Http\Controllers\Controller;
+use ExpoHub\Repositories\Contracts\Repository;
 use ExpoHub\Transformers\BaseTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -165,5 +166,28 @@ abstract class ApiController extends Controller
 		$resource = new FractalCollection($collection, $this->transformer, $this->transformer->getType());
 		$responseData = $this->fractal->createData($resource)->toArray();
 		return response()->json($responseData, $this->statusCode, $this->headers);
+	}
+
+	/**
+	 * @param Repository $repository
+	 * @param Request $request
+	 */
+	protected function prepareRepo(Repository $repository, Request $request)
+	{
+		if($request->has('include')) {
+			$repository->prepareEagerLoading(
+				explode(',', $request->get('include'))
+			);
+		}
+
+		if($request->has('sort')) {
+			$sortParameter = $request->get('sort');
+			if(preg_match('/^-', $sortParameter)) {
+				$repository->prepareOrderBy(substr($sortParameter, 1, strlen($sortParameter)));
+			}
+			else {
+				$repository->prepareOrderBy($sortParameter, 'ASC');
+			}
+		}
 	}
 }

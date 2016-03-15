@@ -27,6 +27,6 @@ class NewsRepository extends Repository implements NewsRepositoryContract
 	 */
 	public function getByFair($fairId)
 	{
-		return $this->model->where('fair_id', $fairId)->get();
+		return $this->prepareQuery()->where('fair_id', $fairId)->get();
 	}
 }

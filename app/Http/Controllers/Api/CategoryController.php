@@ -37,9 +37,8 @@ class CategoryController extends ApiController
 	 */
 	public function index(Request $request)
 	{
-		return $this->respondJson($this->categoryRepository->all(
-			$this->parseEagerLoading($request)
-		));
+		$this->prepareRepo($this->categoryRepository, $request);
+		return $this->respondJson($this->categoryRepository->all());
 	}
 
 	/**
@@ -51,9 +50,8 @@ class CategoryController extends ApiController
 	 */
 	public function show(Request $request, $id)
 	{
-		return $this->respondJson($this->categoryRepository->find(
-			$id, $this->parseEagerLoading($request)
-		));
+		$this->prepareRepo($this->categoryRepository, $request);
+		return $this->respondJson($this->categoryRepository->find($id));
 	}
 
 	/**
@@ -98,11 +96,13 @@ class CategoryController extends ApiController
 	/**
 	 * Returns a list of categories by fair
 	 *
+	 * @param Request $request
 	 * @param $fairId
 	 * @return JsonResponse
 	 */
-	public function getByFair($fairId)
+	public function getByFair(Request $request, $fairId)
 	{
+		$this->prepareRepo($this->categoryRepository, $request);
 		return $this->respondJson($this->categoryRepository->getByFair($fairId));
 	}
 }

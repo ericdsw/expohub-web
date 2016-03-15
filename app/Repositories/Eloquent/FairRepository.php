@@ -27,7 +27,7 @@ class FairRepository extends Repository implements FairRepositoryContract
 	 */
 	public function getByUser($userId)
 	{
-		return $this->model->where('user_id', $userId)->get();
+		return $this->prepareQuery()->where('user_id', $userId)->get();
 	}
 
 	/**
@@ -42,7 +42,7 @@ class FairRepository extends Repository implements FairRepositoryContract
 			$query->where('id', $userId);
 		})->get()->lists('id');
 
-		return $this->model->whereHas('helperUsers', function($query) use ($userId) {
+		return $this->prepareQuery()->whereHas('helperUsers', function($query) use ($userId) {
 			$query->where('id', $userId);
 		})->where('user_id', '!=', $userId)->whereNotIn('id', $bannedFairIds)->get();
 	}
@@ -55,7 +55,7 @@ class FairRepository extends Repository implements FairRepositoryContract
 	 */
 	public function getBannedFairsByUser($userId)
 	{
-		return $this->model->whereHas('bannedUsers', function($query) use ($userId) {
+		return $this->prepareQuery()->whereHas('bannedUsers', function($query) use ($userId) {
 			$query->where('id', $userId);
 		})->get();
 	}
@@ -67,7 +67,7 @@ class FairRepository extends Repository implements FairRepositoryContract
 	 */
 	public function getActiveFairs()
 	{
-		return $this->model->where('starting_date', '<=', Carbon::now())
+		return $this->prepareQuery()->where('starting_date', '<=', Carbon::now())
 			->where('ending_date', '>=', Carbon::now())
 			->get();
 	}

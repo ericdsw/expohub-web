@@ -16,33 +16,4 @@ class EventTypeRepository extends Repository implements EventTypeRepositoryContr
 	{
 		parent::__construct($model);
 	}
-
-	/**
-	 * @param int $id
-	 * @param array $eagerLoading
-	 * @return EventType
-	 */
-	public function find($id, array $eagerLoading = [])
-	{
-		return parent::find($id, $eagerLoading);
-	}
-
-	/**
-	 * @param array $parameters
-	 * @return EventType
-	 */
-	public function create(array $parameters)
-	{
-		return parent::create($parameters);
-	}
-
-	/**
-	 * @param int $id
-	 * @param array $parameters
-	 * @return EventType
-	 */
-	public function update($id, array $parameters)
-	{
-		return parent::update($id, $parameters);
-	}
 }

@@ -139,4 +139,25 @@ class StubFairEventRepository implements FairEventRepository
 
 		return $fairEvent;
 	}
+
+	/**
+	 * Prepares eager loading for consulting queries
+	 *
+	 * @param array $eagerLoading
+	 */
+	public function prepareEagerLoading(array $eagerLoading)
+	{
+		//
+	}
+
+	/**
+	 * Prepares result order for consulting queries
+	 *
+	 * @param $parameter
+	 * @param $order
+	 */
+	public function prepareOrderBy($parameter, $order)
+	{
+		//
+	}
 }

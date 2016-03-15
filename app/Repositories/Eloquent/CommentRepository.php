@@ -26,7 +26,7 @@ class CommentRepository extends Repository implements CommentRepositoryContract
 	 */
 	public function getByNews($newsId)
 	{
-		return $this->model->where('news_id', $newsId)->get();
+		return $this->prepareQuery()->where('news_id', $newsId)->get();
 	}
 
 	/**
@@ -37,6 +37,6 @@ class CommentRepository extends Repository implements CommentRepositoryContract
 	 */
 	public function getByUser($userId)
 	{
-		return $this->model->where('user_id', $userId)->get();
+		return $this->prepareQuery()->where('user_id', $userId)->get();
 	}
 }

@@ -27,6 +27,6 @@ class SpeakerRepository extends Repository implements SpeakerRepositoryContract
 	 */
 	public function getByFairEvents($fairEventId)
 	{
-		return $this->model->where('fair_event_id', $fairEventId)->get();
+		return $this->prepareQuery()->where('fair_event_id', $fairEventId)->get();
 	}
 }
