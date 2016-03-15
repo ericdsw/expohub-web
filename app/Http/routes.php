@@ -283,5 +283,84 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 			'uses' => 'SponsorController@getBySponsorRank'
 		]);
 
+		// =====================================================
+		// = Sponsor Ranks
+		// =====================================================
+
+		get('sponsorRanks', [
+			'as' => 'sponsorRanks.index',
+			'uses' => 'SponsorRankController@index'
+		]);
+		get('sponsorRanks/{id}', [
+			'as' => 'sponsorRanks.show',
+			'uses' => 'SponsorRankController@show'
+		]);
+		post('sponsorRanks', [
+			'as' => 'sponsorRanks.store',
+			'uses' => 'SponsorRankController@store'
+		]);
+		put('sponsorRanks/{id}', [
+			'as' => 'sponsorRanks.update',
+			'uses' => 'SponsorRankController@update'
+		]);
+		delete('sponsorRanks/{id}', [
+			'as' => 'sponsorRanks.destroy',
+			'uses' => 'SponsorRankController@destroy'
+		]);
+
+		// =====================================================
+		// = Stands
+		// =====================================================
+
+		get('stands', [
+			'as' => 'stands.index',
+			'uses' => 'StandController@index'
+		]);
+		get('stands/{id}', [
+			'as' => 'stands.show',
+			'uses' => 'StandController@show'
+		]);
+		post('stands', [
+			'as' => 'stands.store',
+			'uses' => 'StandController@store'
+		]);
+		put('stands/{id}', [
+			'as' => 'stands.update',
+			'uses' => 'StandController@update'
+		]);
+		delete('stands/{id}', [
+			'as' => 'stands.destroy',
+			'uses' => 'StandController@destroy'
+		]);
+		get('fairs/{id}/stands', [
+			'as' => 'fairs.stands',
+			'uses' => 'StandController@getByFair'
+		]);
+
+		// =====================================================
+		// = Users
+		// =====================================================
+
+		get('users', [
+			'as' => 'users.index',
+			'uses' => 'UserController@index'
+		]);
+		get('users/{id}', [
+			'as' => 'users.show',
+			'uses' => 'UserController@show'
+		]);
+		post('users', [
+			'as' => 'users.store',
+			'uses' => 'UserController@store'
+		]);
+		put('users/{id}', [
+			'as' => 'users.update',
+			'uses' => 'UserController@update'
+		]);
+		delete('users/{id}', [
+			'as' => 'users.destroy',
+			'uses' => 'UserController@destroy'
+		]);
+
 	});
 });

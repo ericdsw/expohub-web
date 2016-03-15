@@ -14,12 +14,14 @@ use ExpoHub\Repositories\Contracts\MapRepository as MapRepositoryContract;
 use ExpoHub\Repositories\Contracts\SpeakerRepository as SpeakerRepositoryContract;
 use ExpoHub\Repositories\Contracts\SponsorRepository as SponsorRepositoryContract;
 use ExpoHub\Repositories\Contracts\SponsorRankRepository as SponsorRankRepositoryContract;
+use ExpoHub\Repositories\Contracts\StandRepository as StandRepositoryContract;
 
 use ExpoHub\Repositories\Eloquent\CategoryRepository;
 use ExpoHub\Repositories\Eloquent\CommentRepository;
 use ExpoHub\Repositories\Eloquent\FairRepository;
 use ExpoHub\Repositories\Eloquent\EventTypeRepository;
 use ExpoHub\Repositories\Eloquent\FairEventRepository;
+use ExpoHub\Repositories\Eloquent\StandRepository;
 use ExpoHub\Repositories\Eloquent\UserRepository;
 use ExpoHub\Repositories\Eloquent\NewsRepository;
 use ExpoHub\Repositories\Eloquent\MapRepository;
@@ -49,5 +51,6 @@ class RepositoryServiceProvider extends ServiceProvider
 		app()->bind(SpeakerRepositoryContract::class, SpeakerRepository::class);
 		app()->bind(SponsorRepositoryContract::class, SponsorRepository::class);
 		app()->bind(SponsorRankRepositoryContract::class, SponsorRankRepository::class);
+		app()->bind(StandRepositoryContract::class, StandRepository::class);
 	}
 }

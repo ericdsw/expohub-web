@@ -4,7 +4,7 @@ namespace ExpoHub\Http\Requests;
 
 use ExpoHub\Http\Requests\Request;
 
-class DeleteSponsorRequest extends Request
+class UpdateUserPasswordRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class DeleteSponsorRequest extends Request
     public function rules()
     {
         return [
-            //
+            'old_password' => 'required',
+			'new_password' => 'required'
         ];
     }
 

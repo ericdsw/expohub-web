@@ -4,7 +4,7 @@ namespace ExpoHub\Http\Requests;
 
 use ExpoHub\Http\Requests\Request;
 
-class DeleteSponsorRequest extends Request
+class DeleteStandRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.

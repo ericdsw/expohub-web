@@ -15,4 +15,26 @@ class UserRepository extends Repository implements UserRepositoryContract
 	{
 		parent::__construct($model);
 	}
+
+	/**
+	 * Gets user by username
+	 *
+	 * @param $username
+	 * @return User
+	 */
+	public function getByUsername($username)
+	{
+		return $this->prepareQuery()->where('username', $username)->first();
+	}
+
+	/**
+	 * Gets user by email
+	 *
+	 * @param $email
+	 * @return User
+	 */
+	public function getByEmail($email)
+	{
+		return $this->prepareQuery()->where('email', $email)->first();
+	}
 }
