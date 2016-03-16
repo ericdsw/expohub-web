@@ -107,7 +107,6 @@ class UserController extends ApiController
 	public function destroy(DeleteUserRequest $request, $id)
 	{
 		$this->userRepository->delete($id);
-
 		return $this->respondNoContent();
 	}
 }
