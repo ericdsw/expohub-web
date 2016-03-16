@@ -16,7 +16,7 @@ class CreateEventsTable extends Migration
 			$table->increments("id");
 			$table->string("title");
 			$table->string("image")->nullable();
-			$table->string("description");
+			$table->text("description");
 			$table->dateTime("date");
 			$table->string("location");
 			$table->unsignedInteger("fair_id");
