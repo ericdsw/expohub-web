@@ -12,6 +12,8 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Tymon\JWTAuth\Middleware\GetUserFromToken;
+use Tymon\JWTAuth\Middleware\RefreshToken;
 
 class Kernel extends HttpKernel
 {
@@ -37,6 +39,8 @@ class Kernel extends HttpKernel
         'auth' => Authenticate::class,
         'auth.basic' => AuthenticateWithBasicAuth::class,
         'guest' => RedirectIfAuthenticated::class,
-		'csrf.token' => VerifyCsrfToken::class
+		'csrf.token' => VerifyCsrfToken::class,
+		'jwt.auth' => GetUserFromToken::class,
+		'jwt.refresh' => RefreshToken::class,
     ];
 }

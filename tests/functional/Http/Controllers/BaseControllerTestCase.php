@@ -62,4 +62,5 @@ abstract class BaseControllerTestCase extends TestCase
 
 		$this->jwtAuth->shouldReceive('parseToken')->andReturn($this->jwtAuth);
 		$this->jwtAuth->shouldReceive('toUser')->andReturn($user);
+	}
 }
