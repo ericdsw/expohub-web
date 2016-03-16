@@ -16,8 +16,17 @@ use League\Fractal\Serializer\JsonApiSerializer;
 
 class UserController extends ApiController
 {
+	/** @var UserRepository */
 	private $userRepository;
 
+	/**
+	 * UserController constructor.
+	 *
+	 * @param Manager $fractal
+	 * @param JsonApiSerializer $serializer
+	 * @param UserTransformer $transformer
+	 * @param UserRepository $repository
+	 */
 	public function __construct(Manager $fractal, JsonApiSerializer $serializer,
 								UserTransformer $transformer, UserRepository $repository)
 	{
@@ -26,6 +35,8 @@ class UserController extends ApiController
 	}
 
 	/**
+	 * Lists all the resources
+	 *
 	 * @param Request $request
 	 * @return JsonResponse
 	 */
@@ -38,6 +49,8 @@ class UserController extends ApiController
 	}
 
 	/**
+	 * Shows specified resource
+	 *
 	 * @param Request $request
 	 * @param $id
 	 * @return JsonResponse
@@ -51,6 +64,8 @@ class UserController extends ApiController
 	}
 
 	/**
+	 * Creates resource
+	 *
 	 * @param CreateUserRequest $request
 	 * @param UserSpecification $specification
 	 * @return JsonResponse
@@ -69,6 +84,8 @@ class UserController extends ApiController
 	}
 
 	/**
+	 * Updates resource
+	 *
 	 * @param UpdateUserRequest $request
 	 * @param $id
 	 * @return JsonResponse
@@ -81,6 +98,8 @@ class UserController extends ApiController
 	}
 
 	/**
+	 * Destroys resource
+	 *
 	 * @param DeleteUserRequest $request
 	 * @param $id
 	 * @return JsonResponse
