@@ -150,7 +150,6 @@ return [
 		/**
 		 * Third party Service providers
 		 */
-		Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 		Zizaco\Entrust\EntrustServiceProvider::class,
 		Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class
 
