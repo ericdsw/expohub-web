@@ -5,6 +5,7 @@ namespace ExpoHub\Http\Controllers\Api;
 
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Http\Requests\CreateFairRequest;
+use ExpoHub\Http\Requests\DeleteFairRequest;
 use ExpoHub\Http\Requests\UpdateFairRequest;
 use ExpoHub\Repositories\Contracts\FairRepository;
 use ExpoHub\Transformers\FairTransformer;
@@ -12,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
+use Tymon\JWTAuth\JWTAuth;
 
 class FairController extends ApiController
 {
@@ -57,13 +59,17 @@ class FairController extends ApiController
 	/**
 	 * @param CreateFairRequest $request
 	 * @param FileManager $manager
+	 * @param JWTAuth $jwtAuth
 	 * @return JsonResponse
 	 */
-	public function store(CreateFairRequest $request, FileManager $manager)
+	public function store(CreateFairRequest $request, FileManager $manager, JWTAuth $jwtAuth)
 	{
+		$parameters = $request->only('name', 'description', 'website', 'starting_date',
+			'ending_date', 'address', 'latitude', 'longitude');
 		return $this->respondJson(
-			$this->fairRepository->create(array_merge($request->all(), [
-				'image' => $manager->uploadFile('uploads/', $request->file('image'))
+			$this->fairRepository->create(array_merge($parameters, [
+				'image' => $manager->uploadFile('uploads/', $request->file('image')),
+				'user_id' => $jwtAuth->parseToken()->toUser()->id
 			]))
 		);
 	}
@@ -76,24 +82,28 @@ class FairController extends ApiController
 	 */
 	public function update(UpdateFairRequest $request, FileManager $manager, $id)
 	{
+		$parameters = $request->only('name', 'description', 'website', 'starting_date',
+			'ending_date', 'address', 'latitude', 'longitude');
+
 		$imagePath = $this->fairRepository->find($id)->image;
 		if($request->hasFile('image')) {
 			$manager->deleteFile($imagePath);
 			$imagePath = $manager->uploadFile('uploads/', $request->file('image'));
 		}
 		return $this->respondJson(
-			$this->fairRepository->create(array_merge($request->all(), [
+			$this->fairRepository->create(array_merge($parameters, [
 				'image' => $imagePath
 			]))
 		);
 	}
 
 	/**
+	 * @param DeleteFairRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function destroy(FileManager $fileManager, $id)
+	public function destroy(DeleteFairRequest $request, FileManager $fileManager, $id)
 	{
 		$imagePath = $this->fairRepository->find($id);
 		$fileManager->deleteFile($imagePath);

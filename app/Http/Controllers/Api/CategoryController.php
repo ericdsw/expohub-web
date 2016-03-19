@@ -2,6 +2,9 @@
 
 namespace ExpoHub\Http\Controllers\Api;
 
+use ExpoHub\Http\Requests\CreateCategoryRequest;
+use ExpoHub\Http\Requests\DeleteCategoryRequest;
+use ExpoHub\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Http\Request;
 use ExpoHub\Repositories\Contracts\CategoryRepository;
 use ExpoHub\Transformers\CategoryTransformer;
@@ -57,10 +60,10 @@ class CategoryController extends ApiController
 	/**
 	 * Creates category in the database
 	 *
-	 * @param Request $request
+	 * @param CreateCategoryRequest $request
 	 * @return JsonResponse
 	 */
-	public function store(Request $request)
+	public function store(CreateCategoryRequest $request)
 	{
 		return $this->respondJson(
 			$this->categoryRepository->create($request->only('name', 'fair_id'))
@@ -70,11 +73,11 @@ class CategoryController extends ApiController
 	/**
 	 * Updates category
 	 *
-	 * @param Request $request
+	 * @param UpdateCategoryRequest $request
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function update(Request $request, $id)
+	public function update(UpdateCategoryRequest $request, $id)
 	{
 		return $this->respondJson(
 			$this->categoryRepository->update($id, $request->only('name', 'fair_id'))
@@ -84,10 +87,11 @@ class CategoryController extends ApiController
 	/**
 	 * Deletes category
 	 *
+	 * @param DeleteCategoryRequest $request
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function destroy($id)
+	public function destroy(DeleteCategoryRequest $request, $id)
 	{
 		$this->categoryRepository->delete($id);
 		return $this->respondNoContent();

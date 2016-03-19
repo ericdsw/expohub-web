@@ -41,7 +41,7 @@ $factory->define(\ExpoHub\EventType::class, function(\Faker\Generator $faker) {
 
 $factory->define(\ExpoHub\Fair::class, function(\Faker\Generator $faker) {
 	return [
-		'name' => $faker->title,
+		'name' => $faker->catchPhrase,
 		'image' => $faker->imageUrl(),
 		'description' => $faker->paragraph(),
 		'website' => $faker->url,

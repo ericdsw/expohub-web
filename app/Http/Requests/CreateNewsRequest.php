@@ -2,18 +2,22 @@
 
 namespace ExpoHub\Http\Requests;
 
+use ExpoHub\AccessControllers\NewsAccessController;
 use ExpoHub\Http\Requests\Request;
 
 class CreateNewsRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @param NewsAccessController $newsAccessController
+	 * @return bool
+	 */
+    public function authorize(NewsAccessController $newsAccessController)
     {
-        return true;
+        return $newsAccessController->canCreateNewsForFair(
+			$this->get('fair_id')
+		);
     }
 
     /**

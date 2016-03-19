@@ -16,6 +16,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property \Carbon\Carbon $updated_at
  * @property-read \ExpoHub\Fair $fair
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\FairEvent[] $fairEvents
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Category whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Category whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Category whereFairId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Category whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Category whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Category extends Model
 {

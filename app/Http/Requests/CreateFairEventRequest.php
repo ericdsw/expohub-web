@@ -2,18 +2,20 @@
 
 namespace ExpoHub\Http\Requests;
 
+use ExpoHub\AccessControllers\FairEventAccessController;
 use ExpoHub\Http\Requests\Request;
 
 class CreateFairEventRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @param FairEventAccessController $accessController
+	 * @return bool
+	 */
+    public function authorize(FairEventAccessController $accessController)
     {
-        return true;
+        return $accessController->canCreateFairEventForFair($this->get('fair_id'));
     }
 
     /**

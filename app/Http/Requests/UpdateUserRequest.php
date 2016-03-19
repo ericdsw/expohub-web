@@ -2,18 +2,20 @@
 
 namespace ExpoHub\Http\Requests;
 
+use ExpoHub\AccessControllers\UserAccessController;
 use ExpoHub\Http\Requests\Request;
 
 class UpdateUserRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @param UserAccessController $accessController
+	 * @return bool
+	 */
+    public function authorize(UserAccessController $accessController)
     {
-        return true;
+        return $accessController->canUpdateUser();
     }
 
     /**

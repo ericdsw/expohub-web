@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use ExpoHub\Category;
 use ExpoHub\Comment;
+use ExpoHub\Constants\UserType;
 use ExpoHub\EventType;
 use ExpoHub\Fair;
 use ExpoHub\FairEvent;
@@ -27,7 +28,8 @@ trait DatabaseCreator
 			'name' => 'foo',
 			'username' => str_random(),
 			'email' => str_random(),
-			'password' => 'qux'
+			'password' => 'qux',
+			'user_type' => UserType::TYPE_USER
 		], $parameters));
 		User::reguard();
 		return $user;

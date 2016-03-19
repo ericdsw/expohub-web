@@ -5,6 +5,7 @@ namespace ExpoHub\Http\Controllers\Api;
 
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Http\Requests\CreateFairEventRequest;
+use ExpoHub\Http\Requests\DeleteFairEventRequest;
 use ExpoHub\Http\Requests\UpdateFairEventRequest;
 use ExpoHub\Repositories\Contracts\FairEventRepository;
 use ExpoHub\Transformers\FairEventTransformer;
@@ -61,8 +62,10 @@ class FairEventController extends ApiController
 	 */
 	public function store(CreateFairEventRequest $request, FileManager $fileManager)
 	{
+		$parameters = $request->only('title', 'description', 'date', 'location', 'fair_id', 'event_type_id');
 		$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
-		$fairEvent = $this->repository->create(array_merge($request->all(), [
+
+		$fairEvent = $this->repository->create(array_merge($parameters, [
 			'image' => $imageUrl
 		]));
 		return $this->respondJson($fairEvent);
@@ -76,11 +79,13 @@ class FairEventController extends ApiController
 	 */
 	public function update(UpdateFairEventRequest $request, FileManager $fileManager, $id)
 	{
-		$currentImage = $this->repository->find($id)->image;
+		$parameters 	= $request->only('title', 'description', 'date', 'location');
+		$currentImage 	= $this->repository->find($id)->image;
+
 		if($request->hasFile('image')) {
 			$currentImage = $fileManager->uploadFile('/uploads', $request->file('image'));
 		}
-		$fairEvent = $this->repository->update($id, array_merge($request->all(), [
+		$fairEvent = $this->repository->update($id, array_merge($parameters, [
 			'image' => $currentImage
 		]));
 		return $this->respondJson($fairEvent);
@@ -89,9 +94,10 @@ class FairEventController extends ApiController
 	/**
 	 * @param $id
 	 * @param FileManager $fileManager
+	 * @param DeleteFairEventRequest $request
 	 * @return JsonResponse
 	 */
-	public function destroy($id, FileManager $fileManager)
+	public function destroy($id, FileManager $fileManager, DeleteFairEventRequest $request)
 	{
 		$currentImage = $this->repository->find($id)->image;
 		$fileManager->deleteFile($currentImage);

@@ -3,6 +3,7 @@
 namespace ExpoHub\Http\Controllers\Api;
 
 
+use ExpoHub\Constants\UserType;
 use ExpoHub\Http\Requests\CreateUserRequest;
 use ExpoHub\Http\Requests\DeleteUserRequest;
 use ExpoHub\Http\Requests\UpdateUserRequest;
@@ -73,13 +74,27 @@ class UserController extends ApiController
 	public function store(CreateUserRequest $request, UserSpecification $specification)
 	{
 		if(! $specification->isEmailAvailable($request->get('email'))) {
-			abort(409);
+			return $this->respondError([
+				'title' 		=> 'email-taken',
+				'description' 	=> 'Email is already taken',
+				'status' 		=> '409'
+			], 409);
 		}
 		if(! $specification->isUsernameAvailable($request->get('username'))) {
-			abort(409);
+			return $this->respondError([
+				'title' 		=> 'username-taken',
+				'description' 	=> 'Username is already taken',
+				'status' 		=> '409'
+			], 409);
 		}
+
+		$parameters = $request->only('name', 'username', 'email');
+
 		return $this->respondJson(
-			$this->userRepository->create($request->all())
+			$this->userRepository->create(array_merge($parameters, [
+				'password'  => bcrypt($request->get('password')),
+				'user_type' => UserType::TYPE_USER
+			]))
 		);
 	}
 
@@ -92,8 +107,10 @@ class UserController extends ApiController
 	 */
 	public function update(UpdateUserRequest $request, $id)
 	{
+		$parameters = $request->only('name');
+
 		return $this->respondJson(
-			$this->userRepository->update($id, $request->all())
+			$this->userRepository->update($id, $parameters)
 		);
 	}
 

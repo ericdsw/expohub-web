@@ -1,5 +1,6 @@
 <?php
 
+use ExpoHub\AccessControllers\FairEventAccessController;
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Repositories\Contracts\FairEventRepository;
 
@@ -51,6 +52,14 @@ class FairEventControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_creates_fair_event()
 	{
+		$this->loginForApi();
+
+		$this->mock(FairEventAccessController::class)
+			->shouldReceive('canCreateFairEventForFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$uploadedFile = $this->generateStubUploadedFile();
 		$fileManager = $this->mock(FileManager::class);
 		$parameters = [
@@ -75,8 +84,81 @@ class FairEventControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
+	public function it_returns_unauthorized_if_user_cannot_create_fair_event()
+	{
+		$this->loginForApi();
+
+		$this->mock(FairEventAccessController::class)
+			->shouldReceive('canCreateFairEventForFair')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$uploadedFile = $this->generateStubUploadedFile();
+		$parameters = [
+			'title' => 'foo',
+			'description' => 'baz',
+			'date' => 'qux',
+			'location' => 'foo-bar',
+			'fair_id' => 1,
+			'event_type_id' => 1
+		];
+
+		$this->call('POST', '/api/v1/fairEvents', $parameters, [], ['image' => $uploadedFile]);
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_create_fair_event_for_not_logged_in_users()
+	{
+		$uploadedFile = $this->generateStubUploadedFile();
+		$parameters = [
+			'title' => 'foo',
+			'description' => 'baz',
+			'date' => 'qux',
+			'location' => 'foo-bar',
+			'fair_id' => 1,
+			'event_type_id' => 1
+		];
+
+		$this->call('POST', '/api/v1/fairEvents', $parameters, [], ['image' => $uploadedFile]);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_create_fair_event_for_users_with_expired_session()
+	{
+		$this->loginForApiWithExpiredToken();
+
+		$uploadedFile = $this->generateStubUploadedFile();
+		$parameters = [
+			'title' => 'foo',
+			'description' => 'baz',
+			'date' => 'qux',
+			'location' => 'foo-bar',
+			'fair_id' => 1,
+			'event_type_id' => 1
+		];
+
+		$this->call('POST', '/api/v1/fairEvents', $parameters, [], ['image' => $uploadedFile]);
+
+		$this->assertResponseStatus(401);
+	}
+
+	/** @test */
 	public function it_fails_fair_event_creation_with_invalid_parameters()
 	{
+		$this->loginForApi();
+
+		$this->mock(FairEventAccessController::class)
+			->shouldReceive('canCreateFairEventForFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
+
 		$uploadedFile = $this->generateStubUploadedFile();
 		$parameters = [
 			// No title parameter
@@ -95,6 +177,14 @@ class FairEventControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_fails_fair_event_creation_with_invalid_image()
 	{
+		$this->loginForApi();
+
+		$this->mock(FairEventAccessController::class)
+			->shouldReceive('canCreateFairEventForFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$uploadedFile = $this->generateInvalidStubUploadedFile();
 		$parameters = [
 			'title' => 'foo',
@@ -113,6 +203,14 @@ class FairEventControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_updates_fair_event_with_image()
 	{
+		$this->loginForApi();
+
+		$this->mock(FairEventAccessController::class)
+			->shouldReceive('canUpdateFairEvent')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$uploadedFile = $this->generateStubUploadedFile();
 		$fileManager = $this->mock(FileManager::class);
 		$parameters = [
@@ -148,11 +246,80 @@ class FairEventControllerTest extends BaseControllerTestCase
 			'event_type_id' => 1
 		];
 
+		$this->loginForApi();
+
+		$this->mock(FairEventAccessController::class)
+			->shouldReceive('canUpdateFairEvent')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$this->call('PUT', 'api/v1/fairEvents/1', $parameters);
 
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'fair-event']);
+	}
+
+	/** @test */
+	public function it_returns_unauthorized_on_update_fair_event_if_user_cannot_update()
+	{
+		$parameters = [
+			'title' => 'foo',
+			'description' => 'baz',
+			'date' => 'qux',
+			'location' => 'foo-bar',
+			'fair_id' => 1,
+			'event_type_id' => 1
+		];
+
+		$this->loginForApi();
+
+		$this->mock(FairEventAccessController::class)
+			->shouldReceive('canUpdateFairEvent')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$this->call('PUT', 'api/v1/fairEvents/1', $parameters);
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_update_fair_event_if_user_is_not_logged_in()
+	{
+		$parameters = [
+			'title' => 'foo',
+			'description' => 'baz',
+			'date' => 'qux',
+			'location' => 'foo-bar',
+			'fair_id' => 1,
+			'event_type_id' => 1
+		];
+
+		$this->call('PUT', 'api/v1/fairEvents/1', $parameters);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_update_fair_event_if_user_has_expired_session()
+	{
+		$this->loginForApiWithExpiredToken();
+
+		$parameters = [
+			'title' => 'foo',
+			'description' => 'baz',
+			'date' => 'qux',
+			'location' => 'foo-bar',
+			'fair_id' => 1,
+			'event_type_id' => 1
+		];
+
+		$this->call('PUT', 'api/v1/fairEvents/1', $parameters);
+
+		$this->assertResponseStatus(401);
 	}
 
 	/** @test */
@@ -166,6 +333,14 @@ class FairEventControllerTest extends BaseControllerTestCase
 			'fair_id' => 1,
 			'event_type_id' => 1
 		];
+
+		$this->loginForApi();
+
+		$this->mock(FairEventAccessController::class)
+			->shouldReceive('canUpdateFairEvent')
+			->with(1)
+			->once()
+			->andReturn(true);
 
 		$this->call('PUT', 'api/v1/fairEvents/1', $parameters);
 
@@ -185,6 +360,14 @@ class FairEventControllerTest extends BaseControllerTestCase
 			'event_type_id' => 1
 		];
 
+		$this->loginForApi();
+
+		$this->mock(FairEventAccessController::class)
+			->shouldReceive('canUpdateFairEvent')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$this->call('PUT', 'api/v1/fairEvents/1', $parameters, [], ['image' => $uploadedFile]);
 
 		$this->assertResponseStatus(422);
@@ -193,6 +376,14 @@ class FairEventControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_deletes_fair_event()
 	{
+		$this->loginForApi();
+
+		$this->mock(FairEventAccessController::class)
+			->shouldReceive('canDeleteFairEvent')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$fileManager = $this->mock(FileManager::class);
 		$fileManager->shouldReceive('deleteFile')
 			->withAnyArgs()
@@ -201,6 +392,40 @@ class FairEventControllerTest extends BaseControllerTestCase
 		$this->delete('api/v1/fairEvents/1');
 
 		$this->assertResponseStatus(204);
+	}
+
+	/** @test */
+	public function it_returns_unauthorized_if_user_cannot_delete_fair_event()
+	{
+		$this->loginForApi();
+
+		$this->mock(FairEventAccessController::class)
+			->shouldReceive('canDeleteFairEvent')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$this->delete('api/v1/fairEvents/1');
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_delete_fair_event_for_not_logged_in_users()
+	{
+		$this->delete('api/v1/fairEvents/1');
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_delete_fair_event_for_users_with_expired_session()
+	{
+		$this->loginForApiWithExpiredToken();
+
+		$this->delete('api/v1/fairEvents/1');
+
+		$this->assertResponseStatus(401);
 	}
 
 	/** @test */

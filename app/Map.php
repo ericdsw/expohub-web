@@ -15,6 +15,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \ExpoHub\Fair $fair
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Map whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Map whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Map whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Map whereFairId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Map whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Map whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Map extends Model
 {

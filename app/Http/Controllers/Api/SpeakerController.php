@@ -5,6 +5,7 @@ namespace ExpoHub\Http\Controllers\Api;
 
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Http\Requests\CreateSpeakerRequest;
+use ExpoHub\Http\Requests\DeleteSpeakerRequest;
 use ExpoHub\Http\Requests\UpdateSpeakerRequest;
 use ExpoHub\Repositories\Contracts\SpeakerRepository;
 use ExpoHub\Transformers\SpeakerTransformer;
@@ -88,11 +89,12 @@ class SpeakerController extends ApiController
 	}
 
 	/**
+	 * @param DeleteSpeakerRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function destroy(FileManager $fileManager, $id)
+	public function destroy(DeleteSpeakerRequest $request, FileManager $fileManager, $id)
 	{
 		$fileManager->deleteFile(
 			$this->speakerRepository->find($id)->picture

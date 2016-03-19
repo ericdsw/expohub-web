@@ -1,4 +1,5 @@
 <?php
+use ExpoHub\AccessControllers\UserAccessController;
 use ExpoHub\Repositories\Contracts\UserRepository;
 use ExpoHub\Specifications\UserSpecification;
 
@@ -54,6 +55,14 @@ class UserControllerTest extends BaseControllerTestCase
 			'password' => 'baz'
 		];
 
+		$this->loginForApi();
+
+		$this->mock(UserAccessController::class)
+			->shouldReceive('canCreateUser')
+			->withNoArgs()
+			->once()
+			->andReturn(true);
+
 		$userSpecification = $this->mock(UserSpecification::class);
 
 		$userSpecification->shouldReceive('isEmailAvailable')
@@ -74,6 +83,61 @@ class UserControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
+	public function it_returns_unauthorized_if_user_cannot_create_users()
+	{
+		$parameters = [
+			'name' => 'foo',
+			'username' => 'bar',
+			'email' => 'baz@mail.com',
+			'password' => 'baz'
+		];
+
+		$this->loginForApi();
+
+		$this->mock(UserAccessController::class)
+			->shouldReceive('canCreateUser')
+			->withNoArgs()
+			->once()
+			->andReturn(false);
+
+		$this->post('api/v1/users', $parameters);
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_create_user_if_user_is_not_logged_in()
+	{
+		$parameters = [
+			'name' => 'foo',
+			'username' => 'bar',
+			'email' => 'baz@mail.com',
+			'password' => 'baz'
+		];
+
+		$this->post('api/v1/users', $parameters);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_create_user_if_user_has_expired_token()
+	{
+		$parameters = [
+			'name' => 'foo',
+			'username' => 'bar',
+			'email' => 'baz@mail.com',
+			'password' => 'baz'
+		];
+
+		$this->loginForApiWithExpiredToken();
+
+		$this->post('api/v1/users', $parameters);
+
+		$this->assertResponseStatus(401);
+	}
+
+	/** @test */
 	public function it_wont_create_user_with_existing_email()
 	{
 		$parameters = [
@@ -82,6 +146,14 @@ class UserControllerTest extends BaseControllerTestCase
 			'email' => 'baz@mail.com',
 			'password' => 'baz'
 		];
+
+		$this->loginForApi();
+
+		$this->mock(UserAccessController::class)
+			->shouldReceive('canCreateUser')
+			->withNoArgs()
+			->once()
+			->andReturn(true);
 
 		$userSpecification = $this->mock(UserSpecification::class);
 
@@ -104,6 +176,14 @@ class UserControllerTest extends BaseControllerTestCase
 			'email' => 'baz@mail.com',
 			'password' => 'baz'
 		];
+
+		$this->loginForApi();
+
+		$this->mock(UserAccessController::class)
+			->shouldReceive('canCreateUser')
+			->withNoArgs()
+			->once()
+			->andReturn(true);
 
 		$userSpecification = $this->mock(UserSpecification::class);
 
@@ -132,6 +212,14 @@ class UserControllerTest extends BaseControllerTestCase
 			'password' => 'baz'
 		];
 
+		$this->loginForApi();
+
+		$this->mock(UserAccessController::class)
+			->shouldReceive('canCreateUser')
+			->withNoArgs()
+			->once()
+			->andReturn(true);
+
 		$this->post('api/v1/users', $parameters);
 
 		$this->assertResponseStatus(422);
@@ -144,11 +232,65 @@ class UserControllerTest extends BaseControllerTestCase
 			'name' => 'foo'
 		];
 
+		$this->loginForApi();
+
+		$this->mock(UserAccessController::class)
+			->shouldReceive('canUpdateUser')
+			->withNoArgs()
+			->once()
+			->andReturn(true);
+
 		$this->put('api/v1/users/1', $parameters);
 
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'user']);
+	}
+
+	/** @test */
+	public function it_returns_unauthorized_if_user_cannot_update_user()
+	{
+		$parameters = [
+			'name' => 'foo'
+		];
+
+		$this->loginForApi();
+
+		$this->mock(UserAccessController::class)
+			->shouldReceive('canUpdateUser')
+			->withNoArgs()
+			->once()
+			->andReturn(false);
+
+		$this->put('api/v1/users/1', $parameters);
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_update_user_if_user_is_not_logged_in()
+	{
+		$parameters = [
+			'name' => 'foo'
+		];
+
+		$this->put('api/v1/users/1', $parameters);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_update_user_if_user_has_expired_session()
+	{
+		$parameters = [
+			'name' => 'foo'
+		];
+
+		$this->loginForApiWithExpiredToken();
+
+		$this->put('api/v1/users/1', $parameters);
+
+		$this->assertResponseStatus(401);
 	}
 
 	/** @test */
@@ -158,6 +300,14 @@ class UserControllerTest extends BaseControllerTestCase
 			// Missing name
 		];
 
+		$this->loginForApi();
+
+		$this->mock(UserAccessController::class)
+			->shouldReceive('canUpdateUser')
+			->withNoArgs()
+			->once()
+			->andReturn(true);
+
 		$this->put('api/v1/users/1', $parameters);
 
 		$this->assertResponseStatus(422);
@@ -166,7 +316,49 @@ class UserControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_deletes_user()
 	{
+		$this->loginForApi();
+
+		$this->mock(UserAccessController::class)
+			->shouldReceive('canDeleteUser')
+			->withNoArgs()
+			->once()
+			->andReturn(true);
+
 		$this->delete('api/v1/users/1');
 		$this->assertResponseStatus(204);
+	}
+
+	/** @test */
+	public function it_returns_unauthorized_if_user_cannot_delete_user()
+	{
+		$this->loginForApi();
+
+		$this->mock(UserAccessController::class)
+			->shouldReceive('canDeleteUser')
+			->withNoArgs()
+			->once()
+			->andReturn(false);
+
+		$this->delete('api/v1/users/1');
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_delete_user_if_user_is_not_logged_in()
+	{
+		$this->delete('api/v1/users/1');
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_delete_user_if_user_has_expired_session()
+	{
+		$this->loginForApiWithExpiredToken();
+
+		$this->delete('api/v1/users/1');
+
+		$this->assertResponseStatus(401);
 	}
 }

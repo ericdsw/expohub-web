@@ -5,6 +5,7 @@ namespace ExpoHub\Http\Controllers\Api;
 
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Http\Requests\CreateNewsRequest;
+use ExpoHub\Http\Requests\DeleteNewsRequest;
 use ExpoHub\Http\Requests\UpdateNewsRequest;
 use ExpoHub\Repositories\Contracts\NewsRepository;
 use ExpoHub\Transformers\NewsTransformer;
@@ -88,11 +89,12 @@ class NewsController extends ApiController
 	}
 
 	/**
+	 * @param DeleteNewsRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function destroy(FileManager $fileManager, $id)
+	public function destroy(DeleteNewsRequest $request, FileManager $fileManager, $id)
 	{
 		$imageUrl = $this->newsRepository->find($id);
 		$fileManager->deleteFile($imageUrl);

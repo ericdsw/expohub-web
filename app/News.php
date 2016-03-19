@@ -18,6 +18,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Carbon\Carbon $updated_at
  * @property-read \ExpoHub\Fair $fair
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Comment[] $comments
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\News whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\News whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\News whereContent($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\News whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\News whereFairId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\News whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\News whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class News extends Model
 {

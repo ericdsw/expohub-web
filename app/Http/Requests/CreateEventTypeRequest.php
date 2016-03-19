@@ -2,18 +2,20 @@
 
 namespace ExpoHub\Http\Requests;
 
+use ExpoHub\AccessControllers\EventTypeAccessController;
 use ExpoHub\Http\Requests\Request;
 
 class CreateEventTypeRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @param EventTypeAccessController $eventTypeAccessController
+	 * @return bool
+	 */
+    public function authorize(EventTypeAccessController $eventTypeAccessController)
     {
-        return true;
+        return $eventTypeAccessController->canCreateEventType();
     }
 
     /**

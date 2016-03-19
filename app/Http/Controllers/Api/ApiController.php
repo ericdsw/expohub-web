@@ -23,11 +23,14 @@ abstract class ApiController extends Controller
 	/** @var Manager */
 	protected $fractal;
 
-	/** @var array */
+	/** @var int */
 	private $statusCode = 200;
 
-	/** @var int */
+	/** @var array */
 	private $headers = [];
+
+	/** @var array  */
+	private $meta = [];
 
 	/**
 	 * ApiController constructor.
@@ -80,13 +83,14 @@ abstract class ApiController extends Controller
 	/**
 	 * Returns formatted json error with appropriated status code
 	 *
-	 * @param $errors
+	 * @param array $errors
+	 * @param int $statusCode
 	 * @return JsonResponse
 	 */
-	protected function respondError($errors)
+	protected function respondError($errors, $statusCode = 400)
 	{
-		$this->setStatus(400);
-		return $this->respondJson($errors);
+		$this->setStatus($statusCode);
+		return $this->respondJson(['errors' => $errors]);
 	}
 
 	/**
@@ -97,7 +101,13 @@ abstract class ApiController extends Controller
 	protected function respondUnauthorized()
 	{
 		$this->setStatus(403);
-		return $this->respondJson(['error' => 'unauthorized']);
+		return $this->respondJson([
+			'errors' => [
+				'title' 		=> 'unauthorized',
+				'description' 	=> 'not authorized to perform this request',
+				'status' 		=> '403'
+			]
+		]);
 	}
 
 	/**
@@ -141,6 +151,24 @@ abstract class ApiController extends Controller
 	}
 
 	/**
+	 * Appends entry to meta array
+	 *
+	 * @param array $data
+	 */
+	public function appendMeta(array $data)
+	{
+		array_push($this->meta, $data);
+	}
+
+	/**
+	 * Empties the meta array
+	 */
+	public function clearMeta()
+	{
+		$this->meta = [];
+	}
+
+	/**
 	 * Returns formatted response for given model
 	 * Utilizes JsonAPI Standard
 	 *
@@ -150,6 +178,11 @@ abstract class ApiController extends Controller
 	private function respondWithModel($model)
 	{
 		$resource = new Item($model, $this->transformer, $this->transformer->getType());
+
+		if(! empty($this->meta)) {
+			$resource->setMeta($this->meta);
+		}
+
 		$responseData = $this->fractal->createData($resource)->toArray();
 		return response()->json($responseData, $this->statusCode, $this->headers);
 	}
@@ -164,6 +197,11 @@ abstract class ApiController extends Controller
 	private function respondWithCollection($collection)
 	{
 		$resource = new FractalCollection($collection, $this->transformer, $this->transformer->getType());
+
+		if(! empty($this->meta)) {
+			$resource->setMeta($this->meta);
+		}
+
 		$responseData = $this->fractal->createData($resource)->toArray();
 		return response()->json($responseData, $this->statusCode, $this->headers);
 	}

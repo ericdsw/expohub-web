@@ -13,6 +13,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Sponsor[] $sponsors
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\SponsorRank whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\SponsorRank whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\SponsorRank whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\SponsorRank whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class SponsorRank extends Model
 {

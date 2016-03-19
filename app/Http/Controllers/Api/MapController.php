@@ -5,6 +5,7 @@ namespace ExpoHub\Http\Controllers\Api;
 
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Http\Requests\CreateMapRequest;
+use ExpoHub\Http\Requests\DeleteMapRequest;
 use ExpoHub\Http\Requests\UpdateMapRequest;
 use ExpoHub\Repositories\Contracts\MapRepository;
 use ExpoHub\Transformers\MapTransformer;
@@ -61,8 +62,10 @@ class MapController extends ApiController
 	 */
 	public function store(CreateMapRequest $request, FileManager $fileManager)
 	{
-		$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
-		$map = $this->repository->create(array_merge($request->all(), [
+		$parameters = $request->only('name', 'fair_id');
+		$imageUrl 	= $fileManager->uploadFile('/uploads', $request->file('image'));
+
+		$map = $this->repository->create(array_merge($parameters, [
 			'image' => $imageUrl
 		]));
 		return $this->respondJson($map);
@@ -76,24 +79,27 @@ class MapController extends ApiController
 	 */
 	public function update(UpdateMapRequest $request, FileManager $fileManager, $id)
 	{
+		$parameters = $request->only('name');
 		$map = $this->repository->find($id);
 		$imageUrl = $map->image;
+
 		if($request->hasFile('image')) {
 			$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
 			$fileManager->deleteFile($map->image);
 		}
-		$map = $this->repository->update($id, array_merge($request->all(), [
+		$map = $this->repository->update($id, array_merge($parameters, [
 			'image' => $imageUrl
 		]));
 		return $this->respondJson($map);
 	}
 
 	/**
+	 * @param DeleteMapRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function destroy(FileManager $fileManager, $id)
+	public function destroy(DeleteMapRequest $request, FileManager $fileManager, $id)
 	{
 		$imageUrl = $this->repository->find($id)->image;
 		$fileManager->deleteFile($imageUrl);

@@ -2,18 +2,22 @@
 
 namespace ExpoHub\Http\Requests;
 
+use ExpoHub\AccessControllers\SpeakerAccessController;
 use ExpoHub\Http\Requests\Request;
 
 class UpdateSpeakerRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @param SpeakerAccessController $accessController
+	 * @return bool
+	 */
+    public function authorize(SpeakerAccessController $accessController)
     {
-        return true;
+        return $accessController->canUpdateSpeaker(
+			$this->route()->parameter('id')
+		);
     }
 
     /**
