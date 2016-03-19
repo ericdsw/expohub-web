@@ -2,6 +2,7 @@
 
 use ExpoHub\AccessControllers\EventTypeAccessController;
 use ExpoHub\Repositories\Contracts\EventTypeRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class EventTypeControllerTest extends BaseControllerTestCase
 {
@@ -42,6 +43,20 @@ class EventTypeControllerTest extends BaseControllerTestCase
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'event-type']);
 		$this->seeJsonContains(['type' => 'fair-event']);
+	}
+
+	/** @test */
+	public function it_returns_not_found_if_event_type_does_not_exists()
+	{
+		$this->mock(EventTypeRepository::class)
+			->shouldReceive('find')
+			->andThrow(ModelNotFoundException::class);
+
+		$this->get('api/v1/eventTypes/1');
+
+		$this->assertResponseStatus(404);
+		$this->seeJson();
+		$this->seeJsonContains(['title' => 'not_found']);
 	}
 
 	/** @test */

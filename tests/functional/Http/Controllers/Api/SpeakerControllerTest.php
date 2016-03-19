@@ -2,6 +2,7 @@
 use ExpoHub\AccessControllers\SpeakerAccessController;
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Repositories\Contracts\SpeakerRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Created by PhpStorm.
@@ -48,6 +49,20 @@ class SpeakerControllerTest extends BaseControllerTestCase
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'speaker']);
 		$this->seeJsonContains(['type' => 'fair-event']);
+	}
+
+	/** @test */
+	public function it_returns_not_found_if_speaker_does_not_exists()
+	{
+		$this->mock(SpeakerRepository::class)
+			->shouldReceive('find')
+			->andThrow(ModelNotFoundException::class);
+
+		$this->get('api/v1/speakers/1');
+
+		$this->assertResponseStatus(404);
+		$this->seeJson();
+		$this->seeJsonContains(['title' => 'not_found']);
 	}
 
 	/** @test */

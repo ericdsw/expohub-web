@@ -3,6 +3,7 @@
 use ExpoHub\AccessControllers\StandAccessController;
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Repositories\Contracts\StandRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class StandControllerTest extends BaseControllerTestCase
 {
@@ -42,6 +43,20 @@ class StandControllerTest extends BaseControllerTestCase
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'stand']);
 		$this->seeJsonContains(['type' => 'fair']);
+	}
+
+	/** @test */
+	public function it_returns_not_found_if_stand_does_not_exists()
+	{
+		$this->mock(StandRepository::class)
+			->shouldReceive('find')
+			->andThrow(ModelNotFoundException::class);
+
+		$this->get('api/v1/stands/1');
+
+		$this->assertResponseStatus(404);
+		$this->seeJson();
+		$this->seeJsonContains(['title' => 'not_found']);
 	}
 
 	/** @test */

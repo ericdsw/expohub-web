@@ -2,6 +2,7 @@
 
 use ExpoHub\AccessControllers\SponsorRankAccessController;
 use ExpoHub\Repositories\Contracts\SponsorRankRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SponsorRankControllerTest extends BaseControllerTestCase
 {
@@ -41,6 +42,20 @@ class SponsorRankControllerTest extends BaseControllerTestCase
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'sponsor-rank']);
 		$this->seeJsonContains(['type' => 'sponsor']);
+	}
+
+	/** @test */
+	public function it_returns_not_found_if_sponsor_rank_does_not_exists()
+	{
+		$this->mock(SponsorRankRepository::class)
+			->shouldReceive('find')
+			->andThrow(ModelNotFoundException::class);
+
+		$this->get('api/v1/sponsorRanks/1');
+
+		$this->assertResponseStatus(404);
+		$this->seeJson();
+		$this->seeJsonContains(['title' => 'not_found']);
 	}
 
 	/** @test */

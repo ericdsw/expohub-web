@@ -2,6 +2,7 @@
 
 use ExpoHub\AccessControllers\CategoryAccessController;
 use ExpoHub\Repositories\Contracts\CategoryRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CategoryControllerTest extends BaseControllerTestCase
 {
@@ -48,6 +49,20 @@ class CategoryControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
+	public function it_returns_not_found_if_category_does_not_exists()
+	{
+		$this->mock(CategoryRepository::class)
+			->shouldReceive('find')
+			->andThrow(ModelNotFoundException::class);
+
+		$this->get('api/v1/categories/1');
+
+		$this->assertResponseStatus(404);
+		$this->seeJson();
+		$this->seeJsonContains(['title' => 'not_found']);
+	}
+
+	/** @test */
 	public function it_creates_a_category()
 	{
 		$parameters = [
@@ -89,6 +104,8 @@ class CategoryControllerTest extends BaseControllerTestCase
 		$this->post('api/v1/categories', $parameters);
 
 		$this->assertResponseStatus(403);
+		$this->seeJson();
+		$this->seeJsonContains(['title' => 'forbidden']);
 	}
 
 	/** @test */

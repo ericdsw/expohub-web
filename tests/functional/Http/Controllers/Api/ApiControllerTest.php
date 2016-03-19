@@ -16,7 +16,6 @@ class ApiControllerTest extends BaseControllerTestCase
 	{
 		parent::setUp();
 
-//		$this->jwtAuth = $this->mock(JWTAuth::class);
 		$this->userSpecification = $this->mock(UserSpecification::class);
 
 		app()->instance(UserRepository::class, new StubUserRepository);

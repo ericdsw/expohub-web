@@ -184,7 +184,7 @@ abstract class ApiController extends Controller
 		}
 
 		$responseData = $this->fractal->createData($resource)->toArray();
-		return response()->json($responseData, $this->statusCode, $this->headers);
+		return response()->json($responseData, $this->statusCode, $this->getHeaders());
 	}
 
 	/**
@@ -203,7 +203,7 @@ abstract class ApiController extends Controller
 		}
 
 		$responseData = $this->fractal->createData($resource)->toArray();
-		return response()->json($responseData, $this->statusCode, $this->headers);
+		return response()->json($responseData, $this->statusCode, $this->getHeaders());
 	}
 
 	/**
@@ -227,5 +227,17 @@ abstract class ApiController extends Controller
 				$repository->prepareOrderBy($sortParameter, 'ASC');
 			}
 		}
+	}
+
+	/**
+	 * Parses the headers array, including default values
+	 *
+	 * @return array
+	 */
+	private function getHeaders()
+	{
+		return array_merge($this->headers, [
+			'Content-Type' => 'application/vnd.api+json'
+		]);
 	}
 }

@@ -3,6 +3,7 @@
 use ExpoHub\AccessControllers\FairAccessController;
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Repositories\Contracts\FairRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class FairControllerTest extends BaseControllerTestCase
 {
@@ -49,6 +50,20 @@ class FairControllerTest extends BaseControllerTestCase
 		$this->seeJsonContains(['type' => 'fair-event']);
 		$this->seeJsonContains(['type' => 'news']);
 		$this->seeJsonContains(['type' => 'stand']);
+	}
+
+	/** @test */
+	public function it_returns_not_found_if_fair_does_not_exists()
+	{
+		$this->mock(FairRepository::class)
+			->shouldReceive('find')
+			->andThrow(ModelNotFoundException::class);
+
+		$this->get('api/v1/fairs/1');
+
+		$this->assertResponseStatus(404);
+		$this->seeJson();
+		$this->seeJsonContains(['title' => 'not_found']);
 	}
 
 	/** @test */
