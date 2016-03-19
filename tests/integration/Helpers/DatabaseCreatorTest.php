@@ -2,6 +2,7 @@
 
 
 use Carbon\Carbon;
+use ExpoHub\Constants\UserType;
 use ExpoHub\EventType;
 use ExpoHub\Fair;
 use ExpoHub\FairEvent;
@@ -31,6 +32,7 @@ class DatabaseCreatorTest extends TestCase
 			'username' => 'user_username',
 			'email' => 'user_email',
 			'password' => 'user_password',
+			'user_type' => UserType::TYPE_ADMIN
 		];
 
 		$this->systemUnderTest->createUser($userParameters);

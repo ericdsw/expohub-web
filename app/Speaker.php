@@ -16,6 +16,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \ExpoHub\FairEvent $fairEvent
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Speaker whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Speaker whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Speaker wherePicture($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Speaker whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Speaker whereFairEventId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Speaker whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Speaker whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Speaker extends Model
 {

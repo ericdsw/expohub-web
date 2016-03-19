@@ -29,13 +29,24 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Fair[] $helpingFairs
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\FairEvent[] $attendingFairEvents
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Comment[] $comments
+ * @property boolean $user_type
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\User whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\User whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\User whereUsername($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\User whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\User wherePassword($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\User whereRememberToken($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\User whereUserType($value)
+ * @mixin \Eloquent
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
     protected $table = 'users';
-    protected $fillable = ['name', 'username', 'email', 'password'];
+    protected $fillable = ['name', 'username', 'email', 'password', 'user_type'];
     protected $hidden = ['password', 'remember_token'];
 
 	/**

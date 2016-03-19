@@ -25,6 +25,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Speaker[] $speakers
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\User[] $attendingUsers
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Category[] $categories
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\FairEvent whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\FairEvent whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\FairEvent whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\FairEvent whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\FairEvent whereDate($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\FairEvent whereLocation($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\FairEvent whereFairId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\FairEvent whereEventTypeId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\FairEvent whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\FairEvent whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class FairEvent extends Model
 {

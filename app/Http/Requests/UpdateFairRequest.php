@@ -2,18 +2,22 @@
 
 namespace ExpoHub\Http\Requests;
 
+use ExpoHub\AccessControllers\FairAccessController;
 use ExpoHub\Http\Requests\Request;
 
 class UpdateFairRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @param FairAccessController $accessController
+	 * @return bool
+	 */
+    public function authorize(FairAccessController $accessController)
     {
-        return true;
+        return $accessController->canUpdateFair(
+			$this->route()->parameter('id')
+		);
     }
 
     /**

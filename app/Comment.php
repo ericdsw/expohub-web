@@ -16,6 +16,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon $updated_at
  * @property-read \ExpoHub\News $ownerNews
  * @property-read \ExpoHub\User $user
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Comment whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Comment whereText($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Comment whereNewsId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Comment whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Comment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Comment whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Comment extends Model
 {

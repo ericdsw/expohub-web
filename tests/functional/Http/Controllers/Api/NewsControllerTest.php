@@ -1,5 +1,6 @@
 <?php
 
+use ExpoHub\AccessControllers\NewsAccessController;
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Repositories\Contracts\NewsRepository;
 
@@ -54,6 +55,14 @@ class NewsControllerTest extends BaseControllerTestCase
 			'fair_id' => 1
 		];
 
+		$this->loginForApi();
+
+		$this->mock(NewsAccessController::class)
+			->shouldReceive('canCreateNewsForFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$uploadedFile = $this->generateStubUploadedFile();
 
 		$this->mock(FileManager::class)
@@ -69,6 +78,46 @@ class NewsControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
+	public function it_returns_unauthorized_if_user_cannot_create_news()
+	{
+		$parameters = [
+			'title' => 'foo',
+			'content' => 'bar',
+			'fair_id' => 1
+		];
+
+		$this->loginForApi();
+
+		$this->mock(NewsAccessController::class)
+			->shouldReceive('canCreateNewsForFair')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$uploadedFile = $this->generateStubUploadedFile();
+
+		$this->call('POST', 'api/v1/news', $parameters, [], ['image' => $uploadedFile]);
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_create_news_for_not_logged_in_user()
+	{
+		$parameters = [
+			'title' => 'foo',
+			'content' => 'bar',
+			'fair_id' => 1
+		];
+
+		$uploadedFile = $this->generateStubUploadedFile();
+
+		$this->call('POST', 'api/v1/news', $parameters, [], ['image' => $uploadedFile]);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
 	public function it_fails_creating_news_with_incorrect_parameters()
 	{
 		$parameters = [
@@ -76,6 +125,14 @@ class NewsControllerTest extends BaseControllerTestCase
 			'content' => 'bar',
 			'fair_id' => 1
 		];
+
+		$this->loginForApi();
+
+		$this->mock(NewsAccessController::class)
+			->shouldReceive('canCreateNewsForFair')
+			->with(1)
+			->once()
+			->andReturn(true);
 
 		$uploadedFile = $this->generateStubUploadedFile();
 
@@ -94,6 +151,14 @@ class NewsControllerTest extends BaseControllerTestCase
 			'fair_id' => 1
 		];
 
+		$this->loginForApi();
+
+		$this->mock(NewsAccessController::class)
+			->shouldReceive('canCreateNewsForFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		// Invalid uploaded file
 		$uploadedFile = $this->generateInvalidStubUploadedFile();
 
@@ -110,6 +175,14 @@ class NewsControllerTest extends BaseControllerTestCase
 			'title' => 'foo',
 			'content' => 'bar'
 		];
+
+		$this->loginForApi();
+
+		$this->mock(NewsAccessController::class)
+			->shouldReceive('canUpdateNews')
+			->with(1)
+			->once()
+			->andReturn(true);
 
 		$uploadedFile = $this->generateStubUploadedFile();
 		$fileManager  = $this->mock(FileManager::class);
@@ -136,11 +209,68 @@ class NewsControllerTest extends BaseControllerTestCase
 			'content' => 'bar',
 		];
 
+		$this->loginForApi();
+
+		$this->mock(NewsAccessController::class)
+			->shouldReceive('canUpdateNews')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$this->call('PUT', 'api/v1/news/1', $parameters);
 
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'news']);
+	}
+
+	/** @test */
+	public function it_returns_unauthorized_if_user_cannot_update_news()
+	{
+		$parameters = [
+			'title' => 'foo',
+			'content' => 'bar',
+		];
+
+		$this->loginForApi();
+
+		$this->mock(NewsAccessController::class)
+			->shouldReceive('canUpdateNews')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$this->call('PUT', 'api/v1/news/1', $parameters);
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_update_news_if_user_is_not_logged_in()
+	{
+		$parameters = [
+			'title' => 'foo',
+			'content' => 'bar',
+		];
+
+		$this->call('PUT', 'api/v1/news/1', $parameters);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_update_news_if_user_has_expired_session()
+	{
+		$parameters = [
+			'title' => 'foo',
+			'content' => 'bar',
+		];
+
+		$this->loginForApiWithExpiredToken();
+
+		$this->call('PUT', 'api/v1/news/1', $parameters);
+
+		$this->assertResponseStatus(401);
 	}
 
 	/** @test */
@@ -150,6 +280,14 @@ class NewsControllerTest extends BaseControllerTestCase
 			// No Title
 			'content' => 'bar',
 		];
+
+		$this->loginForApi();
+
+		$this->mock(NewsAccessController::class)
+			->shouldReceive('canUpdateNews')
+			->with(1)
+			->once()
+			->andReturn(true);
 
 		$this->call('PUT', 'api/v1/news/1', $parameters);
 
@@ -164,6 +302,14 @@ class NewsControllerTest extends BaseControllerTestCase
 			'content' => 'bar'
 		];
 
+		$this->loginForApi();
+
+		$this->mock(NewsAccessController::class)
+			->shouldReceive('canUpdateNews')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$uploadedFile = $this->generateInvalidStubUploadedFile();
 
 		$this->call('PUT', 'api/v1/news/1', $parameters, [], ['image' => $uploadedFile]);
@@ -174,6 +320,14 @@ class NewsControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_deletes_specified_news()
 	{
+		$this->loginForApi();
+
+		$this->mock(NewsAccessController::class)
+			->shouldReceive('canDeleteNews')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$this->mock(FileManager::class)
 			->shouldReceive('deleteFile')
 			->withAnyArgs()
@@ -182,6 +336,40 @@ class NewsControllerTest extends BaseControllerTestCase
 		$this->delete('api/v1/news/1');
 
 		$this->assertResponseStatus(204);
+	}
+
+	/** @test */
+	public function it_returns_unauthorized_if_user_cannot_delete_news()
+	{
+		$this->loginForApi();
+
+		$this->mock(NewsAccessController::class)
+			->shouldReceive('canDeleteNews')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$this->delete('api/v1/news/1');
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_delete_news_for_not_logged_in_users()
+	{
+		$this->delete('api/v1/news/1');
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_delete_news_for_users_with_expired_sessions()
+	{
+		$this->loginForApiWithExpiredToken();
+
+		$this->delete('api/v1/news/1');
+
+		$this->assertResponseStatus(401);
 	}
 
 	/** @test */

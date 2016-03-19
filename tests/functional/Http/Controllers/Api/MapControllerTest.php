@@ -1,5 +1,6 @@
 <?php
 
+use ExpoHub\AccessControllers\MapAccessController;
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Repositories\Contracts\MapRepository;
 
@@ -51,6 +52,15 @@ class MapControllerTest extends BaseControllerTestCase
 			'name' => 'foo',
 			'fair_id' => 1
 		];
+
+		$this->loginForApi();
+
+		$this->mock(MapAccessController::class)
+			->shouldReceive('canCreateMapForFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$uploadedFile = $this->generateStubUploadedFile();
 		$this->mock(FileManager::class)
 			->shouldReceive('uploadFile')
@@ -64,12 +74,76 @@ class MapControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
+	public function it_returns_unauthorized_on_create_map_if_user_cannot_create_map()
+	{
+		$parameters = [
+			'name' => 'foo',
+			'fair_id' => 1
+		];
+
+		$this->loginForApi();
+
+		$this->mock(MapAccessController::class)
+			->shouldReceive('canCreateMapForFair')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$uploadedFile = $this->generateStubUploadedFile();
+
+		$this->call('POST', 'api/v1/maps', $parameters, [], ['image' => $uploadedFile]);
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_create_map_if_user_is_not_logged_in()
+	{
+		$parameters = [
+			'name' => 'foo',
+			'fair_id' => 1
+		];
+
+		$uploadedFile = $this->generateStubUploadedFile();
+
+		$this->call('POST', 'api/v1/maps', $parameters, [], ['image' => $uploadedFile]);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_create_map_if_user_has_expired_session()
+	{
+		$parameters = [
+			'name' => 'foo',
+			'fair_id' => 1
+		];
+
+		$this->loginForApiWithExpiredToken();
+
+		$uploadedFile = $this->generateStubUploadedFile();
+
+		$this->call('POST', 'api/v1/maps', $parameters, [], ['image' => $uploadedFile]);
+
+		$this->assertResponseStatus(401);
+	}
+
+	/** @test */
 	public function it_fails_creating_map_with_invalid_parameters()
 	{
 		$parameters = [
 			// Missing name parameter
 			'fair_id' => 1
 		];
+
+		$this->loginForApi();
+
+		$this->mock(MapAccessController::class)
+			->shouldReceive('canCreateMapForFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$uploadedFile = $this->generateStubUploadedFile();
 
 		$this->call('POST', 'api/v1/maps', $parameters, [], ['image' => $uploadedFile]);
@@ -84,6 +158,15 @@ class MapControllerTest extends BaseControllerTestCase
 			'name' => 'foo',
 			'fair_id' => 1
 		];
+
+		$this->loginForApi();
+
+		$this->mock(MapAccessController::class)
+			->shouldReceive('canCreateMapForFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$uploadedFile = $this->generateInvalidStubUploadedFile();
 		$this->mock(FileManager::class)
 			->shouldReceive('uploadFile')
@@ -100,6 +183,15 @@ class MapControllerTest extends BaseControllerTestCase
 		$parameters = [
 			'name' => 'foo',
 		];
+
+		$this->loginForApi();
+
+		$this->mock(MapAccessController::class)
+			->shouldReceive('canUpdateMap')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$uploadedFile = $this->generateStubUploadedFile();
 		$fileManager = $this->mock(FileManager::class);
 
@@ -124,6 +216,14 @@ class MapControllerTest extends BaseControllerTestCase
 			'name' => 'foo',
 		];
 
+		$this->loginForApi();
+
+		$this->mock(MapAccessController::class)
+			->shouldReceive('canUpdateMap')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$this->call('PUT', 'api/v1/maps/1', $parameters);
 
 		$this->assertResponseOk();
@@ -132,11 +232,66 @@ class MapControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
+	public function it_returns_unauthorized_if_user_cannot_update_map()
+	{
+		$parameters = [
+			'name' => 'foo',
+		];
+
+		$this->loginForApi();
+
+		$this->mock(MapAccessController::class)
+			->shouldReceive('canUpdateMap')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$this->call('PUT', 'api/v1/maps/1', $parameters);
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_update_map_for§_not_logged_in_users()
+	{
+		$parameters = [
+			'name' => 'foo',
+		];
+
+		$this->call('PUT', 'api/v1/maps/1', $parameters);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_update_map_for_users_with_expired_session()
+	{
+		$parameters = [
+			'name' => 'foo',
+		];
+
+		$this->loginForApiWithExpiredToken();
+
+		$this->call('PUT', 'api/v1/maps/1', $parameters);
+
+		$this->assertResponseStatus(401);
+	}
+
+	/** @test */
 	public function it_fails_updating_map_with_invalid_parameters()
 	{
 		$parameters = [
 			// Name parameter missing
 		];
+
+		$this->loginForApi();
+
+		$this->mock(MapAccessController::class)
+			->shouldReceive('canUpdateMap')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$uploadedFile = $this->generateStubUploadedFile();
 
 		$this->call('PUT', 'api/v1/maps/1', $parameters, [], ['image' => $uploadedFile]);
@@ -150,6 +305,15 @@ class MapControllerTest extends BaseControllerTestCase
 		$parameters = [
 			'name' => 'foo',
 		];
+
+		$this->loginForApi();
+
+		$this->mock(MapAccessController::class)
+			->shouldReceive('canUpdateMap')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$uploadedFile = $this->generateInvalidStubUploadedFile();
 
 		$this->call('PUT', 'api/v1/maps/1', $parameters, [], ['image' => $uploadedFile]);
@@ -160,6 +324,14 @@ class MapControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_deletes_map()
 	{
+		$this->loginForApi();
+
+		$this->mock(MapAccessController::class)
+			->shouldReceive('canDeleteMap')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$this->mock(FileManager::class)
 			->shouldReceive('deleteFile')
 			->withAnyArgs()
@@ -168,6 +340,40 @@ class MapControllerTest extends BaseControllerTestCase
 		$this->delete('api/v1/maps/1');
 
 		$this->assertResponseStatus(204);
+	}
+
+	/** @test */
+	public function it_returns_unauthorized_if_user_cannot_delete_map()
+	{
+		$this->loginForApi();
+
+		$this->mock(MapAccessController::class)
+			->shouldReceive('canDeleteMap')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$this->delete('api/v1/maps/1');
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_delete_map_for_not_logged_users()
+	{
+		$this->delete('api/v1/maps/1');
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_delete_map_for_users_with_expired_session()
+	{
+		$this->loginForApiWithExpiredToken();
+
+		$this->delete('api/v1/maps/1');
+
+		$this->assertResponseStatus(401);
 	}
 
 	/** @test */

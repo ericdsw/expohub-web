@@ -32,6 +32,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\FairEvent[] $fairEvents
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\News[] $news
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\Stand[] $stands
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereWebsite($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereStartingDate($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereEndingDate($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereAddress($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereLatitude($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereLongitude($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Fair whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Fair extends Model
 {

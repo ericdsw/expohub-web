@@ -1,6 +1,8 @@
 <?php
 
+use ExpoHub\AccessControllers\CommentAccessController;
 use ExpoHub\Repositories\Contracts\CommentRepository;
+use ExpoHub\Specifications\CategorySpecification;
 
 class CommentControllerTest extends BaseControllerTestCase
 {
@@ -45,19 +47,78 @@ class CommentControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_stores_comment()
+	public function it_creates_comment()
 	{
-		$this->post('api/v1/comments', $this->createValidStoreRequest());
+		$parameters = [
+			'name' => 'foo',
+			'news_id' => 2
+		];
+
+		$this->loginForApi();
+
+		$this->post('api/v1/comments', $parameters);
 
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'comment']);
+	}
+
+	/** @test */
+	public function it_wont_create_comment_with_invalid_parameters()
+	{
+		$parameters = [
+			// Missing name parameter
+			'news_id' => 2
+		];
+
+		$this->loginForApi();
+
+		$this->post('api/v1/comments', $parameters);
+
+		$this->assertResponseStatus(422);
+	}
+
+	/** @test */
+	public function it_wont_create_comment_for_not_logged_users()
+	{
+		$parameters = [
+			'name' => 'foo',
+			'news_id' => 2
+		];
+
+		$this->post('api/v1/comments', $parameters);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_create_comment_for_users_with_expired_session()
+	{
+		$parameters = [
+			'name' => 'foo',
+			'news_id' => 2
+		];
+
+		$this->loginForApiWithExpiredToken();
+
+		$this->post('api/v1/comments', $parameters);
+
+		$this->assertResponseStatus(401);
 	}
 
 	/** @test */
 	public function it_updates_existing_comment()
 	{
-		$this->put('api/v1/comments/1', $this->createValidUpdateRequest());
+		$parameters = ['name' => 'foo'];
+
+		$this->loginForApi();
+
+		$this->mock(CommentAccessController::class)->shouldReceive('canUpdateComment')
+			->with(1)
+			->once()
+			->andReturn(true);
+
+		$this->put('api/v1/comments/1', $parameters);
 
 		$this->assertResponseOk();
 		$this->seeJson();
@@ -65,11 +126,109 @@ class CommentControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
+	public function it_wont_update_existing_comment_with_invalid_parameters()
+	{
+		$parameters = [
+			// Missing name parameter
+		];
+
+		$this->loginForApi();
+
+		$this->mock(CommentAccessController::class)->shouldReceive('canUpdateComment')
+			->with(1)
+			->once()
+			->andReturn(true);
+
+		$this->put('api/v1/comments/1', $parameters);
+
+		$this->assertResponseStatus(422);
+	}
+
+	/** @test */
+	public function it_returns_unauthorized_on_update_comment_if_user_does_not_owns_it()
+	{
+		$parameters = ['name' => 'foo'];
+
+		$this->loginForApi();
+
+		$this->mock(CommentAccessController::class)->shouldReceive('canUpdateComment')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$this->put('api/v1/comments/1', $parameters);
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_update_comment_for_not_logged_users()
+	{
+		$parameters = ['name' => 'foo'];
+
+		$this->put('api/v1/comments/1', $parameters);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_update_comment_for_users_with_expired_session()
+	{
+		$parameters = ['name' => 'foo'];
+
+		$this->loginForApiWithExpiredToken();
+
+		$this->put('api/v1/comments/1', $parameters);
+
+		$this->assertResponseStatus(401);
+	}
+
+	/** @test */
 	public function it_deletes_specified_comment()
 	{
+		$this->loginForApi();
+
+		$this->mock(CommentAccessController::class)->shouldReceive('canDeleteComment')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$this->delete('api/v1/comments/1');
 
 		$this->assertResponseStatus(204);
+	}
+
+	/** @test */
+	public function it_returns_unauthorized_on_delete_comment_if_user_does_not_own_it()
+	{
+		$this->loginForApi();
+
+		$this->mock(CommentAccessController::class)->shouldReceive('canDeleteComment')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$this->delete('api/v1/comments/1');
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_delete_comment_for_not_logged_users()
+	{
+		$this->delete('api/v1/comments/1');
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_delete_comment_for_users_with_expired_session()
+	{
+		$this->loginForApiWithExpiredToken();
+
+		$this->delete('api/v1/comments/1');
+
+		$this->assertResponseStatus(401);
 	}
 
 	/** @test */
@@ -90,25 +249,5 @@ class CommentControllerTest extends BaseControllerTestCase
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'comment']);
-	}
-
-	/**
-	 * @return array
-	 */
-	private function createValidStoreRequest()
-	{
-		return [
-			'name' => 'foo',
-			'news_id' => 2,
-			'use_id' => 3
-		];
-	}
-
-	/**
-	 * @return array
-	 */
-	private function createValidUpdateRequest()
-	{
-		return ['name' => 'foo'];
 	}
 }

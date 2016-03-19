@@ -1,5 +1,6 @@
 <?php
 
+use ExpoHub\AccessControllers\FairAccessController;
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Repositories\Contracts\FairRepository;
 
@@ -65,6 +66,8 @@ class FairControllerTest extends BaseControllerTestCase
 			'user_id' => 1,
 		];
 
+		$this->loginForApi();
+
 		$file = $this->generateStubUploadedFile();
 
 		$fileManager = $this->mock(FileManager::class);
@@ -77,6 +80,52 @@ class FairControllerTest extends BaseControllerTestCase
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'fair']);
+	}
+
+	/** @test */
+	public function it_wont_create_fair_for_not_logged_users()
+	{
+		$parameters = [
+			'name' => 'name',
+			'description' => 'desc',
+			'website' => 'wbs',
+			'starting_date' => 'date',
+			'ending_date' => 'date',
+			'address' => 'address',
+			'latitude' => 10,
+			'longitude' => 22,
+			'user_id' => 1,
+		];
+
+		$file = $this->generateStubUploadedFile();
+
+		$this->call('POST', 'api/v1/fairs', $parameters, [], ['image' => $file]);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_create_fair_for_users_with_expired_session()
+	{
+		$parameters = [
+			'name' => 'name',
+			'description' => 'desc',
+			'website' => 'wbs',
+			'starting_date' => 'date',
+			'ending_date' => 'date',
+			'address' => 'address',
+			'latitude' => 10,
+			'longitude' => 22,
+			'user_id' => 1,
+		];
+
+		$this->loginForApiWithExpiredToken();
+
+		$file = $this->generateStubUploadedFile();
+
+		$this->call('POST', 'api/v1/fairs', $parameters, [], ['image' => $file]);
+
+		$this->assertResponseStatus(401);
 	}
 
 	/** @test */
@@ -93,6 +142,8 @@ class FairControllerTest extends BaseControllerTestCase
 			'longitude' => 22,
 			'user_id' => 1,
 		];
+
+		$this->loginForApi();
 
 		$file = $this->generateStubUploadedFile();
 		$this->call('POST', 'api/v1/fairs', $parameters, [], ['image' => $file]);
@@ -115,6 +166,8 @@ class FairControllerTest extends BaseControllerTestCase
 			'user_id' => 1,
 		];
 
+		$this->loginForApi();
+
 		$this->call('POST', 'api/v1/fairs', $parameters, [], []);
 
 		$this->assertResponseStatus(422);
@@ -133,6 +186,14 @@ class FairControllerTest extends BaseControllerTestCase
 			'latitude' => 10,
 			'longitude' => 22,
 		];
+
+		$this->loginForApi();
+
+		$this->mock(FairAccessController::class)
+			->shouldReceive('canUpdateFair')
+			->with(1)
+			->once()
+			->andReturn(true);
 
 		$file = $this->generateStubUploadedFile();
 
@@ -163,6 +224,14 @@ class FairControllerTest extends BaseControllerTestCase
 			'longitude' => 22,
 		];
 
+		$this->loginForApi();
+
+		$this->mock(FairAccessController::class)
+			->shouldReceive('canUpdateFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$this->mock(FileManager::class);
 
 		$this->call('PUT', 'api/v1/fairs/1', $parameters, [], []);
@@ -186,6 +255,14 @@ class FairControllerTest extends BaseControllerTestCase
 			'longitude' => 22,
 		];
 
+		$this->loginForApi();
+
+		$this->mock(FairAccessController::class)
+			->shouldReceive('canUpdateFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$file = $this->generateStubUploadedFile();
 		$this->mock(FileManager::class);
 
@@ -208,6 +285,14 @@ class FairControllerTest extends BaseControllerTestCase
 			'longitude' => 22,
 		];
 
+		$this->loginForApi();
+
+		$this->mock(FairAccessController::class)
+			->shouldReceive('canUpdateFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$file = $this->generateInvalidStubUploadedFile();
 		$this->mock(FileManager::class);
 
@@ -217,12 +302,134 @@ class FairControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
+	public function it_returns_unauthorized_if_user_does_not_own_fair()
+	{
+		$parameters = [
+			'name' => 'name',
+			'description' => 'desc',
+			'website' => 'wbs',
+			'starting_date' => 'date',
+			'ending_date' => 'date',
+			'address' => 'address',
+			'latitude' => 10,
+			'longitude' => 22,
+		];
+
+		$this->loginForApi();
+
+		$this->mock(FairAccessController::class)
+			->shouldReceive('canUpdateFair')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$file = $this->generateStubUploadedFile();
+
+		$this->call('PUT', 'api/v1/fairs/1', $parameters, [], ['image' => $file]);
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_update_fair_for_not_logged_in_users()
+	{
+		$parameters = [
+			'name' => 'name',
+			'description' => 'desc',
+			'website' => 'wbs',
+			'starting_date' => 'date',
+			'ending_date' => 'date',
+			'address' => 'address',
+			'latitude' => 10,
+			'longitude' => 22,
+		];
+
+		$file = $this->generateStubUploadedFile();
+
+		$this->call('PUT', 'api/v1/fairs/1', $parameters, [], ['image' => $file]);
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_update_fair_for_users_with_expired_token()
+	{
+		$parameters = [
+			'name' => 'name',
+			'description' => 'desc',
+			'website' => 'wbs',
+			'starting_date' => 'date',
+			'ending_date' => 'date',
+			'address' => 'address',
+			'latitude' => 10,
+			'longitude' => 22,
+		];
+
+		$this->loginForApiWithExpiredToken();
+
+		$file = $this->generateStubUploadedFile();
+
+		$this->call('PUT', 'api/v1/fairs/1', $parameters, [], ['image' => $file]);
+
+		$this->assertResponseStatus(401);
+	}
+
+	/** @test */
 	public function it_deletes_existing_fair()
 	{
+		$this->loginForApi();
+
+		$this->mock(FairAccessController::class)
+			->shouldReceive('canDeleteFair')
+			->with(1)
+			->once()
+			->andReturn(true);
+
 		$this->mock(FileManager::class)->shouldReceive('deleteFile');
+
 		$this->delete('api/v1/fairs/1');
 
 		$this->assertResponseStatus(204);
+	}
+
+	/** @test */
+	public function it_returns_unauthorized_on_delete_fair_if_user_does_not_own_fair()
+	{
+		$this->loginForApi();
+
+		$this->mock(FairAccessController::class)
+			->shouldReceive('canDeleteFair')
+			->with(1)
+			->once()
+			->andReturn(false);
+
+		$this->mock(FileManager::class)->shouldReceive('deleteFile');
+
+		$this->delete('api/v1/fairs/1');
+
+		$this->assertResponseStatus(403);
+	}
+
+	/** @test */
+	public function it_wont_delete_fair_for_not_logged_users()
+	{
+		$this->mock(FileManager::class)->shouldReceive('deleteFile');
+
+		$this->delete('api/v1/fairs/1');
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_delete_fair_for_users_with_expired_session()
+	{
+		$this->loginForApiWithExpiredToken();
+
+		$this->mock(FileManager::class)->shouldReceive('deleteFile');
+
+		$this->delete('api/v1/fairs/1');
+
+		$this->assertResponseStatus(401);
 	}
 
 	/** @test */

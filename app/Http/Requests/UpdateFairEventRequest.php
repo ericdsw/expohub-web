@@ -2,18 +2,22 @@
 
 namespace ExpoHub\Http\Requests;
 
+use ExpoHub\AccessControllers\FairEventAccessController;
 use ExpoHub\Http\Requests\Request;
 
 class UpdateFairEventRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @param FairEventAccessController $accessController
+	 * @return bool
+	 */
+    public function authorize(FairEventAccessController $accessController)
     {
-        return true;
+        return $accessController->canUpdateFairEvent(
+			$this->route()->parameter('id')
+		);
     }
 
     /**
@@ -28,9 +32,7 @@ class UpdateFairEventRequest extends Request
 			'image' => 'mimes:jpg,jpeg,png',
 			'description' => 'required',
 			'date' => 'required',
-			'location' => 'required',
-			'fair_id' => 'required|numeric',
-			'event_type_id' => 'required|numeric'
+			'location' => 'required'
         ];
     }
 

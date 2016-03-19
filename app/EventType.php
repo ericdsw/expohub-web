@@ -13,6 +13,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\ExpoHub\FairEvent[] $events
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\EventType whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\EventType whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\EventType whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\EventType whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class EventType extends Model
 {

@@ -2,18 +2,22 @@
 
 namespace ExpoHub\Http\Requests;
 
+use ExpoHub\AccessControllers\NewsAccessController;
 use ExpoHub\Http\Requests\Request;
 
 class UpdateNewsRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @param NewsAccessController $accessController
+	 * @return bool
+	 */
+    public function authorize(NewsAccessController $accessController)
     {
-        return true;
+        return $accessController->canUpdateNews(
+			$this->route()->parameter('id')
+		);
     }
 
     /**

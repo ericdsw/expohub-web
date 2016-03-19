@@ -4,6 +4,7 @@ namespace ExpoHub\Http\Controllers\Api;
 
 
 use ExpoHub\Http\Requests\CreateEventTypeRequest;
+use ExpoHub\Http\Requests\DeleteEventTypeRequest;
 use ExpoHub\Http\Requests\UpdateEventTypeRequest;
 use ExpoHub\Repositories\Contracts\EventTypeRepository;
 use ExpoHub\Transformers\EventTypeTransformer;
@@ -79,10 +80,11 @@ class EventTypeController extends ApiController
 	}
 
 	/**
+	 * @param DeleteEventTypeRequest $request
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function destroy($id)
+	public function destroy(DeleteEventTypeRequest $request, $id)
 	{
 		$this->eventTypeRepository->delete($id);
 		return $this->respondNoContent();

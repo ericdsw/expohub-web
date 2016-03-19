@@ -1,5 +1,6 @@
 <?php
 
+use ExpoHub\FairEvent;
 use ExpoHub\User;
 use Illuminate\Database\Seeder;
 

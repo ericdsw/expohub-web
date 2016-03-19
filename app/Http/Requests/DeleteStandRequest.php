@@ -2,18 +2,22 @@
 
 namespace ExpoHub\Http\Requests;
 
+use ExpoHub\AccessControllers\StandAccessController;
 use ExpoHub\Http\Requests\Request;
 
 class DeleteStandRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @param StandAccessController $accessController
+	 * @return bool
+	 */
+    public function authorize(StandAccessController $accessController)
     {
-        return true;
+        return $accessController->canDeleteStand(
+			$this->route()->parameter('id')
+		);
     }
 
     /**

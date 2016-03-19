@@ -4,12 +4,16 @@ namespace ExpoHub\Http\Controllers\Api;
 
 
 use ExpoHub\Http\Controllers\Api\ApiController;
+use ExpoHub\Http\Requests\CreateCommentRequest;
+use ExpoHub\Http\Requests\DeleteCommentRequest;
+use ExpoHub\Http\Requests\UpdateCommentRequest;
 use ExpoHub\Repositories\Contracts\CommentRepository;
 use ExpoHub\Transformers\CommentTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
+use Tymon\JWTAuth\JWTAuth;
 
 class CommentController extends ApiController
 {
@@ -59,24 +63,28 @@ class CommentController extends ApiController
 	/**
 	 * Creates comment
 	 *
-	 * @param Request $request
+	 * @param JWTAuth $jwtAuth
+	 * @param CreateCommentRequest $request
 	 * @return JsonResponse
+	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
-	public function store(Request $request)
+	public function store(JWTAuth $jwtAuth, CreateCommentRequest $request)
 	{
 		return $this->respondJson(
-			$this->commentRepository->create($request->only('name', 'news_id', 'user_id'))
+			$this->commentRepository->create(array_merge($request->only('name', 'news_id'), [
+				'user_id' => $jwtAuth->parseToken()->toUser()->id
+			]))
 		);
 	}
 
 	/**
 	 * Updates existing comment
 	 *
-	 * @param Request $request
+	 * @param UpdateCommentRequest $request
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function update(Request $request, $id)
+	public function update(UpdateCommentRequest $request, $id)
 	{
 		return $this->respondJson(
 			$this->commentRepository->update($id, $request->only('name'))
@@ -86,10 +94,11 @@ class CommentController extends ApiController
 	/**
 	 * Destroys existing comment
 	 *
+	 * @param DeleteCommentRequest $request
 	 * @param $id
 	 * @return JsonResponse
 	 */
-	public function destroy($id)
+	public function destroy(DeleteCommentRequest $request, $id)
 	{
 		$this->commentRepository->delete($id);
 		return $this->respondNoContent();

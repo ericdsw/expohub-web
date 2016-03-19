@@ -15,7 +15,10 @@ class StandTableSeeder extends Seeder
     {
         $fairs = Fair::all()->lists('id');
 		factory(Stand::class, 200)->create([
-			'fair_id' => $fairs->random()
-		]);
+			'fair_id' => $fairs->first()
+		])->each(function(Stand $stand) use ($fairs) {
+			$stand->fair_id = $fairs->random();
+			$stand->save();
+		});
     }
 }

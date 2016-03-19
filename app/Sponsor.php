@@ -19,6 +19,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon $updated_at
  * @property-read \ExpoHub\Fair $fair
  * @property-read \ExpoHub\SponsorRank $sponsorRank
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Sponsor whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Sponsor whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Sponsor whereLogo($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Sponsor whereSlogan($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Sponsor whereWebsite($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Sponsor whereFairId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Sponsor whereSponsorRankId($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Sponsor whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\ExpoHub\Sponsor whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Sponsor extends Model
 {
