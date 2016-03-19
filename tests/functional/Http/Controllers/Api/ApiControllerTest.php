@@ -15,7 +15,7 @@ class ApiControllerTest extends BaseControllerTestCase
 	public function setUp()
 	{
 		parent::setUp();
-		
+
 		$this->userSpecification = $this->mock(UserSpecification::class);
 
 		app()->instance(UserRepository::class, new StubUserRepository);
