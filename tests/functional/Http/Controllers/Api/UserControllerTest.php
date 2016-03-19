@@ -2,6 +2,7 @@
 use ExpoHub\AccessControllers\UserAccessController;
 use ExpoHub\Repositories\Contracts\UserRepository;
 use ExpoHub\Specifications\UserSpecification;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserControllerTest extends BaseControllerTestCase
 {
@@ -35,6 +36,7 @@ class UserControllerTest extends BaseControllerTestCase
 	public function it_displays_specific_list_of_users_with_available_includes()
 	{
 		$includeString = "fairs,bannedFairs,helpingFairs,attendingFairEvents,comments";
+
 		$this->get('api/v1/users/1?include=' . $includeString);
 
 		$this->assertResponseOk();
@@ -43,6 +45,20 @@ class UserControllerTest extends BaseControllerTestCase
 		$this->seeJsonContains(['type' => 'fair']);
 		$this->seeJsonContains(['type' => 'fair-event']);
 		$this->seeJsonContains(['type' => 'comment']);
+	}
+
+	/** @test */
+	public function it_returns_not_found_if_user_does_not_exists()
+	{
+		$this->mock(UserRepository::class)
+			->shouldReceive('find')
+			->andThrow(ModelNotFoundException::class);
+
+		$this->get('api/v1/users/1');
+
+		$this->assertResponseStatus(404);
+		$this->seeJson();
+		$this->seeJsonContains(['title' => 'not_found']);
 	}
 
 	/** @test */

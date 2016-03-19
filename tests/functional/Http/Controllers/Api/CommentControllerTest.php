@@ -3,6 +3,7 @@
 use ExpoHub\AccessControllers\CommentAccessController;
 use ExpoHub\Repositories\Contracts\CommentRepository;
 use ExpoHub\Specifications\CategorySpecification;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CommentControllerTest extends BaseControllerTestCase
 {
@@ -44,6 +45,20 @@ class CommentControllerTest extends BaseControllerTestCase
 		$this->seeJsonContains(['type' => 'comment']);
 		$this->seeJsonContains(['type' => 'user']);
 		$this->seeJsonContains(['type' => 'news']);
+	}
+
+	/** @test */
+	public function it_returns_not_found_if_comment_does_not_exists()
+	{
+		$this->mock(CommentRepository::class)
+			->shouldReceive('find')
+			->andThrow(ModelNotFoundException::class);
+
+		$this->get('api/v1/comments/1');
+
+		$this->assertResponseStatus(404);
+		$this->seeJson();
+		$this->seeJsonContains(['title' => 'not_found']);
 	}
 
 	/** @test */

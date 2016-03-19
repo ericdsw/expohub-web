@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Handler extends ExceptionHandler
 {
@@ -42,8 +45,24 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+		if($e instanceof NotFoundHttpException) {
+			return response()->json([
+				'errors' => [[
+					'title' 	=> 'not_found_url',
+					'message' 	=> 'Requested url not found',
+					'status' 	=> 404
+				]]
+			], 404, ['Content-Type' => 'application/vnd.api+json']);
+		}
+
         if ($e instanceof ModelNotFoundException) {
-            $e = new NotFoundHttpException($e->getMessage(), $e);
+			return response()->json([
+				'errors' => [[
+					'title' 	=> 'not_found',
+					'message' 	=> 'Requested data not found',
+					'status' 	=> 404
+				]]
+			], 404, ['Content-Type' => 'application/vnd.api+json']);
         }
 
         return parent::render($request, $e);

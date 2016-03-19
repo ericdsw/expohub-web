@@ -3,6 +3,7 @@
 use ExpoHub\AccessControllers\MapAccessController;
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Repositories\Contracts\MapRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class MapControllerTest extends BaseControllerTestCase
 {
@@ -43,6 +44,20 @@ class MapControllerTest extends BaseControllerTestCase
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'map']);
 		$this->seeJsonContains(['type' => 'fair']);
+	}
+
+	/** @test */
+	public function it_returns_not_found_if_map_does_not_exists()
+	{
+		$this->mock(MapRepository::class)
+			->shouldReceive('find')
+			->andThrow(ModelNotFoundException::class);
+
+		$this->get('api/v1/maps/1');
+
+		$this->assertResponseStatus(404);
+		$this->seeJson();
+		$this->seeJsonContains(['title' => 'not_found']);
 	}
 
 	/** @test */
