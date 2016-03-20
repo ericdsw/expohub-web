@@ -11,6 +11,7 @@ use ExpoHub\Repositories\Contracts\CommentRepository;
 use ExpoHub\Transformers\CommentTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 use Tymon\JWTAuth\JWTAuth;
@@ -70,6 +71,7 @@ class CommentController extends ApiController
 	 */
 	public function store(JWTAuth $jwtAuth, CreateCommentRequest $request)
 	{
+		$this->setStatus(Response::HTTP_CREATED);
 		return $this->respondJson(
 			$this->commentRepository->create(array_merge($request->only('name', 'news_id'), [
 				'user_id' => $jwtAuth->parseToken()->toUser()->id

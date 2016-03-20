@@ -74,7 +74,7 @@ class EventTypeControllerTest extends BaseControllerTestCase
 
 		$this->post('api/v1/eventTypes', $request);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'event-type']);
 	}

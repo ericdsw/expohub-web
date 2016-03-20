@@ -75,7 +75,7 @@ class SponsorRankControllerTest extends BaseControllerTestCase
 
 		$this->post('api/v1/sponsorRanks', $parameters);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'sponsor-rank']);
 	}

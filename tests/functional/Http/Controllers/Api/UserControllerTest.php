@@ -93,7 +93,7 @@ class UserControllerTest extends BaseControllerTestCase
 
 		$this->post('api/v1/users', $parameters);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'user']);
 	}

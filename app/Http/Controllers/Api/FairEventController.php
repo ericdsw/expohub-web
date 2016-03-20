@@ -11,6 +11,7 @@ use ExpoHub\Repositories\Contracts\FairEventRepository;
 use ExpoHub\Transformers\FairEventTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 
@@ -64,6 +65,8 @@ class FairEventController extends ApiController
 	{
 		$parameters = $request->only('title', 'description', 'date', 'location', 'fair_id', 'event_type_id');
 		$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+
+		$this->setStatus(Response::HTTP_CREATED);
 
 		$fairEvent = $this->repository->create(array_merge($parameters, [
 			'image' => $imageUrl

@@ -83,7 +83,7 @@ class MapControllerTest extends BaseControllerTestCase
 
 		$this->call('POST', 'api/v1/maps', $parameters, [], ['image' => $uploadedFile]);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'map']);
 	}

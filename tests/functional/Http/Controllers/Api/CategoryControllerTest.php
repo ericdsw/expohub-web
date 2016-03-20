@@ -80,7 +80,7 @@ class CategoryControllerTest extends BaseControllerTestCase
 
 		$this->post('api/v1/categories', $parameters);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'category']);
 	}

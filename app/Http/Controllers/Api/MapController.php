@@ -11,6 +11,7 @@ use ExpoHub\Repositories\Contracts\MapRepository;
 use ExpoHub\Transformers\MapTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 
@@ -64,6 +65,8 @@ class MapController extends ApiController
 	{
 		$parameters = $request->only('name', 'fair_id');
 		$imageUrl 	= $fileManager->uploadFile('/uploads', $request->file('image'));
+
+		$this->setStatus(Response::HTTP_CREATED);
 
 		$map = $this->repository->create(array_merge($parameters, [
 			'image' => $imageUrl

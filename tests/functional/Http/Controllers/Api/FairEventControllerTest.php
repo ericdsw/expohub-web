@@ -93,7 +93,7 @@ class FairEventControllerTest extends BaseControllerTestCase
 
 		$this->call('POST', '/api/v1/fairEvents', $parameters, [], ['image' => $uploadedFile]);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'fair-event']);
 	}

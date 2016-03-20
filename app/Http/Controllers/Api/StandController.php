@@ -11,6 +11,7 @@ use ExpoHub\Repositories\Contracts\StandRepository;
 use ExpoHub\Transformers\StandTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 
@@ -55,6 +56,9 @@ class StandController extends ApiController
 	public function store(CreateStandRequest $request, FileManager $fileManager)
 	{
 		$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+
+		$this->setStatus(Response::HTTP_CREATED);
+
 		return $this->respondJson(
 			$this->standRepository->create(array_merge($request->all(), [
 				'image' => $imageUrl

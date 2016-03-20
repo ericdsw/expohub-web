@@ -73,7 +73,7 @@ class CommentControllerTest extends BaseControllerTestCase
 
 		$this->post('api/v1/comments', $parameters);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'comment']);
 	}

@@ -10,6 +10,7 @@ use ExpoHub\Repositories\Contracts\SponsorRankRepository;
 use ExpoHub\Transformers\SponsorRankTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 
@@ -62,6 +63,7 @@ class SponsorRankController extends ApiController
 	 */
 	public function store(CreateSponsorRankRequest $request)
 	{
+		$this->setStatus(Response::HTTP_CREATED);
 		return $this->respondJson(
 			$this->sponsorRankRepository->create($request->all())
 		);

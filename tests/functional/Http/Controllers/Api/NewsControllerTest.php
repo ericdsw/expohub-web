@@ -87,7 +87,7 @@ class NewsControllerTest extends BaseControllerTestCase
 
 		$this->call('POST', 'api/v1/news', $parameters, [], ['image' => $uploadedFile]);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'news']);
 	}

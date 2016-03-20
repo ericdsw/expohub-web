@@ -12,6 +12,7 @@ use ExpoHub\Specifications\UserSpecification;
 use ExpoHub\Transformers\UserTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 
@@ -89,6 +90,8 @@ class UserController extends ApiController
 		}
 
 		$parameters = $request->only('name', 'username', 'email');
+
+		$this->setStatus(Response::HTTP_CREATED);
 
 		return $this->respondJson(
 			$this->userRepository->create(array_merge($parameters, [

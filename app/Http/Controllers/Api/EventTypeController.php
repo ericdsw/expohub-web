@@ -10,6 +10,7 @@ use ExpoHub\Repositories\Contracts\EventTypeRepository;
 use ExpoHub\Transformers\EventTypeTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 
@@ -61,6 +62,9 @@ class EventTypeController extends ApiController
 	public function store(CreateEventTypeRequest $request)
 	{
 		$parameters = $request->only('name');
+
+		$this->setStatus(Response::HTTP_CREATED);
+
 		return $this->respondJson(
 			$this->eventTypeRepository->create($parameters)
 		);

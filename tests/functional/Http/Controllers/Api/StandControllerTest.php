@@ -84,7 +84,7 @@ class StandControllerTest extends BaseControllerTestCase
 
 		$this->call('POST', 'api/v1/stands', $parameters, [], ['image' => $stubUploadedFile]);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'stand']);
 	}

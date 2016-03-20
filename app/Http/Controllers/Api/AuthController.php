@@ -10,6 +10,8 @@ use ExpoHub\Repositories\Contracts\UserRepository;
 use ExpoHub\Specifications\UserSpecification;
 use ExpoHub\Transformers\UserTransformer;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -109,6 +111,8 @@ class AuthController extends ApiController
 		$token = $jwtAuth->fromUser($user);
 
 		$this->appendMeta(['token' => $token]);
+
+		$this->setStatus(Response::HTTP_CREATED);
 
 		return $this->respondJson($user);
 	}
