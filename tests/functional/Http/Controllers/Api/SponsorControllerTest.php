@@ -326,28 +326,6 @@ class SponsorControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_fails_updating_sponsor_with_invalid_parameters()
-	{
-		$parameters = [
-			// No name
-			'slogan' => 'bar',
-			'website' => 'baz'
-		];
-
-		$this->loginForApi();
-
-		$this->mock(SponsorAccessController::class)
-			->shouldReceive('canUpdateSponsor')
-			->with(1)
-			->once()
-			->andReturn(true);
-
-		$this->call('PUT', 'api/v1/sponsors/1', $parameters);
-
-		$this->assertResponseStatus(422);
-	}
-
-	/** @test */
 	public function it_fails_updating_sponsor_with_invalid_image()
 	{
 		$parameters = [

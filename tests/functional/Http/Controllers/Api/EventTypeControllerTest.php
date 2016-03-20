@@ -158,7 +158,7 @@ class EventTypeControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_returns_unauthorized_on_update_event_type_for_non_admin_users()
+	public function it_returns_unauthorized_on_update_event_type_if_user_cannot_update_event()
 	{
 		$request = ['name' => 'foo'];
 
@@ -195,24 +195,6 @@ class EventTypeControllerTest extends BaseControllerTestCase
 		$this->put('api/v1/eventTypes/1', $request);
 
 		$this->assertResponseStatus(401);
-	}
-
-	/** @test */
-	public function it_fails_update_existing_event_type_with_incorrect_parameters()
-	{
-		$request = [];
-
-		$this->loginForApi();
-
-		$this->mock(EventTypeAccessController::class)
-			->shouldReceive('canUpdateEventType')
-			->withNoArgs()
-			->once()
-			->andReturn(true);
-
-		$this->put('api/v1/eventTypes/1', $request);
-
-		$this->assertResponseStatus(422);
 	}
 
 	/** @test */

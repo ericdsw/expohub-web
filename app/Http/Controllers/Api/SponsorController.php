@@ -62,12 +62,13 @@ class SponsorController extends ApiController
 	 */
 	public function store(CreateSponsorRequest $request, FileManager $fileManager)
 	{
-		$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+		$imageUrl 	= $fileManager->uploadFile('/uploads', $request->file('image'));
+		$parameters = $request->only('name', 'slogan', 'website', 'fair_id', 'sponsor_rank_id');
 
 		$this->setStatus(Response::HTTP_CREATED);
 
 		return $this->respondJson(
-			$this->sponsorRepository->create(array_merge($request->all(), [
+			$this->sponsorRepository->create(array_merge($parameters, [
 				'logo' => $imageUrl
 			]))
 		);
@@ -81,15 +82,21 @@ class SponsorController extends ApiController
 	 */
 	public function update(UpdateSponsorRequest $request, FileManager $fileManager, $id)
 	{
-		$imageUrl = $this->sponsorRepository->find($id)->logo;
+		$sponsor 	= $this->sponsorRepository->find($id);
+		$imageUrl 	= $sponsor->logo;
+
 		if($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
 			$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
 		}
+
 		return $this->respondJson(
-			$this->sponsorRepository->update($id, array_merge($request->all(), [
-				'logo' => $imageUrl
-			]))
+			$this->sponsorRepository->update($id, [
+				'name' 		=> $request->has('name') ? $request->get('name') : $sponsor->name,
+				'slogan' 	=> $request->has('slogan') ? $request->get('slogan') : $sponsor->slogan,
+				'website' 	=> $request->has('website') ? $request->get('website') : $sponsor->website,
+				'image' 	=> $imageUrl
+			])
 		);
 	}
 

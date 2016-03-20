@@ -338,31 +338,6 @@ class FairEventControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_fails_update_with_incorrect_parameters()
-	{
-		$parameters = [
-			// No title parameter
-			'description' => 'baz',
-			'date' => 'qux',
-			'location' => 'foo-bar',
-			'fair_id' => 1,
-			'event_type_id' => 1
-		];
-
-		$this->loginForApi();
-
-		$this->mock(FairEventAccessController::class)
-			->shouldReceive('canUpdateFairEvent')
-			->with(1)
-			->once()
-			->andReturn(true);
-
-		$this->call('PUT', 'api/v1/fairEvents/1', $parameters);
-
-		$this->assertResponseStatus(422);
-	}
-
-	/** @test */
 	public function it_fails_update_with_incorrect_image()
 	{
 		$uploadedFile = $this->generateInvalidStubUploadedFile();

@@ -310,26 +310,6 @@ class UserControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_wont_update_user_with_invalid_parameters()
-	{
-		$parameters = [
-			// Missing name
-		];
-
-		$this->loginForApi();
-
-		$this->mock(UserAccessController::class)
-			->shouldReceive('canUpdateUser')
-			->withNoArgs()
-			->once()
-			->andReturn(true);
-
-		$this->put('api/v1/users/1', $parameters);
-
-		$this->assertResponseStatus(422);
-	}
-
-	/** @test */
 	public function it_deletes_user()
 	{
 		$this->loginForApi();

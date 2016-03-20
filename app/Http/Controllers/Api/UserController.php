@@ -81,6 +81,7 @@ class UserController extends ApiController
 				'status' 		=> '409'
 			], 409);
 		}
+
 		if(! $specification->isUsernameAvailable($request->get('username'))) {
 			return $this->respondError([
 				'title' 		=> 'username-taken',
@@ -110,10 +111,12 @@ class UserController extends ApiController
 	 */
 	public function update(UpdateUserRequest $request, $id)
 	{
-		$parameters = $request->only('name');
+		$user = $this->userRepository->find($id);
 
 		return $this->respondJson(
-			$this->userRepository->update($id, $parameters)
+			$this->userRepository->update($id, [
+				'name' => $request->has('name') ? $request->get('name') : $user->name
+			])
 		);
 	}
 

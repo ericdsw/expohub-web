@@ -80,15 +80,20 @@ class NewsController extends ApiController
 	 */
 	public function update(UpdateNewsRequest $request, FileManager $fileManager, $id)
 	{
-		$imageUrl = $this->newsRepository->find($id);
+		$news 		= $this->newsRepository->find($id);
+		$imageUrl 	= $news->image;
+
 		if($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
 			$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
 		}
+
 		return $this->respondJson(
-			$this->newsRepository->update($id, array_merge($request->all(), [
-				'image' => $imageUrl
-			]))
+			$this->newsRepository->update($id, [
+				'title' 	=> $request->has('title') ? $request->get('title') : $news->title,
+				'content' 	=> $request->has('content') ? $request->get('content') : $news->content,
+				'image' 	=> $imageUrl
+			])
 		);
 	}
 

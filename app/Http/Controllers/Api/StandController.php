@@ -55,12 +55,13 @@ class StandController extends ApiController
 	 */
 	public function store(CreateStandRequest $request, FileManager $fileManager)
 	{
-		$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+		$imageUrl 	= $fileManager->uploadFile('/uploads', $request->file('image'));
+		$parameters = $request->only('name', 'image', 'fair_id');
 
 		$this->setStatus(Response::HTTP_CREATED);
 
 		return $this->respondJson(
-			$this->standRepository->create(array_merge($request->all(), [
+			$this->standRepository->create(array_merge($parameters, [
 				'image' => $imageUrl
 			]))
 		);
@@ -74,15 +75,20 @@ class StandController extends ApiController
 	 */
 	public function update(UpdateStandRequest $request, FileManager $fileManager, $id)
 	{
-		$imageUrl = $this->standRepository->find($id)->image;
+		$stand 		= $this->standRepository->find($id);
+		$imageUrl 	= $stand->image;
+
 		if($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
 			$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
 		}
+
 		return $this->respondJson(
-			$this->standRepository->update($id, array_merge($request->all(), [
-				'image' => $imageUrl
-			]))
+			$this->standRepository->update($id, [
+				'name' 			=> $request->has('name') ? $request->get('name') : $stand->name,
+				'description' 	=> $request->has('description') ? $request->get('description') : $stand->description,
+				'image' 		=> $imageUrl
+			])
 		);
 	}
 

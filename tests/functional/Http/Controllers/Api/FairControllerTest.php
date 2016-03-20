@@ -181,9 +181,11 @@ class FairControllerTest extends BaseControllerTestCase
 			'user_id' => 1,
 		];
 
+		$image = $this->generateInvalidStubUploadedFile();
+
 		$this->loginForApi();
 
-		$this->call('POST', 'api/v1/fairs', $parameters, [], []);
+		$this->call('POST', 'api/v1/fairs', $parameters, [], ['image' => $image]);
 
 		$this->assertResponseStatus(422);
 	}
@@ -260,14 +262,8 @@ class FairControllerTest extends BaseControllerTestCase
 	public function it_fails_update_existing_fair_with_invalid_parameters()
 	{
 		$parameters = [
-			// Missing name parameters
-			'description' => 'desc',
-			'website' => 'wbs',
-			'starting_date' => 'date',
-			'ending_date' => 'date',
-			'address' => 'address',
-			'latitude' => 10,
-			'longitude' => 22,
+			'latitude' 	=> 'foo',
+			'longitude' => 'bar',
 		];
 
 		$this->loginForApi();

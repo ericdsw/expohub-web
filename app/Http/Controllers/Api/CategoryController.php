@@ -81,8 +81,11 @@ class CategoryController extends ApiController
 	 */
 	public function update(UpdateCategoryRequest $request, $id)
 	{
+		$updatingCategory = $this->categoryRepository->find($id);
 		return $this->respondJson(
-			$this->categoryRepository->update($id, $request->only('name', 'fair_id'))
+			$this->categoryRepository->update($id, [
+				'name' => $request->has('name') ? $request->get('name') : $updatingCategory->name
+			])
 		);
 	}
 

@@ -24,7 +24,7 @@ class CreateCommentRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
+            'text' => 'required',
 			'news_id' => 'required|numeric'
         ];
     }

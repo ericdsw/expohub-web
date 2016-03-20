@@ -308,29 +308,6 @@ class SpeakerControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_fails_updating_speaker_with_invalid_parameters()
-	{
-		$parameters = [
-			// Missing name
-			'description' => 'bar'
-		];
-
-		$this->loginForApi();
-
-		$this->mock(SpeakerAccessController::class)
-			->shouldReceive('canUpdateSpeaker')
-			->with(1)
-			->once()
-			->andReturn(true);
-
-		$uploadedFile = $this->generateStubUploadedFile();
-
-		$this->call('PUT', 'api/v1/speakers/1', $parameters, [], ['image' => $uploadedFile]);
-
-		$this->assertResponseStatus(422);
-	}
-
-	/** @test */
 	public function it_fails_updating_speaker_with_invalid_image()
 	{
 		$parameters = [

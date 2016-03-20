@@ -65,7 +65,7 @@ class CommentControllerTest extends BaseControllerTestCase
 	public function it_creates_comment()
 	{
 		$parameters = [
-			'name' => 'foo',
+			'text' => 'foo',
 			'news_id' => 2
 		];
 
@@ -82,7 +82,7 @@ class CommentControllerTest extends BaseControllerTestCase
 	public function it_wont_create_comment_with_invalid_parameters()
 	{
 		$parameters = [
-			// Missing name parameter
+			// Missing text parameter
 			'news_id' => 2
 		];
 
@@ -97,7 +97,7 @@ class CommentControllerTest extends BaseControllerTestCase
 	public function it_wont_create_comment_for_not_logged_users()
 	{
 		$parameters = [
-			'name' => 'foo',
+			'text' => 'foo',
 			'news_id' => 2
 		];
 
@@ -110,7 +110,7 @@ class CommentControllerTest extends BaseControllerTestCase
 	public function it_wont_create_comment_for_users_with_expired_session()
 	{
 		$parameters = [
-			'name' => 'foo',
+			'text' => 'foo',
 			'news_id' => 2
 		];
 
@@ -124,7 +124,7 @@ class CommentControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_updates_existing_comment()
 	{
-		$parameters = ['name' => 'foo'];
+		$parameters = ['text' => 'foo'];
 
 		$this->loginForApi();
 
@@ -141,28 +141,9 @@ class CommentControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_wont_update_existing_comment_with_invalid_parameters()
+	public function it_returns_unauthorized_on_update_comment_if_user_cannot_update_comment()
 	{
-		$parameters = [
-			// Missing name parameter
-		];
-
-		$this->loginForApi();
-
-		$this->mock(CommentAccessController::class)->shouldReceive('canUpdateComment')
-			->with(1)
-			->once()
-			->andReturn(true);
-
-		$this->put('api/v1/comments/1', $parameters);
-
-		$this->assertResponseStatus(422);
-	}
-
-	/** @test */
-	public function it_returns_unauthorized_on_update_comment_if_user_does_not_owns_it()
-	{
-		$parameters = ['name' => 'foo'];
+		$parameters = ['text' => 'foo'];
 
 		$this->loginForApi();
 
@@ -179,7 +160,7 @@ class CommentControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_wont_update_comment_for_not_logged_users()
 	{
-		$parameters = ['name' => 'foo'];
+		$parameters = ['text' => 'foo'];
 
 		$this->put('api/v1/comments/1', $parameters);
 
@@ -189,7 +170,7 @@ class CommentControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_wont_update_comment_for_users_with_expired_session()
 	{
-		$parameters = ['name' => 'foo'];
+		$parameters = ['text' => 'foo'];
 
 		$this->loginForApiWithExpiredToken();
 

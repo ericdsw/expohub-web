@@ -215,26 +215,6 @@ class SponsorRankControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_wont_update_sponsor_rank_with_invalid_parameters()
-	{
-		$parameters = [
-			// No name
-		];
-
-		$this->loginForApi();
-
-		$this->mock(SponsorRankAccessController::class)
-			->shouldReceive('canUpdateSponsorRank')
-			->withNoArgs()
-			->once()
-			->andReturn(true);
-
-		$this->put('api/v1/sponsorRanks/1', $parameters);
-
-		$this->assertResponseStatus(422);
-	}
-
-	/** @test */
 	public function it_deletes_sponsor_rank()
 	{
 		$this->loginForApi();

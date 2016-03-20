@@ -77,9 +77,11 @@ class EventTypeController extends ApiController
 	 */
 	public function update(UpdateEventTypeRequest $request, $id)
 	{
-		$parameters = $request->only('name');
+		$currentEventType = $this->eventTypeRepository->find($id);
 		return $this->respondJson(
-			$this->eventTypeRepository->update($id, $parameters)
+			$this->eventTypeRepository->update($id, [
+				'name' => $request->has('name') ? $request->get('name') : $currentEventType->name
+			])
 		);
 	}
 

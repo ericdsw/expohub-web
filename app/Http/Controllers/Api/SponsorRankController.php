@@ -63,9 +63,12 @@ class SponsorRankController extends ApiController
 	 */
 	public function store(CreateSponsorRankRequest $request)
 	{
+		$parameters = $request->only('name');
+
 		$this->setStatus(Response::HTTP_CREATED);
+
 		return $this->respondJson(
-			$this->sponsorRankRepository->create($request->all())
+			$this->sponsorRankRepository->create($parameters)
 		);
 	}
 
@@ -76,8 +79,12 @@ class SponsorRankController extends ApiController
 	 */
 	public function update(UpdateSponsorRankRequest $request, $id)
 	{
+		$sponsorRank = $this->sponsorRankRepository->find($id);
+
 		return $this->respondJson(
-			$this->sponsorRankRepository->update($id, $request->all())
+			$this->sponsorRankRepository->update($id, [
+				'name' => $request->has('name') ? $request->get('name') : $sponsorRank->name
+			])
 		);
 	}
 

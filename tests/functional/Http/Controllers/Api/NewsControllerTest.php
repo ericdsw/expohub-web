@@ -289,27 +289,6 @@ class NewsControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_fails_updating_news_with_incorrect_parameters()
-	{
-		$parameters = [
-			// No Title
-			'content' => 'bar',
-		];
-
-		$this->loginForApi();
-
-		$this->mock(NewsAccessController::class)
-			->shouldReceive('canUpdateNews')
-			->with(1)
-			->once()
-			->andReturn(true);
-
-		$this->call('PUT', 'api/v1/news/1', $parameters);
-
-		$this->assertResponseStatus(422);
-	}
-
-	/** @test */
 	public function it_fails_updating_news_with_incorrect_image()
 	{
 		$parameters = [

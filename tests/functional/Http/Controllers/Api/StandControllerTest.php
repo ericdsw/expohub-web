@@ -302,29 +302,6 @@ class StandControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_wont_update_stand_with_invalid_parameters()
-	{
-		$parameters = [
-			// No name
-			'description' => 'bar'
-		];
-
-		$this->loginForApi();
-
-		$this->mock(StandAccessController::class)
-			->shouldReceive('canUpdateStand')
-			->with(1)
-			->once()
-			->andReturn(true);
-
-		$stubUploadedFile = $this->generateStubUploadedFile();
-
-		$this->call('PUT', 'api/v1/stands/1', $parameters, [], ['image' => $stubUploadedFile]);
-
-		$this->assertResponseStatus(422);
-	}
-
-	/** @test */
 	public function it_wont_update_stand_with_invalid_image()
 	{
 		$parameters = [
