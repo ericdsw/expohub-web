@@ -19,10 +19,10 @@ class StandTransformer extends BaseTransformer
 	public function transform(Stand $stand)
 	{
 		return [
-			'id' => (int) $stand->id,
-			'name' => $stand->name,
-			'description' => $stand->description,
-			'image' => $stand->image
+			'id' 			=> (int) $stand->id,
+			'name' 			=> $stand->name,
+			'description' 	=> $stand->description,
+			'image' 		=> $stand->image
 		];
 	}
 

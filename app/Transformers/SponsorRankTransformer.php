@@ -19,8 +19,8 @@ class SponsorRankTransformer extends BaseTransformer
 	public function transform(SponsorRank $sponsorRank)
 	{
 		return [
-			'id' => (int) $sponsorRank->id,
-			'name' => $sponsorRank->name
+			'id' 	=> (int) $sponsorRank->id,
+			'name' 	=> $sponsorRank->name
 		];
 	}
 

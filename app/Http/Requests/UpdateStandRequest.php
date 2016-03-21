@@ -28,9 +28,9 @@ class UpdateStandRequest extends Request
     public function rules()
     {
         return [
-			'name' => 'required',
-			'description' => 'required',
-			'image' => 'mimes:jpg,jpeg,png',
+			'name' 			=> 'required',
+			'description' 	=> 'required',
+			'image' 		=> 'mimes:jpg,jpeg,png',
         ];
     }
 

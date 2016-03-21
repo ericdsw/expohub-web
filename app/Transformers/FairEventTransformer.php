@@ -21,12 +21,12 @@ class FairEventTransformer extends BaseTransformer
 	public function transform(FairEvent $fairEvent)
 	{
 		return [
-			'id' => (int) $fairEvent->id,
-			'title' => $fairEvent->title,
-			'image' => $fairEvent->image,
-			'description' => $fairEvent->description,
-			'date' => $fairEvent->date,
-			'location' => $fairEvent->location
+			'id' 			=> (int) $fairEvent->id,
+			'title' 		=> $fairEvent->title,
+			'image' 		=> $fairEvent->image,
+			'description' 	=> $fairEvent->description,
+			'date' 			=> $fairEvent->date,
+			'location' 		=> $fairEvent->location
 		];
 	}
 

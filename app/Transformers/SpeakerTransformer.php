@@ -19,10 +19,10 @@ class SpeakerTransformer extends BaseTransformer
 	public function transform(Speaker $speaker)
 	{
 		return [
-			'id' => (int) $speaker->id,
-			'name' => $speaker->name,
-			'picture' => $speaker->picture,
-			'description' => $speaker->description
+			'id' 			=> (int) $speaker->id,
+			'name' 			=> $speaker->name,
+			'picture' 		=> $speaker->picture,
+			'description' 	=> $speaker->description
 		];
 	}
 

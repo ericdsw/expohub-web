@@ -28,8 +28,8 @@ class UpdateFairRequest extends Request
     public function rules()
     {
 		return [
-			'image' => 'mimes:jpg,jpeg,png',
-			'latitude' => 'numeric',
+			'image' 	=> 'mimes:jpg,jpeg,png',
+			'latitude' 	=> 'numeric',
 			'longitude' => 'numeric'
 		];
     }

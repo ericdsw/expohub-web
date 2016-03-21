@@ -28,8 +28,8 @@ class CreateCategoryRequest extends Request
     public function rules()
     {
         return [
-			'name' => 'required',
-			'fair_id' => 'required'
+			'name' 		=> 'required',
+			'fair_id' 	=> 'required'
         ];
     }
 
