@@ -29,7 +29,7 @@ class CreateCategoryRequest extends Request
     {
         return [
 			'name' 		=> 'required',
-			'fair_id' 	=> 'required'
+			'fair_id' 	=> 'required|numeric'
         ];
     }
 

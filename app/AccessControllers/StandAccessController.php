@@ -32,8 +32,8 @@ class StandAccessController
 	 */
 	public function canCreateStandForFair($fairId)
 	{
-		return $this->jwtAuth->parseToken()->toUser()->fairs->lists('id')
-			->contains($fairId);
+		return $this->jwtAuth->parseToken()->toUser()->fairs
+			->contains('id', $fairId);
 	}
 
 	/**

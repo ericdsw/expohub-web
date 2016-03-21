@@ -33,7 +33,7 @@ class MapAccessController
 	public function canCreateMapForFair($fairId)
 	{
 		return $this->jwtAuth->parseToken()->toUser()
-			->fairs->lists('id')->contains($fairId);
+			->fairs->contains('id', $fairId);
 	}
 
 	/**
