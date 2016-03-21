@@ -24,15 +24,15 @@ class CreateFairRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-			'image' => 'required|mimes:jpg,jpeg,png',
-			'description' => 'required',
-			'website' => 'required',
+            'name' 			=> 'required',
+			'image'	 		=> 'required|mimes:jpg,jpeg,png',
+			'description' 	=> 'required',
+			'website' 		=> 'required',
 			'starting_date' => 'required',
-			'ending_date' => 'required',
-			'address' => 'required',
-			'latitude' => 'required|numeric',
-			'longitude' => 'required|numeric'
+			'ending_date' 	=> 'required',
+			'address' 		=> 'required',
+			'latitude' 		=> 'required|numeric',
+			'longitude' 	=> 'required|numeric'
         ];
     }
 

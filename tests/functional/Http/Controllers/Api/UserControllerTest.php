@@ -93,7 +93,7 @@ class UserControllerTest extends BaseControllerTestCase
 
 		$this->post('api/v1/users', $parameters);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'user']);
 	}
@@ -307,26 +307,6 @@ class UserControllerTest extends BaseControllerTestCase
 		$this->put('api/v1/users/1', $parameters);
 
 		$this->assertResponseStatus(401);
-	}
-
-	/** @test */
-	public function it_wont_update_user_with_invalid_parameters()
-	{
-		$parameters = [
-			// Missing name
-		];
-
-		$this->loginForApi();
-
-		$this->mock(UserAccessController::class)
-			->shouldReceive('canUpdateUser')
-			->withNoArgs()
-			->once()
-			->andReturn(true);
-
-		$this->put('api/v1/users/1', $parameters);
-
-		$this->assertResponseStatus(422);
 	}
 
 	/** @test */

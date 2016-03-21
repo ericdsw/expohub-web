@@ -31,8 +31,8 @@ class SponsorAccessController
 	 */
 	public function canCreateSponsorForFair($fairId)
 	{
-		return $this->jwtAuth->parseToken()->toUser()->fairs->lists('id')
-			->contains($fairId);
+		return $this->jwtAuth->parseToken()->toUser()->fairs
+			->contains('id', $fairId);
 	}
 
 	/**

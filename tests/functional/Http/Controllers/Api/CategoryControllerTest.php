@@ -80,7 +80,7 @@ class CategoryControllerTest extends BaseControllerTestCase
 
 		$this->post('api/v1/categories', $parameters);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'category']);
 	}
@@ -178,7 +178,7 @@ class CategoryControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_returns_unauthorized_on_update_category_if_user_does_not_own_the_related_fair()
+	public function it_returns_unauthorized_on_update_category_if_user_cannot_update_category()
 	{
 		$parameters = ['name' => 'foo'];
 
@@ -215,26 +215,6 @@ class CategoryControllerTest extends BaseControllerTestCase
 		$this->put('api/v1/categories/1', $parameters);
 
 		$this->assertResponseStatus(401);
-	}
-
-	/** @test */
-	public function it_wont_update_existing_category_with_invalid_parameters()
-	{
-		$parameters = [
-			// Missing name parameter
-		];
-
-		$this->loginForApi();
-
-		$this->mock(CategoryAccessController::class)
-			->shouldReceive('canUpdateCategory')
-			->with(1)
-			->once()
-			->andReturn(true);
-
-		$this->put('api/v1/categories/1', $parameters);
-
-		$this->assertResponseStatus(422);
 	}
 
 	/** @test */

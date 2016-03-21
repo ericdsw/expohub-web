@@ -28,10 +28,10 @@ class CreateNewsRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required',
-			'content' => 'required',
-			'image' => 'required|mimes:jpg,jpeg,png',
-			'fair_id' => 'required|numeric'
+            'title' 	=> 'required',
+			'content' 	=> 'required',
+			'image' 	=> 'required|mimes:jpg,jpeg,png',
+			'fair_id' 	=> 'required|numeric'
         ];
     }
 

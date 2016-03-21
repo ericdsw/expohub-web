@@ -20,8 +20,8 @@ class CommentTransformer extends BaseTransformer
 	public function transform(Comment $comment)
 	{
 		return [
-			'id' => (int) $comment->id,
-			'text' => $comment->text,
+			'id' 	=> (int) $comment->id,
+			'text' 	=> $comment->text,
 		];
 	}
 

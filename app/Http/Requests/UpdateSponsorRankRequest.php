@@ -26,7 +26,7 @@ class UpdateSponsorRankRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required'
+
         ];
     }
 

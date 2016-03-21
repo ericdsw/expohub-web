@@ -21,10 +21,10 @@ class NewsTransformer extends BaseTransformer
 	public function transform(News $news)
 	{
 		return [
-			'id' => (int) $news->id,
-			'title' => $news->title,
-			'content' => $news->content,
-			'image' => $news->image
+			'id' 		=> (int) $news->id,
+			'title' 	=> $news->title,
+			'content' 	=> $news->content,
+			'image' 	=> $news->image
 		];
 	}
 

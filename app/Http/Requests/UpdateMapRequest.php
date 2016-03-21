@@ -28,7 +28,6 @@ class UpdateMapRequest extends Request
     public function rules()
     {
 		return [
-			'name' => 'required',
 			'image' => 'mimes:jpg,jpeg,png'
 		];
     }

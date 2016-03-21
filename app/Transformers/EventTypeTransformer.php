@@ -18,8 +18,8 @@ class EventTypeTransformer extends BaseTransformer
 	public function transform(EventType $eventType)
 	{
 		return [
-			'id' => (int) $eventType->id,
-			'name' => $eventType->name
+			'id' 	=> (int) $eventType->id,
+			'name' 	=> $eventType->name
 		];
 	}
 

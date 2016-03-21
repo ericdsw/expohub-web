@@ -28,9 +28,9 @@ class CreateSpeakerRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-			'image' => 'required|mimes:jpg,jpeg,png',
-			'description' => 'required',
+            'name' 			=> 'required',
+			'image' 		=> 'required|mimes:jpg,jpeg,png',
+			'description'	=> 'required',
 			'fair_event_id' => 'required|numeric'
         ];
     }

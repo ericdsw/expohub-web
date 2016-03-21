@@ -11,6 +11,7 @@ use ExpoHub\Repositories\Contracts\SpeakerRepository;
 use ExpoHub\Transformers\SpeakerTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 
@@ -60,9 +61,13 @@ class SpeakerController extends ApiController
 	 */
 	public function store(CreateSpeakerRequest $request, FileManager $fileManager)
 	{
-		$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+		$imageUrl 	= $fileManager->uploadFile('/uploads', $request->file('image'));
+		$parameters = $request->only('name', 'image', 'description', 'fair_event_id');
+
+		$this->setStatus(Response::HTTP_CREATED);
+
 		return $this->respondJson(
-			$this->speakerRepository->create(array_merge($request->all(), [
+			$this->speakerRepository->create(array_merge($parameters, [
 				'picture' => $imageUrl
 			]))
 		);
@@ -76,15 +81,20 @@ class SpeakerController extends ApiController
 	 */
 	public function update(UpdateSpeakerRequest $request, FileManager $fileManager, $id)
 	{
-		$imageUrl = $this->speakerRepository->find($id)->picture;
+		$speaker 	= $this->speakerRepository->find($id);
+		$imageUrl 	= $speaker->picture;
+
 		if($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
 			$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
 		}
+
 		return $this->respondJson(
-			$this->speakerRepository->update($id, array_merge($request->all(), [
-				'picture' => $imageUrl
-			]))
+			$this->speakerRepository->update($id, [
+				'name' 			=> $request->has('name') ? $request->get('name') : $speaker->name,
+				'image' 		=> $imageUrl,
+				'description' 	=> $request->has('description') ? $request->get('description') : $speaker->description
+			])
 		);
 	}
 

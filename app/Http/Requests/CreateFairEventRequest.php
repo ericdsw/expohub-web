@@ -26,12 +26,12 @@ class CreateFairEventRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required',
-			'image' => 'required|mimes:jpg,jpeg,png',
-			'description' => 'required',
-			'date' => 'required',
-			'location' => 'required',
-			'fair_id' => 'required|numeric',
+            'title' 		=> 'required',
+			'image' 		=> 'required|mimes:jpg,jpeg,png',
+			'description' 	=> 'required',
+			'date' 			=> 'required',
+			'location' 		=> 'required',
+			'fair_id'	 	=> 'required|numeric',
 			'event_type_id' => 'required|numeric'
         ];
     }

@@ -28,9 +28,9 @@ class CreateMapRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-			'image' => 'required|mimes:jpg,jpeg,png',
-			'fair_id' => 'required|numeric'
+            'name' 		=> 'required',
+			'image' 	=> 'required|mimes:jpg,jpeg,png',
+			'fair_id' 	=> 'required|numeric'
         ];
     }
 

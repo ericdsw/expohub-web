@@ -28,12 +28,12 @@ class CreateSponsorRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-			'image' => 'required|mimes:jpg,jpeg,png',
-			'slogan' => 'required',
-			'website' => 'required',
-			'fair_id' => 'required|numeric',
-			'sponsor_rank_id' => 'required|numeric'
+            'name' 				=> 'required',
+			'image'	 			=> 'required|mimes:jpg,jpeg,png',
+			'slogan' 			=> 'required',
+			'website' 			=> 'required',
+			'fair_id' 			=> 'required|numeric',
+			'sponsor_rank_id' 	=> 'required|numeric'
         ];
     }
 

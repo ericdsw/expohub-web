@@ -28,11 +28,7 @@ class UpdateFairEventRequest extends Request
     public function rules()
     {
         return [
-			'title' => 'required',
 			'image' => 'mimes:jpg,jpeg,png',
-			'description' => 'required',
-			'date' => 'required',
-			'location' => 'required'
         ];
     }
 

@@ -7,6 +7,7 @@ use ExpoHub\Http\Controllers\Controller;
 use ExpoHub\Repositories\Contracts\Repository;
 use ExpoHub\Transformers\BaseTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
@@ -24,7 +25,7 @@ abstract class ApiController extends Controller
 	protected $fractal;
 
 	/** @var int */
-	private $statusCode = 200;
+	private $statusCode = Response::HTTP_OK;
 
 	/** @var array */
 	private $headers = [];
@@ -76,7 +77,7 @@ abstract class ApiController extends Controller
 	 */
 	protected function respondNoContent()
 	{
-		$this->setStatus(204);
+		$this->setStatus(Response::HTTP_NO_CONTENT);
 		return $this->respondJson('');
 	}
 
@@ -87,7 +88,7 @@ abstract class ApiController extends Controller
 	 * @param int $statusCode
 	 * @return JsonResponse
 	 */
-	protected function respondError($errors, $statusCode = 400)
+	protected function respondError($errors, $statusCode = Response::HTTP_BAD_REQUEST)
 	{
 		$this->setStatus($statusCode);
 		return $this->respondJson(['errors' => $errors]);
@@ -100,7 +101,7 @@ abstract class ApiController extends Controller
 	 */
 	protected function respondUnauthorized()
 	{
-		$this->setStatus(403);
+		$this->setStatus(Response::HTTP_FORBIDDEN);
 		return $this->respondJson([
 			'errors' => [
 				'title' 		=> 'unauthorized',

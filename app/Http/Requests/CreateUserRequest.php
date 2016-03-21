@@ -26,10 +26,10 @@ class CreateUserRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-			'username' => 'required',
-			'email' => 'required|email',
-			'password' => 'required'
+            'name' 		=> 'required',
+			'username' 	=> 'required',
+			'email' 	=> 'required|email',
+			'password' 	=> 'required'
         ];
     }
 

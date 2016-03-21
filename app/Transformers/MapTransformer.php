@@ -17,8 +17,8 @@ class MapTransformer extends BaseTransformer
 	public function transform(Map $map)
 	{
 		return [
-			'id' => $map->id,
-			'name' => $map->name,
+			'id' 	=> $map->id,
+			'name' 	=> $map->name,
 			'image' => $map->image
 		];
 	}

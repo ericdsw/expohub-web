@@ -20,8 +20,8 @@ class CategoryTransformer extends BaseTransformer
 	public function transform(Category $category)
 	{
 		return [
-			'id' => (int) $category->id,
-			'name' => $category->name
+			'id' 	=> (int) $category->id,
+			'name' 	=> $category->name
 		];
 	}
 

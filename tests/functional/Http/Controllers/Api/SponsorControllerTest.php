@@ -87,7 +87,7 @@ class SponsorControllerTest extends BaseControllerTestCase
 
 		$this->call('POST', 'api/v1/sponsors', $parameters, [], ['image' => $uploadedFile]);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'sponsor']);
 	}
@@ -323,28 +323,6 @@ class SponsorControllerTest extends BaseControllerTestCase
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'sponsor']);
-	}
-
-	/** @test */
-	public function it_fails_updating_sponsor_with_invalid_parameters()
-	{
-		$parameters = [
-			// No name
-			'slogan' => 'bar',
-			'website' => 'baz'
-		];
-
-		$this->loginForApi();
-
-		$this->mock(SponsorAccessController::class)
-			->shouldReceive('canUpdateSponsor')
-			->with(1)
-			->once()
-			->andReturn(true);
-
-		$this->call('PUT', 'api/v1/sponsors/1', $parameters);
-
-		$this->assertResponseStatus(422);
 	}
 
 	/** @test */
