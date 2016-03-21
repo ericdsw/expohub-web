@@ -83,7 +83,7 @@ class MapControllerTest extends BaseControllerTestCase
 
 		$this->call('POST', 'api/v1/maps', $parameters, [], ['image' => $uploadedFile]);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'map']);
 	}
@@ -267,7 +267,7 @@ class MapControllerTest extends BaseControllerTestCase
 	}
 
 	/** @test */
-	public function it_wont_update_map_for§_not_logged_in_users()
+	public function it_wont_update_map_for_not_logged_in_users()
 	{
 		$parameters = [
 			'name' => 'foo',
@@ -290,28 +290,6 @@ class MapControllerTest extends BaseControllerTestCase
 		$this->call('PUT', 'api/v1/maps/1', $parameters);
 
 		$this->assertResponseStatus(401);
-	}
-
-	/** @test */
-	public function it_fails_updating_map_with_invalid_parameters()
-	{
-		$parameters = [
-			// Name parameter missing
-		];
-
-		$this->loginForApi();
-
-		$this->mock(MapAccessController::class)
-			->shouldReceive('canUpdateMap')
-			->with(1)
-			->once()
-			->andReturn(true);
-
-		$uploadedFile = $this->generateStubUploadedFile();
-
-		$this->call('PUT', 'api/v1/maps/1', $parameters, [], ['image' => $uploadedFile]);
-
-		$this->assertResponseStatus(422);
 	}
 
 	/** @test */

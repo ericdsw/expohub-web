@@ -11,6 +11,7 @@ use ExpoHub\Repositories\Contracts\NewsRepository;
 use ExpoHub\Transformers\NewsTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 
@@ -61,6 +62,9 @@ class NewsController extends ApiController
 	public function store(CreateNewsRequest $request, FileManager $fileManager)
 	{
 		$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+
+		$this->setStatus(Response::HTTP_CREATED);
+
 		return $this->respondJson(
 			$this->newsRepository->create(array_merge($request->all(), [
 				'image' => $imageUrl
@@ -76,15 +80,20 @@ class NewsController extends ApiController
 	 */
 	public function update(UpdateNewsRequest $request, FileManager $fileManager, $id)
 	{
-		$imageUrl = $this->newsRepository->find($id);
+		$news 		= $this->newsRepository->find($id);
+		$imageUrl 	= $news->image;
+
 		if($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
 			$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
 		}
+
 		return $this->respondJson(
-			$this->newsRepository->update($id, array_merge($request->all(), [
-				'image' => $imageUrl
-			]))
+			$this->newsRepository->update($id, [
+				'title' 	=> $request->has('title') ? $request->get('title') : $news->title,
+				'content' 	=> $request->has('content') ? $request->get('content') : $news->content,
+				'image' 	=> $imageUrl
+			])
 		);
 	}
 

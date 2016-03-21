@@ -136,7 +136,7 @@ class ApiControllerTest extends BaseControllerTestCase
 
 		$this->post('api/v1/register', $parameters);
 
-		$this->assertResponseOk();
+		$this->assertResponseStatus(201);
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'user']);
 		$this->seeJsonContains(['token' => $token]);

@@ -13,9 +13,9 @@ use ExpoHub\Helpers\Generators\Contracts\NameGenerator;
 
 class FileManager implements FileManagerContract
 {
-	const THUMBNAIL_TARGET_WIDTH = 50;
-	const THUMBNAIL_TARGET_HEIGHT = 50;
-	const THUMBNAIL_DEFAULT_FORMAT = "jpg";
+	const THUMBNAIL_TARGET_WIDTH 	= 50;
+	const THUMBNAIL_TARGET_HEIGHT 	= 50;
+	const THUMBNAIL_DEFAULT_FORMAT 	= "jpg";
 	const THUMBNAIL_DEFAULT_QUALITY = 90;
 
 	private $filesystem;

@@ -31,8 +31,8 @@ class CommentAccessController
 	 */
 	public function canUpdateComment($commentId)
 	{
-		return $this->jwtAuth->parseToken()->toUser()->comments->lists('id')
-			->contains($commentId);
+		return $this->jwtAuth->parseToken()->toUser()->comments
+			->contains('id', $commentId);
 	}
 
 	/**

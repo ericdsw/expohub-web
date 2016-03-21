@@ -31,7 +31,7 @@ class CategoryAccessController
 	public function canCreateCategoryForFair($fairId)
 	{
 		return $this->jwtAuth->parseToken()->toUser()
-			->fairs->lists('id')->contains($fairId);
+			->fairs->contains('id', $fairId);
 	}
 
 	/**

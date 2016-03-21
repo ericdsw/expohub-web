@@ -28,10 +28,10 @@ class CreateStandRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-			'description' => 'required',
-			'image' => 'required|mimes:jpg,jpeg,png',
-			'fair_id' => 'required|numeric'
+            'name' 			=> 'required',
+			'description' 	=> 'required',
+			'image' 		=> 'required|mimes:jpg,jpeg,png',
+			'fair_id' 		=> 'required|numeric'
         ];
     }
 

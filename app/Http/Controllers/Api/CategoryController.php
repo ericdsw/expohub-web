@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use ExpoHub\Repositories\Contracts\CategoryRepository;
 use ExpoHub\Transformers\CategoryTransformer;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
 
@@ -65,6 +66,7 @@ class CategoryController extends ApiController
 	 */
 	public function store(CreateCategoryRequest $request)
 	{
+		$this->setStatus(Response::HTTP_CREATED);
 		return $this->respondJson(
 			$this->categoryRepository->create($request->only('name', 'fair_id'))
 		);
@@ -79,8 +81,11 @@ class CategoryController extends ApiController
 	 */
 	public function update(UpdateCategoryRequest $request, $id)
 	{
+		$updatingCategory = $this->categoryRepository->find($id);
 		return $this->respondJson(
-			$this->categoryRepository->update($id, $request->only('name', 'fair_id'))
+			$this->categoryRepository->update($id, [
+				'name' => $request->has('name') ? $request->get('name') : $updatingCategory->name
+			])
 		);
 	}
 

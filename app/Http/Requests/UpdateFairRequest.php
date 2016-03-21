@@ -28,15 +28,9 @@ class UpdateFairRequest extends Request
     public function rules()
     {
 		return [
-			'name' => 'required',
-			'image' => 'mimes:jpg,jpeg,png',
-			'description' => 'required',
-			'website' => 'required',
-			'starting_date' => 'required',
-			'ending_date' => 'required',
-			'address' => 'required',
-			'latitude' => 'required|numeric',
-			'longitude' => 'required|numeric'
+			'image' 	=> 'mimes:jpg,jpeg,png',
+			'latitude' 	=> 'numeric',
+			'longitude' => 'numeric'
 		];
     }
 
