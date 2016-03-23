@@ -87,7 +87,7 @@ class FairEventControllerTest extends BaseControllerTestCase
 		];
 
 		$fileManager->shouldReceive('uploadFile')
-			->with('/uploads', $uploadedFile)
+			->with('uploads/', $uploadedFile)
 			->once()
 			->andReturn('foo');
 
@@ -238,7 +238,7 @@ class FairEventControllerTest extends BaseControllerTestCase
 		];
 
 		$fileManager->shouldReceive('uploadFile')
-			->with('/uploads', $uploadedFile)
+			->with('uploads/', $uploadedFile)
 			->once()
 			->andReturn('foo');
 

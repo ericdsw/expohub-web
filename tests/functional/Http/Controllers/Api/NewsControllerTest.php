@@ -82,7 +82,7 @@ class NewsControllerTest extends BaseControllerTestCase
 
 		$this->mock(FileManager::class)
 			->shouldReceive('uploadFile')
-			->with('/uploads', $uploadedFile)
+			->with('uploads/', $uploadedFile)
 			->once();
 
 		$this->call('POST', 'api/v1/news', $parameters, [], ['image' => $uploadedFile]);
@@ -203,7 +203,7 @@ class NewsControllerTest extends BaseControllerTestCase
 		$fileManager  = $this->mock(FileManager::class);
 
 		$fileManager->shouldReceive('uploadFile')
-			->with('/uploads', $uploadedFile)
+			->with('uploads/', $uploadedFile)
 			->once();
 		$fileManager->shouldReceive('deleteFile')
 			->withAnyArgs()

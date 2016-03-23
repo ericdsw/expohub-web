@@ -64,7 +64,7 @@ class FairEventController extends ApiController
 	public function store(CreateFairEventRequest $request, FileManager $fileManager)
 	{
 		$parameters = $request->only('title', 'description', 'date', 'location', 'fair_id', 'event_type_id');
-		$imageUrl 	= $fileManager->uploadFile('/uploads', $request->file('image'));
+		$imageUrl 	= $fileManager->uploadFile('uploads/', $request->file('image'));
 
 		$this->setStatus(Response::HTTP_CREATED);
 
@@ -86,7 +86,7 @@ class FairEventController extends ApiController
 		$currentImage 	= $fairEvent->image;
 
 		if($request->hasFile('image')) {
-			$currentImage = $fileManager->uploadFile('/uploads', $request->file('image'));
+			$currentImage = $fileManager->uploadFile('uploads/', $request->file('image'));
 		}
 
 		$fairEvent = $this->repository->update($id, [

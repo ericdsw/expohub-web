@@ -62,7 +62,7 @@ class SponsorController extends ApiController
 	 */
 	public function store(CreateSponsorRequest $request, FileManager $fileManager)
 	{
-		$imageUrl 	= $fileManager->uploadFile('/uploads', $request->file('image'));
+		$imageUrl 	= $fileManager->uploadFile('uploads/', $request->file('image'));
 		$parameters = $request->only('name', 'slogan', 'website', 'fair_id', 'sponsor_rank_id');
 
 		$this->setStatus(Response::HTTP_CREATED);
@@ -87,7 +87,7 @@ class SponsorController extends ApiController
 
 		if($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
-			$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+			$imageUrl = $fileManager->uploadFile('uploads/', $request->file('image'));
 		}
 
 		return $this->respondJson(
