@@ -22,7 +22,7 @@ class StandTransformer extends BaseTransformer
 			'id' 			=> (int) $stand->id,
 			'name' 			=> $stand->name,
 			'description' 	=> $stand->description,
-			'image' 		=> $stand->image
+			'image' 		=> $stand->imageUrl()
 		];
 	}
 

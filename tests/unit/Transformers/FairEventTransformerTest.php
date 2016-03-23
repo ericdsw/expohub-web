@@ -25,7 +25,7 @@ class FairEventTransformerTest extends TestCase
 		$this->assertEquals([
 			'id' => 1,
 			'title' => 'fair-event-title',
-			'image' => 'fair-event-image',
+			'image' => asset('fair-event-image'),
 			'description' => 'fair-event-description',
 			'date' => Carbon::now(),
 			'location' => 'fair-event-location'

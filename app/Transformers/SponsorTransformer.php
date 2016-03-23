@@ -22,7 +22,7 @@ class SponsorTransformer extends BaseTransformer
 		return [
 			'id' 		=> (int) $sponsor->id,
 			'name' 		=> $sponsor->name,
-			'logo' 		=> $sponsor->logo,
+			'logo' 		=> $sponsor->imageUrl(),
 			'slogan' 	=> $sponsor->slogan,
 			'website' 	=> $sponsor->website
 		];

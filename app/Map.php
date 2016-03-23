@@ -28,6 +28,20 @@ class Map extends Model
     protected $fillable = ["name", "image", "fair_id"];
 
 	/**
+	 * Returns formatted image url depending on storage
+	 *
+	 * @return string
+	 */
+	public function imageUrl()
+	{
+		if(getenv('FILESYSTEM') == 'local') {
+			return asset($this->image);
+		} else {
+			return 'https://s3.amazonaws.com/expo-hub/' . $this->image;
+		}
+	}
+
+	/**
 	 * Fair where this map was registered
 	 *
 	 * @return BelongsTo

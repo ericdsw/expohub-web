@@ -21,7 +21,7 @@ class SpeakerTransformer extends BaseTransformer
 		return [
 			'id' 			=> (int) $speaker->id,
 			'name' 			=> $speaker->name,
-			'picture' 		=> $speaker->picture,
+			'picture' 		=> $speaker->imageUrl(),
 			'description' 	=> $speaker->description
 		];
 	}

@@ -24,7 +24,7 @@ class MapTransformerTest extends TestCase
 		$this->assertEquals([
 			'id' => 1,
 			'name' => 'map-name',
-			'image' => 'map-image'
+			'image' => asset('map-image')
 		], $transformedArray);
 	}
 
