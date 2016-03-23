@@ -14,7 +14,8 @@
         "intervention/image": "^2.3",
         "league/fractal": "^0.13.0",
         "tymon/jwt-auth": "0.5.*",
-        "fzaninotto/faker": "~1.4"
+        "fzaninotto/faker": "~1.4",
+        "league/flysystem-aws-s3-v3": "^1.0"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
