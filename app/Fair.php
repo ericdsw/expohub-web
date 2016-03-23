@@ -55,6 +55,20 @@ class Fair extends Model
 	protected $dates = ["starting_date", "ending_date"];
 
 	/**
+	 * Returns formatted image url depending on storage
+	 *
+	 * @return string
+	 */
+	public function imageUrl()
+	{
+		if(getenv('FILESYSTEM') == 'local') {
+			return asset($this->image);
+		} else {
+			return 'https://s3.amazonaws.com/expo-hub/' . $this->image;
+		}
+	}
+
+	/**
 	 * the user that created the event
 	 *
 	 * @return BelongsTo

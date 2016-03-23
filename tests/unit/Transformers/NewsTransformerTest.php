@@ -25,7 +25,7 @@ class NewsTransformerTest extends TestCase
 			'id' => 1,
 			'title' => 'news-title',
 			'content' => 'news-content',
-			'image' => 'news-image'
+			'image' => asset('news-image')
 		], $transformedArray);
 	}
 

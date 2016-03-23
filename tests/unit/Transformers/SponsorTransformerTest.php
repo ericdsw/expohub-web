@@ -24,7 +24,7 @@ class SponsorTransformerTest extends TestCase
 		$this->assertEquals([
 			'id' => 1,
 			'name' => 'sponsor-name',
-			'logo' => 'sponsor-logo',
+			'logo' => asset('sponsor-logo'),
 			'slogan' => 'sponsor-slogan',
 			'website' => 'sponsor-website'
 		], $transformedArray);

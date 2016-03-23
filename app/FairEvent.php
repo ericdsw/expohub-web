@@ -44,6 +44,20 @@ class FairEvent extends Model
 	protected $dates	= ['date'];
 
 	/**
+	 * Returns formatted image url depending on storage
+	 *
+	 * @return string
+	 */
+	public function imageUrl()
+	{
+		if(getenv('FILESYSTEM') == 'local') {
+			return asset($this->image);
+		} else {
+			return 'https://s3.amazonaws.com/expo-hub/' . $this->image;
+		}
+	}
+
+	/**
 	 * Fair the event was registered
 	 *
 	 * @return BelongsTo

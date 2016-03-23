@@ -55,7 +55,7 @@ class StandController extends ApiController
 	 */
 	public function store(CreateStandRequest $request, FileManager $fileManager)
 	{
-		$imageUrl 	= $fileManager->uploadFile('/uploads', $request->file('image'));
+		$imageUrl 	= $fileManager->uploadFile('uploads/', $request->file('image'));
 		$parameters = $request->only('name', 'image', 'fair_id');
 
 		$this->setStatus(Response::HTTP_CREATED);
@@ -80,7 +80,7 @@ class StandController extends ApiController
 
 		if($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
-			$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+			$imageUrl = $fileManager->uploadFile('uploads/', $request->file('image'));
 		}
 
 		return $this->respondJson(

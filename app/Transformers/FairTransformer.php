@@ -24,7 +24,7 @@ class FairTransformer extends BaseTransformer
 		return [
 			'id' 			=> (int) $fair->id,
 			'name'	 		=> $fair->name,
-			'image' 		=> $fair->image,
+			'image' 		=> $fair->imageUrl(),
 			'description' 	=> $fair->description,
 			'website' 		=> $fair->website,
 			'starting_date' => $fair->starting_date,

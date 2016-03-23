@@ -24,7 +24,7 @@ class SpeakerTransformerTest extends TestCase
 		$this->assertEquals([
 			'id' => 1,
 			'name' => 'speaker-name',
-			'picture' => 'speaker-picture',
+			'picture' => asset('speaker-picture'),
 			'description' => 'speaker-description'
 		], $transformedArray);
 	}

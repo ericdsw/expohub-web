@@ -32,6 +32,20 @@ class News extends Model
     protected $fillable = ["title", "content", "image", "fair_id"];
 
 	/**
+	 * Returns formatted image url depending on storage
+	 *
+	 * @return string
+	 */
+	public function imageUrl()
+	{
+		if(getenv('FILESYSTEM') == 'local') {
+			return asset($this->image);
+		} else {
+			return 'https://s3.amazonaws.com/expo-hub/' . $this->image;
+		}
+	}
+
+	/**
 	 * Fair where this news was posted
 	 *
 	 * @return BelongsTo

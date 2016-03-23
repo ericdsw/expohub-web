@@ -19,7 +19,7 @@ class MapTransformer extends BaseTransformer
 		return [
 			'id' 	=> $map->id,
 			'name' 	=> $map->name,
-			'image' => $map->image
+			'image' => $map->imageUrl()
 		];
 	}
 

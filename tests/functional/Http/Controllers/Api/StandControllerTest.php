@@ -79,7 +79,7 @@ class StandControllerTest extends BaseControllerTestCase
 		$stubUploadedFile = $this->generateStubUploadedFile();
 
 		$this->mock(FileManager::class)->shouldReceive('uploadFile')
-			->with('/uploads', $stubUploadedFile)
+			->with('uploads/', $stubUploadedFile)
 			->once();
 
 		$this->call('POST', 'api/v1/stands', $parameters, [], ['image' => $stubUploadedFile]);
@@ -215,7 +215,7 @@ class StandControllerTest extends BaseControllerTestCase
 		$fileManager = $this->mock(FileManager::class);
 
 		$fileManager->shouldReceive('uploadFile')
-			->with('/uploads', $stubUploadedFile)
+			->with('uploads/', $stubUploadedFile)
 			->once();
 
 		$fileManager->shouldReceive('deleteFile')

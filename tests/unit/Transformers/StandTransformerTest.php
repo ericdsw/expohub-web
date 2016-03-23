@@ -25,7 +25,7 @@ class StandTransformerTest extends TestCase
 			'id' => 1,
 			'name' => 'stand-name',
 			'description' => 'stand-description',
-			'image' => 'stand-image'
+			'image' => asset('stand-image')
 		], $transformedArray);
 	}
 

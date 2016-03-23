@@ -30,6 +30,20 @@ class Stand extends Model
 	protected $fillable = ['name', 'description', 'image', 'fair_id'];
 
 	/**
+	 * Returns formatted image url depending on storage
+	 *
+	 * @return string
+	 */
+	public function imageUrl()
+	{
+		if(getenv('FILESYSTEM') == 'local') {
+			return asset($this->image);
+		} else {
+			return 'https://s3.amazonaws.com/expo-hub/' . $this->image;
+		}
+	}
+
+	/**
 	 * Fair where it was registered'
 	 *
 	 * @return BelongsTo

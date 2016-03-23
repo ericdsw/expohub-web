@@ -61,7 +61,7 @@ class SpeakerController extends ApiController
 	 */
 	public function store(CreateSpeakerRequest $request, FileManager $fileManager)
 	{
-		$imageUrl 	= $fileManager->uploadFile('/uploads', $request->file('image'));
+		$imageUrl 	= $fileManager->uploadFile('uploads/', $request->file('image'));
 		$parameters = $request->only('name', 'image', 'description', 'fair_event_id');
 
 		$this->setStatus(Response::HTTP_CREATED);
@@ -86,7 +86,7 @@ class SpeakerController extends ApiController
 
 		if($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
-			$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+			$imageUrl = $fileManager->uploadFile('uploads/', $request->file('image'));
 		}
 
 		return $this->respondJson(

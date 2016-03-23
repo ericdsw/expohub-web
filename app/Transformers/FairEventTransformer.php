@@ -23,7 +23,7 @@ class FairEventTransformer extends BaseTransformer
 		return [
 			'id' 			=> (int) $fairEvent->id,
 			'title' 		=> $fairEvent->title,
-			'image' 		=> $fairEvent->image,
+			'image' 		=> $fairEvent->imageUrl(),
 			'description' 	=> $fairEvent->description,
 			'date' 			=> $fairEvent->date,
 			'location' 		=> $fairEvent->location
