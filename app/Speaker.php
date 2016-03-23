@@ -30,6 +30,20 @@ class Speaker extends Model
     protected $fillable = ["name", "picture", "description", "fair_event_id"];
 
 	/**
+	 * Returns formatted image url depending on storage
+	 *
+	 * @return string
+	 */
+	public function imageUrl()
+	{
+		if(getenv('FILESYSTEM') == 'local') {
+			return asset($this->picture);
+		} else {
+			return 'https://s3.amazonaws.com/expo-hub/' . $this->picture;
+		}
+	}
+
+	/**
 	 * The fair event this speaker is participating
 	 *
 	 * @return BelongsTo

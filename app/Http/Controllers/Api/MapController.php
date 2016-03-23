@@ -64,7 +64,7 @@ class MapController extends ApiController
 	public function store(CreateMapRequest $request, FileManager $fileManager)
 	{
 		$parameters = $request->only('name', 'fair_id');
-		$imageUrl 	= $fileManager->uploadFile('/uploads', $request->file('image'));
+		$imageUrl 	= $fileManager->uploadFile('uploads/', $request->file('image'));
 
 		$this->setStatus(Response::HTTP_CREATED);
 
@@ -86,7 +86,7 @@ class MapController extends ApiController
 		$imageUrl 	= $map->image;
 
 		if($request->hasFile('image')) {
-			$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+			$imageUrl = $fileManager->uploadFile('uploads/', $request->file('image'));
 			$fileManager->deleteFile($map->image);
 		}
 

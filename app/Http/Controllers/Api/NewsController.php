@@ -61,7 +61,7 @@ class NewsController extends ApiController
 	 */
 	public function store(CreateNewsRequest $request, FileManager $fileManager)
 	{
-		$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+		$imageUrl = $fileManager->uploadFile('uploads/', $request->file('image'));
 
 		$this->setStatus(Response::HTTP_CREATED);
 
@@ -85,7 +85,7 @@ class NewsController extends ApiController
 
 		if($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
-			$imageUrl = $fileManager->uploadFile('/uploads', $request->file('image'));
+			$imageUrl = $fileManager->uploadFile('uploads/', $request->file('image'));
 		}
 
 		return $this->respondJson(

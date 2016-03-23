@@ -24,7 +24,7 @@ class NewsTransformer extends BaseTransformer
 			'id' 		=> (int) $news->id,
 			'title' 	=> $news->title,
 			'content' 	=> $news->content,
-			'image' 	=> $news->image
+			'image' 	=> $news->imageUrl()
 		];
 	}
 

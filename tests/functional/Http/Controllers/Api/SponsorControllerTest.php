@@ -82,7 +82,7 @@ class SponsorControllerTest extends BaseControllerTestCase
 		$uploadedFile = $this->generateStubUploadedFile();
 
 		$this->mock(FileManager::class)->shouldReceive('uploadFile')
-			->with('/uploads', $uploadedFile)
+			->with('uploads/', $uploadedFile)
 			->once();
 
 		$this->call('POST', 'api/v1/sponsors', $parameters, [], ['image' => $uploadedFile]);
@@ -233,7 +233,7 @@ class SponsorControllerTest extends BaseControllerTestCase
 			->once();
 
 		$fileManager->shouldReceive('uploadFile')
-			->with('/uploads', $uploadedFile)
+			->with('uploads/', $uploadedFile)
 			->once();
 
 		$this->call('PUT', 'api/v1/sponsors/1', $parameters, [], ['image' => $uploadedFile]);

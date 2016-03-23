@@ -35,6 +35,20 @@ class Sponsor extends Model
     protected $fillable = ["name", "logo", "slogan", "website", "fair_id", "sponsor_rank_id"];
 
 	/**
+	 * Returns formatted image url depending on storage
+	 *
+	 * @return string
+	 */
+	public function imageUrl()
+	{
+		if(getenv('FILESYSTEM') == 'local') {
+			return asset($this->logo);
+		} else {
+			return 'https://s3.amazonaws.com/expo-hub/' . $this->logo;
+		}
+	}
+
+	/**
 	 * The fair this sponsor was registered
 	 *
 	 * @return BelongsTo

@@ -79,7 +79,7 @@ class MapControllerTest extends BaseControllerTestCase
 		$uploadedFile = $this->generateStubUploadedFile();
 		$this->mock(FileManager::class)
 			->shouldReceive('uploadFile')
-			->with('/uploads', $uploadedFile);
+			->with('uploads/', $uploadedFile);
 
 		$this->call('POST', 'api/v1/maps', $parameters, [], ['image' => $uploadedFile]);
 
@@ -185,7 +185,7 @@ class MapControllerTest extends BaseControllerTestCase
 		$uploadedFile = $this->generateInvalidStubUploadedFile();
 		$this->mock(FileManager::class)
 			->shouldReceive('uploadFile')
-			->with('/uploads', $uploadedFile);
+			->with('uploads/', $uploadedFile);
 
 		$this->call('POST', 'api/v1/maps', $parameters, [], ['image' => $uploadedFile]);
 
@@ -211,7 +211,7 @@ class MapControllerTest extends BaseControllerTestCase
 		$fileManager = $this->mock(FileManager::class);
 
 		$fileManager->shouldReceive('uploadFile')
-			->with('/uploads', $uploadedFile);
+			->with('uploads/', $uploadedFile);
 
 		$fileManager->shouldReceive('deleteFile')
 			->withAnyArgs()

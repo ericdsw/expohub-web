@@ -25,7 +25,7 @@ class FairTransformerTest extends TestCase
 		$this->assertEquals([
 			'id' => 1,
 			'name' => 'fair-name',
-			'image' => 'fair-image',
+			'image' => asset('fair-image'),
 			'description' => 'fair-description',
 			'website' => 'fair-website',
 			'starting_date' => Carbon::now()->subDay(),
