@@ -54,14 +54,14 @@ class FairEventRepositoryTest extends TestCase
 	/** @test */
 	public function it_gets_fair_events_by_attending_users()
 	{
-		$user = $this->createUser();
-		$fair = $this->createFair($user->id);
-		$eventType = $this->createEventType();
-		$attendingUser = $this->createUser();
+		$user 			= $this->createUser();
+		$fair 			= $this->createFair($user->id);
+		$eventType 		= $this->createEventType();
+		$attendingUser 	= $this->createUser();
 
-		$firstFair = $this->createFairEvent($fair->id, $eventType->id);
+		$firstFair 	= $this->createFairEvent($fair->id, $eventType->id);
 		$secondFair = $this->createFairEvent($fair->id, $eventType->id);
-		$thirdFair = $this->createFairEvent($fair->id, $eventType->id);
+		$thirdFair 	= $this->createFairEvent($fair->id, $eventType->id);
 
 		$firstFair->attendingUsers()->attach($attendingUser->id);
 		$secondFair->attendingUsers()->attach($attendingUser->id);
@@ -74,19 +74,19 @@ class FairEventRepositoryTest extends TestCase
 	/** @test */
 	public function it_gets_fair_events_by_categories()
 	{
-		$user = $this->createUser();
-		$fair = $this->createFair($user->id);
-		$eventType = $this->createEventType();
+		$user 		= $this->createUser();
+		$fair 		= $this->createFair($user->id);
+		$eventType 	= $this->createEventType();
 
-		$firstCategory = $this->createCategory($fair->id);
-		$secondCategory = $this->createCategory($fair->id);
-		$thirdCategory = $this->createCategory($fair->id);
-		$fourthCategory = $this->createCategory($fair->id);
+		$firstCategory 		= $this->createCategory($fair->id);
+		$secondCategory 	= $this->createCategory($fair->id);
+		$thirdCategory 		= $this->createCategory($fair->id);
+		$fourthCategory 	= $this->createCategory($fair->id);
 
-		$firstFairEvent = $this->createFairEvent($fair->id, $eventType->id);
-		$secondFairEvent = $this->createFairEvent($fair->id, $eventType->id);
-		$thirdFairEvent = $this->createFairEvent($fair->id, $eventType->id);
-		$fourthFairEvent = $this->createFairEvent($fair->id, $eventType->id);
+		$firstFairEvent 	= $this->createFairEvent($fair->id, $eventType->id);
+		$secondFairEvent 	= $this->createFairEvent($fair->id, $eventType->id);
+		$thirdFairEvent 	= $this->createFairEvent($fair->id, $eventType->id);
+		$fourthFairEvent 	= $this->createFairEvent($fair->id, $eventType->id);
 
 		$firstFairEvent->categories()->attach($firstCategory->id);
 		$firstFairEvent->categories()->attach($secondCategory->id);
@@ -98,5 +98,35 @@ class FairEventRepositoryTest extends TestCase
 		$fairEvents = $this->repository->getByCategories([$firstCategory->id, $secondCategory->id]);
 
 		$this->assertCount(3, $fairEvents);
+	}
+
+	/** @test */
+	public function it_attends_fair_event()
+	{
+		$creatingUser 	= $this->createUser();
+		$attendingUser	= $this->createUser();
+		$fair 			= $this->createFair($creatingUser->id);
+		$category 		= $this->createCategory($fair->id);
+		$fairEvent 		= $this->createFairEvent($fair->id, $category->id);
+
+		$this->repository->attendEvent($attendingUser->id, $fairEvent->id);
+
+		$this->assertCount(1, $fairEvent->attendingUsers);
+	}
+
+	/** @test */
+	public function it_un_attends_fair_event()
+	{
+		$creatingUser 	= $this->createUser();
+		$attendingUser	= $this->createUser();
+		$fair 			= $this->createFair($creatingUser->id);
+		$category 		= $this->createCategory($fair->id);
+		$fairEvent 		= $this->createFairEvent($fair->id, $category->id);
+
+		$fairEvent->attendingUsers()->attach($attendingUser->id);
+
+		$this->repository->unAttendEvent($attendingUser->id, $fairEvent->id);
+
+		$this->assertCount(0, $fairEvent->attendingUsers);
 	}
 }

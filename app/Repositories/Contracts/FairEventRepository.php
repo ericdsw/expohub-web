@@ -66,4 +66,20 @@ interface FairEventRepository extends Repository
 	 * @return Collection
 	 */
 	public function getByCategories($categories = []);
+
+	/**
+	 * Adds user to event's attending list
+	 *
+	 * @param $userId
+	 * @param $eventId
+	 */
+	public function attendEvent($userId, $eventId);
+
+	/**
+	 * Removes user from event's attending list
+	 *
+	 * @param $userId
+	 * @param $eventId
+	 */
+	public function unAttendEvent($userId, $eventId);
 }

@@ -447,4 +447,60 @@ class FairEventControllerTest extends BaseControllerTestCase
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'fair-event']);
 	}
+
+	/** @test */
+	public function it_attends_fair_event()
+	{
+		$this->loginForApi();
+
+		$this->post('api/v1/fairEvents/1/attend');
+
+		$this->assertResponseStatus(204);
+	}
+
+	/** @test */
+	public function it_wont_attend_fair_event_if_user_is_not_logged_in()
+	{
+		$this->post('api/v1/fairEvents/1/attend');
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_attend_fair_event_if_user_has_expired_token()
+	{
+		$this->loginForApiWithExpiredToken();
+
+		$this->post('api/v1/fairEvents/1/attend');
+
+		$this->assertResponseStatus(401);
+	}
+
+	/** @test */
+	public function it_un_attends_fair_event()
+	{
+		$this->loginForApi();
+
+		$this->post('api/v1/fairEvents/1/unAttend');
+
+		$this->assertResponseStatus(204);
+	}
+
+	/** @test */
+	public function it_wont_un_attend_fair_event_if_user_is_not_logged_in()
+	{
+		$this->post('api/v1/fairEvents/1/unAttend');
+
+		$this->assertResponseStatus(400);
+	}
+
+	/** @test */
+	public function it_wont_un_attend_fair_event_if_user_has_expired_token()
+	{
+		$this->loginForApiWithExpiredToken();
+
+		$this->post('api/v1/fairEvents/1/unAttend');
+
+		$this->assertResponseStatus(401);
+	}
 }

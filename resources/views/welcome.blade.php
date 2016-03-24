@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laravel</title>
+        <title>Expo Hub</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -17,6 +17,7 @@
                 display: table;
                 font-weight: 100;
                 font-family: 'Lato';
+                background: #673AB7;
             }
 
             .container {
@@ -32,13 +33,20 @@
 
             .title {
                 font-size: 96px;
+                color: white;
+            }
+            .sub_title {
+                font-size: 18px;
+                color: #eee;
+                margin-top: 8px;
             }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">Expo Hub</div>
+                <div class="sub_title">Plataforma de eventos</div>
             </div>
         </div>
     </body>

@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\JWTAuth;
 
 class FairEventController extends ApiController
 {
@@ -144,5 +146,33 @@ class FairEventController extends ApiController
 	{
 		$this->prepareRepo($this->repository, $request);
 		return $this->respondJson($this->repository->getByAttendingUser($userId));
+	}
+
+	/**
+	 * @param JWTAuth $jwtAuth
+	 * @param $id
+	 * @return JsonResponse
+	 * @throws JWTException
+	 */
+	public function attend(JWTAuth $jwtAuth, $id)
+	{
+		$userId = $jwtAuth->parseToken()->toUser()->id;
+		$this->repository->attendEvent($userId, $id);
+
+		return $this->respondNoContent();
+	}
+
+	/**
+	 * @param JWTAuth $jwtAuth
+	 * @param $id
+	 * @return JsonResponse
+	 * @throws JWTException
+	 */
+	public function unAttend(JWTAuth $jwtAuth, $id)
+	{
+		$userId = $jwtAuth->parseToken()->toUser()->id;
+		$this->repository->unAttendEvent($userId, $id);
+
+		return $this->respondNoContent();
 	}
 }
