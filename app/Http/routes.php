@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Base routes
+ */
+get('/', function() {
+	return view('welcome');
+});
+
+/**
  * Api defined routes
  */
 Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
@@ -171,6 +178,16 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 		post('fairEvents', [
 			'as' => 'fairEvents.store',
 			'uses' => 'FairEventController@store',
+			'middleware' => 'jwt.auth'
+		]);
+		post('fairEvents/{id}/attend', [
+			'as' => 'fairEvents.attend',
+			'uses' => 'FairEventController@attend',
+			'middleware' => 'jwt.auth'
+		]);
+		post('fairEvents/{id}/unAttend', [
+			'as' => 'fairEvents.unAttend',
+			'uses' => 'FairEventController@unAttend',
 			'middleware' => 'jwt.auth'
 		]);
 		put('fairEvents/{id}', [

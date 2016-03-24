@@ -44,8 +44,9 @@ class FairEventAccessController
 	public function canUpdateFairEvent($fairEventId)
 	{
 		$fairId = $this->fairEventRepository->find($fairEventId)->fair_id;
-		return $this->jwtAuth->parseToken()->toUser()->fairs->lists('id')
-			->contains($fairId);
+		$user 	= $this->jwtAuth->parseToken()->toUser();
+
+		return ($user->fairs->lists('id')->contains($fairId) || $user->helpingFairs->lists('id')->contains($fairId));
 	}
 
 	/**

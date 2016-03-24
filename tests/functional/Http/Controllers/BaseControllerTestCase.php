@@ -25,6 +25,8 @@ abstract class BaseControllerTestCase extends TestCase
 	}
 
 	/**
+	 * Generates a valid stub uploaded file
+	 *
 	 * @return Mock
 	 */
 	protected function generateStubUploadedFile()
@@ -42,6 +44,8 @@ abstract class BaseControllerTestCase extends TestCase
 	}
 
 	/**
+	 * Generates invalid stub uploaded file
+	 *
 	 * @return Mock
 	 */
 	protected function generateInvalidStubUploadedFile()

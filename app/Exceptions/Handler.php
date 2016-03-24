@@ -4,9 +4,11 @@ namespace ExpoHub\Exceptions;
 
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -64,6 +66,16 @@ class Handler extends ExceptionHandler
 				]]
 			], 404, ['Content-Type' => 'application/vnd.api+json']);
         }
+
+		if($e instanceof MethodNotAllowedException) {
+			return response()->json([
+				'errors' => [[
+					'title' 	=> 'method_not_allowed',
+					'message' 	=> 'Method not allowed, allowed HTTP verbs include ' . implode(', ', $e->getAllowedMethods()),
+					'status' 	=> 405
+				]]
+			], Response::HTTP_METHOD_NOT_ALLOWED, ['Content-Type' => 'application/vnd.api+json']);
+		}
 
         return parent::render($request, $e);
     }

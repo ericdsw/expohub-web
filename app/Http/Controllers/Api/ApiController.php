@@ -43,8 +43,8 @@ abstract class ApiController extends Controller
 	public function __construct(Manager $fractal, SerializerAbstract $serializer, BaseTransformer $transformer)
 	{
 		$this->fractal = $fractal;
-		$this->fractal->setSerializer($serializer);
 		$this->transformer = $transformer;
+		$this->fractal->setSerializer($serializer);
 	}
 
 	/**
@@ -66,7 +66,7 @@ abstract class ApiController extends Controller
 			return $this->respondWithModel($data);
 		}
 		else {
-			return response()->json($data, $this->statusCode, $this->headers);
+			return response()->json($data, $this->statusCode, $this->getHeaders());
 		}
 	}
 

@@ -67,4 +67,26 @@ class FairEventRepository extends Repository implements FairEventRepositoryContr
 			$query->whereIn('categories.id', $categories);
 		})->get();
 	}
+
+	/**
+	 * Adds user to event's attending list
+	 *
+	 * @param $userId
+	 * @param $eventId
+	 */
+	public function attendEvent($userId, $eventId)
+	{
+		$this->model->findOrFail($eventId)->attendingUsers()->attach($userId);
+	}
+
+	/**
+	 * Removes user from event's attending list
+	 *
+	 * @param $userId
+	 * @param $eventId
+	 */
+	public function unAttendEvent($userId, $eventId)
+	{
+		$this->model->findOrFail($eventId)->attendingUsers()->detach($userId);
+	}
 }

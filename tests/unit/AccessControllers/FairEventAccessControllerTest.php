@@ -80,7 +80,7 @@ class FairEventAccessControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function it_returns_true_if_user_can_update_fair_event()
+	public function it_returns_true_if_user_can_update_fair_event_for_owned_fair()
 	{
 		$fair = new Fair;
 		$fair->id = 1;
@@ -93,6 +93,43 @@ class FairEventAccessControllerTest extends TestCase
 		$user = new User;
 		$user->id = 1;
 		$user->setRelation('fairs', collect([$fair]));
+		$user->setRelation('helpingFairs', collect([]));
+
+		$this->jwtAuth->shouldReceive('parseToken')
+			->withNoArgs()
+			->once()
+			->andReturn($this->jwtAuth);
+
+		$this->jwtAuth->shouldReceive('toUser')
+			->withNoArgs()
+			->once()
+			->andReturn($user);
+
+		$this->fairEventRepository->shouldReceive('find')
+			->with($fairEvent->id)
+			->once()
+			->andReturn($fairEvent);
+
+		$result = $this->fairEventAccessController->canUpdateFairEvent($fairEvent->id);
+
+		$this->assertTrue($result);
+	}
+
+	/** @test */
+	public function it_returns_true_if_user_can_update_fair_event_for_helping_fairs()
+	{
+		$fair = new Fair;
+		$fair->id = 1;
+
+		$fairEvent = new FairEvent;
+		$fairEvent->id = 1;
+		$fairEvent->fair_id = $fair->id;
+		$fairEvent->setRelation('fair', $fair);
+
+		$user = new User;
+		$user->id = 1;
+		$user->setRelation('fairs', collect([]));
+		$user->setRelation('helpingFairs', collect([$fair]));
 
 		$this->jwtAuth->shouldReceive('parseToken')
 			->withNoArgs()
@@ -128,6 +165,7 @@ class FairEventAccessControllerTest extends TestCase
 		$user = new User;
 		$user->id = 1;
 		$user->setRelation('fairs', collect([]));
+		$user->setRelation('helpingFairs', collect([]));
 
 		$this->jwtAuth->shouldReceive('parseToken')
 			->withNoArgs()
