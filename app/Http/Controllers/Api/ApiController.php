@@ -241,12 +241,16 @@ abstract class ApiController extends Controller
 		}
 
 		if($request->has('sort')) {
-			$sortParameter = $request->get('sort');
-			if(preg_match('#^-#', $sortParameter)) {
-				$repository->prepareOrderBy(substr($sortParameter, 1, strlen($sortParameter)), 'DESC');
-			}
-			else {
-				$repository->prepareOrderBy($sortParameter, 'ASC');
+//			$sortParameter = $request->get('sort');
+
+			$sortParameterArray = explode(',', $request->get('sort'));
+			foreach($sortParameterArray as $sortParameter) {
+				if(preg_match('#^-#', $sortParameter)) {
+					$repository->prepareOrderBy(substr($sortParameter, 1, strlen($sortParameter)), 'DESC');
+				}
+				else {
+					$repository->prepareOrderBy($sortParameter, 'ASC');
+				}
 			}
 		}
 	}
