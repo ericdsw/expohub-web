@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
 		}
 
 		app()->bind(JsonApiSerializer::class, function() {
-			return new JsonApiSerializer(url());
+			return new JsonApiSerializer(url('api/v1'));
 		});
     }
 }

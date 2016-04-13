@@ -15,6 +15,9 @@ abstract class Repository implements RepositoryContract
 	protected $orderParameter;
 	protected $orderDirection;
 
+	protected $offset;
+	protected $limit;
+
 	/**
 	 * @param Model $model
 	 */
@@ -44,7 +47,6 @@ abstract class Repository implements RepositoryContract
 	public function find($id, array $eagerLoading = [])
 	{
 		return $this->prepareQuery()->findOrFail($id);
-//		return $this->model->with($eagerLoading)->findOrFail($id);
 	}
 
 	/**
@@ -105,6 +107,12 @@ abstract class Repository implements RepositoryContract
 		$this->orderDirection = $order;
 	}
 
+	public function prepareLimit($limit, $offset = 0)
+	{
+		$this->limit = $limit;
+		$this->offset = $offset;
+	}
+
 	/**
 	 * Creates the query
 	 *
@@ -124,6 +132,10 @@ abstract class Repository implements RepositoryContract
 
 		if($this->eagerLoading != null) {
 			$query = $query->with($this->eagerLoading);
+		}
+
+		if($this->offset != null && $this->limit != null) {
+			$query->skip($this->offset)->take($this->limit);
 		}
 
 		return $query;

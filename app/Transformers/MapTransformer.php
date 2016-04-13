@@ -28,7 +28,7 @@ class MapTransformer extends BaseTransformer
 	 */
 	public function getType()
 	{
-		return 'map';
+		return 'maps';
 	}
 
 	/**

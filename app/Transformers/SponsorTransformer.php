@@ -33,7 +33,7 @@ class SponsorTransformer extends BaseTransformer
 	 */
 	public function getType()
 	{
-		return "sponsor";
+		return "sponsors";
 	}
 
 	/**

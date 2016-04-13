@@ -182,4 +182,15 @@ class StubFairEventRepository implements FairEventRepository
 	{
 		//
 	}
+
+	/**
+	 * Prepares result limit and offset for effective pagination
+	 *
+	 * @param $limit
+	 * @param int $offset
+	 */
+	public function prepareLimit($limit, $offset = 0)
+	{
+		// TODO: Implement prepareLimit() method.
+	}
 }

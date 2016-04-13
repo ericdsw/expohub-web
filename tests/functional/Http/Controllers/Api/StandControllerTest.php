@@ -20,7 +20,7 @@ class StandControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'stand']);
+		$this->seeJsonContains(['type' => 'stands']);
 	}
 
 	/** @test */
@@ -30,7 +30,7 @@ class StandControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'stand']);
+		$this->seeJsonContains(['type' => 'stands']);
 	}
 
 	/** @test */
@@ -41,8 +41,8 @@ class StandControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'stand']);
-		$this->seeJsonContains(['type' => 'fair']);
+		$this->seeJsonContains(['type' => 'stands']);
+		$this->seeJsonContains(['type' => 'fairs']);
 	}
 
 	/** @test */
@@ -86,7 +86,7 @@ class StandControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseStatus(201);
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'stand']);
+		$this->seeJsonContains(['type' => 'stands']);
 	}
 
 	/** @test */
@@ -226,7 +226,7 @@ class StandControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'stand']);
+		$this->seeJsonContains(['type' => 'stands']);
 	}
 
 	/** @test */
@@ -249,7 +249,7 @@ class StandControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'stand']);
+		$this->seeJsonContains(['type' => 'stands']);
 	}
 
 	/** @test */
@@ -385,6 +385,6 @@ class StandControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'stand']);
+		$this->seeJsonContains(['type' => 'stands']);
 	}
 }

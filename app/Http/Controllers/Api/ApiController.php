@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use League\Fractal\Manager;
+use League\Fractal\Pagination\Cursor;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\SerializerAbstract;
 use League\Fractal\Resource\Collection as FractalCollection;
@@ -197,9 +198,23 @@ abstract class ApiController extends Controller
 	 */
 	private function respondWithCollection(Collection $collection)
 	{
-
-
 		$resource = new FractalCollection($collection, $this->transformer, $this->transformer->getType());
+
+		if(request()->has('page')) {
+
+			$pageArray = request()->get('page');
+
+			$limit 		= $pageArray['limit'];
+			$cursor 	= (int) $pageArray['cursor'];
+			$previous 	= null;
+			$next		= (count($collection) <= $limit) ? null : $limit + $cursor;
+
+			if(array_key_exists('previous', $pageArray)) {
+				$previous = $pageArray['previous'];
+			}
+
+			$resource->setCursor(new Cursor($cursor, $previous, $next, count($collection)));
+		}
 
 		if(! empty($this->meta)) {
 			$resource->setMeta($this->meta);
@@ -219,6 +234,10 @@ abstract class ApiController extends Controller
 			$repository->prepareEagerLoading(
 				explode(',', $request->get('include'))
 			);
+		}
+
+		if($request->has('page')) {
+			$repository->prepareLimit($request->get('page')['limit'], $request->get('page')['cursor']);
 		}
 
 		if($request->has('sort')) {

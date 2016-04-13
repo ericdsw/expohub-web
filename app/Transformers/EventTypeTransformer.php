@@ -28,7 +28,7 @@ class EventTypeTransformer extends BaseTransformer
 	 */
 	public function getType()
 	{
-		return "event-type";
+		return "eventTypes";
 	}
 
 	/**

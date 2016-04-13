@@ -40,7 +40,7 @@ class FairTransformer extends BaseTransformer
 	 */
 	public function getType()
 	{
-		return "fair";
+		return "fairs";
 	}
 
 	/**

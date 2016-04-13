@@ -30,7 +30,7 @@ class CommentTransformer extends BaseTransformer
 	 */
 	public function getType()
 	{
-		return "comment";
+		return "comments";
 	}
 
 	/**

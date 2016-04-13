@@ -35,7 +35,7 @@ class FairEventTransformer extends BaseTransformer
 	 */
 	public function getType()
 	{
-		return "fair-event";
+		return "fairEvents";
 	}
 
 	/**
