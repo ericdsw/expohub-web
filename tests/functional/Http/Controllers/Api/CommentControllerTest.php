@@ -20,7 +20,7 @@ class CommentControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'comment']);
+		$this->seeJsonContains(['type' => 'comments']);
 	}
 
 	/** @test */
@@ -30,7 +30,7 @@ class CommentControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'comment']);
+		$this->seeJsonContains(['type' => 'comments']);
 	}
 
 	/** @test */
@@ -42,8 +42,8 @@ class CommentControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'comment']);
-		$this->seeJsonContains(['type' => 'user']);
+		$this->seeJsonContains(['type' => 'comments']);
+		$this->seeJsonContains(['type' => 'users']);
 		$this->seeJsonContains(['type' => 'news']);
 	}
 
@@ -75,7 +75,7 @@ class CommentControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseStatus(201);
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'comment']);
+		$this->seeJsonContains(['type' => 'comments']);
 	}
 
 	/** @test */
@@ -137,7 +137,7 @@ class CommentControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'comment']);
+		$this->seeJsonContains(['type' => 'comments']);
 	}
 
 	/** @test */
@@ -234,7 +234,7 @@ class CommentControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'comment']);
+		$this->seeJsonContains(['type' => 'comments']);
 	}
 
 	/** @test */
@@ -244,6 +244,6 @@ class CommentControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'comment']);
+		$this->seeJsonContains(['type' => 'comments']);
 	}
 }

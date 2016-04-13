@@ -31,7 +31,7 @@ class StandTransformer extends BaseTransformer
 	 */
 	public function getType()
 	{
-		return "stand";
+		return "stands";
 	}
 
 	/**

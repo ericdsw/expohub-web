@@ -12,8 +12,10 @@ abstract class Repository implements RepositoryContract
 	protected $model;
 	protected $eagerLoading;
 
-	protected $orderParameter;
-	protected $orderDirection;
+	protected $orderParameters = [];
+
+	protected $offset;
+	protected $limit;
 
 	/**
 	 * @param Model $model
@@ -44,7 +46,6 @@ abstract class Repository implements RepositoryContract
 	public function find($id, array $eagerLoading = [])
 	{
 		return $this->prepareQuery()->findOrFail($id);
-//		return $this->model->with($eagerLoading)->findOrFail($id);
 	}
 
 	/**
@@ -101,8 +102,19 @@ abstract class Repository implements RepositoryContract
 	 */
 	public function prepareOrderBy($parameter, $order)
 	{
-		$this->orderParameter = $parameter;
-		$this->orderDirection = $order;
+		$this->orderParameters[$parameter] = $order;
+	}
+
+	/**
+	 * Prepares result limit and offset for effective pagination
+	 *
+	 * @param $limit
+	 * @param int $offset
+	 */
+	public function prepareLimit($limit, $offset = 0)
+	{
+		$this->limit 	= $limit;
+		$this->offset 	= $offset;
 	}
 
 	/**
@@ -118,12 +130,16 @@ abstract class Repository implements RepositoryContract
 			$query = $modelQuery->query();
 		}
 
-		if($this->orderParameter != null && $this->orderDirection != null) {
-			$query = $query->orderBy($this->orderParameter, $this->orderDirection);
+		foreach($this->orderParameters as $parameter => $order) {
+			$query = $query->orderBy($parameter, $order);
 		}
 
 		if($this->eagerLoading != null) {
 			$query = $query->with($this->eagerLoading);
+		}
+
+		if($this->offset !== null && $this->limit !== null) {
+			$query->skip($this->offset)->take($this->limit);
 		}
 
 		return $query;

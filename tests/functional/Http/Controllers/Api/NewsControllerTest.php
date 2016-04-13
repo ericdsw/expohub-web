@@ -1,4 +1,4 @@
-<?php
+`<?php
 
 use ExpoHub\AccessControllers\NewsAccessController;
 use ExpoHub\Helpers\Files\Contracts\FileManager;
@@ -43,8 +43,8 @@ class NewsControllerTest extends BaseControllerTestCase
 		$this->assertResponseOk();
 		$this->seeJson();
 		$this->seeJsonContains(['type' => 'news']);
-		$this->seeJsonContains(['type' => 'fair']);
-		$this->seeJsonContains(['type' => 'comment']);
+		$this->seeJsonContains(['type' => 'fairs']);
+		$this->seeJsonContains(['type' => 'comments']);
 	}
 
 	/** @test */

@@ -29,7 +29,7 @@ class SponsorRankTransformer extends BaseTransformer
 	 */
 	public function getType()
 	{
-		return "sponsor-rank";
+		return "sponsorRanks";
 	}
 
 	/**

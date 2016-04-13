@@ -30,7 +30,7 @@ class CategoryTransformer extends BaseTransformer
 	 */
 	public function getType()
 	{
-		return "category";
+		return "categories";
 	}
 
 	/**

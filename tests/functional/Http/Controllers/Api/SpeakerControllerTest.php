@@ -25,7 +25,7 @@ class SpeakerControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'speaker']);
+		$this->seeJsonContains(['type' => 'speakers']);
 	}
 
 	/** @test */
@@ -35,7 +35,7 @@ class SpeakerControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'speaker']);
+		$this->seeJsonContains(['type' => 'speakers']);
 	}
 
 	/** @test */
@@ -47,8 +47,8 @@ class SpeakerControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'speaker']);
-		$this->seeJsonContains(['type' => 'fair-event']);
+		$this->seeJsonContains(['type' => 'speakers']);
+		$this->seeJsonContains(['type' => 'fairEvents']);
 	}
 
 	/** @test */
@@ -92,7 +92,7 @@ class SpeakerControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseStatus(201);
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'speaker']);
+		$this->seeJsonContains(['type' => 'speakers']);
 	}
 
 	/** @test */
@@ -232,7 +232,7 @@ class SpeakerControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'speaker']);
+		$this->seeJsonContains(['type' => 'speakers']);
 	}
 
 	/** @test */
@@ -255,7 +255,7 @@ class SpeakerControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'speaker']);
+		$this->seeJsonContains(['type' => 'speakers']);
 	}
 
 	/** @test */
@@ -391,6 +391,6 @@ class SpeakerControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'speaker']);
+		$this->seeJsonContains(['type' => 'speakers']);
 	}
 }

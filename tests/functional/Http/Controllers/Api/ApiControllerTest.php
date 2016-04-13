@@ -48,7 +48,7 @@ class ApiControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'user']);
+		$this->seeJsonContains(['type' => 'users']);
 		$this->seeJsonContains(['token' => $token]);
 	}
 
@@ -138,7 +138,7 @@ class ApiControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseStatus(201);
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'user']);
+		$this->seeJsonContains(['type' => 'users']);
 		$this->seeJsonContains(['token' => $token]);
 	}
 

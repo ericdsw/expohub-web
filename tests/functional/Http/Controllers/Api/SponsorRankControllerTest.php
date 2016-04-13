@@ -19,7 +19,7 @@ class SponsorRankControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor-rank']);
+		$this->seeJsonContains(['type' => 'sponsorRanks']);
 	}
 
 	/** @test */
@@ -29,7 +29,7 @@ class SponsorRankControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor-rank']);
+		$this->seeJsonContains(['type' => 'sponsorRanks']);
 	}
 
 	/** @test */
@@ -40,8 +40,8 @@ class SponsorRankControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor-rank']);
-		$this->seeJsonContains(['type' => 'sponsor']);
+		$this->seeJsonContains(['type' => 'sponsorRanks']);
+		$this->seeJsonContains(['type' => 'sponsors']);
 	}
 
 	/** @test */
@@ -77,7 +77,7 @@ class SponsorRankControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseStatus(201);
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor-rank']);
+		$this->seeJsonContains(['type' => 'sponsorRanks']);
 	}
 
 	/** @test */
@@ -165,7 +165,7 @@ class SponsorRankControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor-rank']);
+		$this->seeJsonContains(['type' => 'sponsorRanks']);
 	}
 
 	/** @test */
