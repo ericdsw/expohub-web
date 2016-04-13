@@ -32,7 +32,6 @@ abstract class Repository implements RepositoryContract
 	public function all(array $eagerLoading = []) 
 	{
 		return $this->prepareQuery()->get();
-//		return $this->model->with($eagerLoading)->get();
 	}
 
 	/**

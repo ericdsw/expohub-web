@@ -195,8 +195,10 @@ abstract class ApiController extends Controller
 	 * @param $collection
 	 * @return JsonResponse
 	 */
-	private function respondWithCollection($collection)
+	private function respondWithCollection(Collection $collection)
 	{
+
+
 		$resource = new FractalCollection($collection, $this->transformer, $this->transformer->getType());
 
 		if(! empty($this->meta)) {
