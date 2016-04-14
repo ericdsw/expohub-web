@@ -7,7 +7,6 @@ use ExpoHub\Http\Requests\ShowApiTokenRequest;
 use ExpoHub\Repositories\Contracts\ApiTokenRepository;
 use ExpoHub\Transformers\ApiTokenTransformer;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 use ExpoHub\Http\Requests;
 use League\Fractal\Manager;
@@ -37,27 +36,6 @@ class ApiTokenController extends ApiController
 		return $this->respondJson($this->apiTokenRepository->all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request $request
-	 * @return JsonResponse
-     */
-    public function store(Request $request)
-    {
-		$appId 		= str_random(32);
-		$appSecret 	= str_random(32);
-
-		$apiToken = $this->apiTokenRepository->create([
-			'name' => $request->get('name'),
-			'app_id' => $appId,
-			'app_secret' => $appSecret
-		]);
-		$this->setStatus(Response::HTTP_CREATED);
-
-		return $this->respondJson($apiToken);
-    }
-
 	/**
 	 * Display the specified resource.
 	 *
@@ -69,32 +47,5 @@ class ApiTokenController extends ApiController
     {
 		$this->prepareRepo($this->apiTokenRepository, $request);
 		return $this->respondJson($this->apiTokenRepository->find($id));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-	 * @return JsonResponse
-     */
-    public function update(Request $request, $id)
-    {
-        return $this->respondJson(
-			$this->apiTokenRepository->update($id, $request->only('name'))
-		);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-	 * @return JsonResponse
-     */
-    public function destroy($id)
-    {
-        $this->apiTokenRepository->delete($id);
-
-		return $this->respondNoContent();
     }
 }

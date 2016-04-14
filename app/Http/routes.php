@@ -447,21 +447,6 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 			'uses' => 'ApiTokenController@show',
 			'middleware' => 'jwt.auth'
 		]);
-//		post('apiTokens', [
-//			'as' => 'apiTokens.store',
-//			'uses' => 'ApiTokenController@store',
-//			'middleware' => 'jwt.auth'
-//		]);
-//		put('apiTokens/{id}', [
-//			'as' => 'apiTokens.update',
-//			'uses' => 'ApiTokenController@update',
-//			'middleware' => 'jwt.auth'
-//		]);
-//		delete('apiTokens/{id}', [
-//			'as' => 'apiTokens.destroy',
-//			'uses' => 'ApiTokenController@destroy',
-//			'middleware' => 'jwt.auth'
-//		]);
 
 	});
 });

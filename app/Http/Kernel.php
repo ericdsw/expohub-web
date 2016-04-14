@@ -3,6 +3,7 @@
 namespace ExpoHub\Http;
 
 use ExpoHub\Http\Middleware\Authenticate;
+use ExpoHub\Http\Middleware\CheckApiToken;
 use ExpoHub\Http\Middleware\EncryptCookies;
 use ExpoHub\Http\Middleware\RedirectIfAuthenticated;
 use ExpoHub\Http\Middleware\VerifyCsrfToken;
@@ -42,5 +43,6 @@ class Kernel extends HttpKernel
 		'csrf.token' => VerifyCsrfToken::class,
 		'jwt.auth' => GetUserFromToken::class,
 		'jwt.refresh' => RefreshToken::class,
+		'api.token' => CheckApiToken::class,
     ];
 }
