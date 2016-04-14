@@ -20,7 +20,7 @@ class SponsorControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor']);
+		$this->seeJsonContains(['type' => 'sponsors']);
 	}
 
 	/** @test */
@@ -30,7 +30,7 @@ class SponsorControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor']);
+		$this->seeJsonContains(['type' => 'sponsors']);
 	}
 
 	/** @test */
@@ -41,9 +41,9 @@ class SponsorControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor']);
-		$this->seeJsonContains(['type' => 'fair']);
-		$this->seeJsonContains(['type' => 'sponsor-rank']);
+		$this->seeJsonContains(['type' => 'sponsors']);
+		$this->seeJsonContains(['type' => 'fairs']);
+		$this->seeJsonContains(['type' => 'sponsorRanks']);
 	}
 
 	/** @test */
@@ -89,7 +89,7 @@ class SponsorControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseStatus(201);
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor']);
+		$this->seeJsonContains(['type' => 'sponsors']);
 	}
 
 	/** @test */
@@ -240,7 +240,7 @@ class SponsorControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor']);
+		$this->seeJsonContains(['type' => 'sponsors']);
 	}
 
 	/** @test */
@@ -322,7 +322,7 @@ class SponsorControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor']);
+		$this->seeJsonContains(['type' => 'sponsors']);
 	}
 
 	/** @test */
@@ -410,7 +410,7 @@ class SponsorControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor']);
+		$this->seeJsonContains(['type' => 'sponsors']);
 	}
 
 	/** @test */
@@ -420,6 +420,6 @@ class SponsorControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'sponsor']);
+		$this->seeJsonContains(['type' => 'sponsors']);
 	}
 }

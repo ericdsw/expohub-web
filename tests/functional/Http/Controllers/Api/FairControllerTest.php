@@ -20,7 +20,7 @@ class FairControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'fair']);
+		$this->seeJsonContains(['type' => 'fairs']);
 	}
 
 	/** @test */
@@ -30,7 +30,7 @@ class FairControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'fair']);
+		$this->seeJsonContains(['type' => 'fairs']);
 	}
 
 	/** @test */
@@ -42,14 +42,14 @@ class FairControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'fair']);
-		$this->seeJsonContains(['type' => 'user']);
-		$this->seeJsonContains(['type' => 'sponsor']);
-		$this->seeJsonContains(['type' => 'map']);
-		$this->seeJsonContains(['type' => 'category']);
-		$this->seeJsonContains(['type' => 'fair-event']);
+		$this->seeJsonContains(['type' => 'fairs']);
+		$this->seeJsonContains(['type' => 'users']);
+		$this->seeJsonContains(['type' => 'sponsors']);
+		$this->seeJsonContains(['type' => 'maps']);
+		$this->seeJsonContains(['type' => 'categories']);
+		$this->seeJsonContains(['type' => 'fairEvents']);
 		$this->seeJsonContains(['type' => 'news']);
-		$this->seeJsonContains(['type' => 'stand']);
+		$this->seeJsonContains(['type' => 'stands']);
 	}
 
 	/** @test */
@@ -94,7 +94,7 @@ class FairControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseStatus(201);
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'fair']);
+		$this->seeJsonContains(['type' => 'fairs']);
 	}
 
 	/** @test */
@@ -224,7 +224,7 @@ class FairControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'fair']);
+		$this->seeJsonContains(['type' => 'fairs']);
 	}
 
 	/** @test */
@@ -255,7 +255,7 @@ class FairControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'fair']);
+		$this->seeJsonContains(['type' => 'fairs']);
 	}
 
 	/** @test */
@@ -450,7 +450,7 @@ class FairControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'fair']);
+		$this->seeJsonContains(['type' => 'fairs']);
 	}
 
 	/** @test */
@@ -460,6 +460,6 @@ class FairControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'fair']);
+		$this->seeJsonContains(['type' => 'fairs']);
 	}
 }

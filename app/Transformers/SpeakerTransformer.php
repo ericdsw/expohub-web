@@ -31,7 +31,7 @@ class SpeakerTransformer extends BaseTransformer
 	 */
 	public function getType()
 	{
-		return "speaker";
+		return "speakers";
 	}
 
 	/**

@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use ExpoHub\ApiToken;
 use ExpoHub\Category;
 use ExpoHub\Comment;
 use ExpoHub\Constants\UserType;
@@ -253,5 +254,22 @@ trait DatabaseCreator
 		Stand::reguard();
 
 		return $stand;
+	}
+
+	/**
+	 * @param array $parameters
+	 * @return ApiToken
+	 */
+	public function createApiToken(array $parameters = [])
+	{
+		ApiToken::unguard();
+		$apiToken = ApiToken::create(array_merge([
+			'name' => 'foo',
+			'app_id' => 'bar',
+			'app_secret' => 'baz'
+		], $parameters));
+		ApiToken::reguard();
+
+		return $apiToken;
 	}
 }

@@ -31,7 +31,7 @@ class UserTransformer extends BaseTransformer
 	 */
 	public function getType()
 	{
-		return 'user';
+		return 'users';
 	}
 
 	/**

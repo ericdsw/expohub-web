@@ -10,7 +10,7 @@ get('/', function() {
 /**
  * Api defined routes
  */
-Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
+Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'api.token'], function() {
 	Route::group(['prefix' => 'v1'], function() {
 
 		// =====================================================
@@ -246,7 +246,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 		]);
 
 		// =====================================================
-		// = Maps
+		// = News
 		// =====================================================
 
 		get('news', [
@@ -430,6 +430,21 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 		delete('users/{id}', [
 			'as' => 'users.destroy',
 			'uses' => 'UserController@destroy',
+			'middleware' => 'jwt.auth'
+		]);
+
+		// =====================================================
+		// = ApiTokens
+		// =====================================================
+
+		get('apiTokens', [
+			'as' => 'apiTokens.index',
+			'uses' => 'ApiTokenController@index',
+			'middleware' => 'jwt.auth'
+		]);
+		get('apiTokens/{id}', [
+			'as' => 'apiTokens.show',
+			'uses' => 'ApiTokenController@show',
 			'middleware' => 'jwt.auth'
 		]);
 

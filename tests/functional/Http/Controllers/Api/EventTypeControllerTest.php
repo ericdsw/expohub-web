@@ -19,7 +19,7 @@ class EventTypeControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'event-type']);
+		$this->seeJsonContains(['type' => 'eventTypes']);
 	}
 
 	/** @test */
@@ -29,7 +29,7 @@ class EventTypeControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'event-type']);
+		$this->seeJsonContains(['type' => 'eventTypes']);
 	}
 
 	/** @test */
@@ -41,8 +41,8 @@ class EventTypeControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'event-type']);
-		$this->seeJsonContains(['type' => 'fair-event']);
+		$this->seeJsonContains(['type' => 'eventTypes']);
+		$this->seeJsonContains(['type' => 'fairEvents']);
 	}
 
 	/** @test */
@@ -76,7 +76,7 @@ class EventTypeControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseStatus(201);
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'event-type']);
+		$this->seeJsonContains(['type' => 'eventTypes']);
 	}
 
 	/** @test */
@@ -154,7 +154,7 @@ class EventTypeControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'event-type']);
+		$this->seeJsonContains(['type' => 'eventTypes']);
 	}
 
 	/** @test */

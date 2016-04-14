@@ -19,7 +19,7 @@ class UserControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'user']);
+		$this->seeJsonContains(['type' => 'users']);
 	}
 
 	/** @test */
@@ -29,7 +29,7 @@ class UserControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'user']);
+		$this->seeJsonContains(['type' => 'users']);
 	}
 
 	/** @test */
@@ -41,10 +41,10 @@ class UserControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'user']);
-		$this->seeJsonContains(['type' => 'fair']);
-		$this->seeJsonContains(['type' => 'fair-event']);
-		$this->seeJsonContains(['type' => 'comment']);
+		$this->seeJsonContains(['type' => 'users']);
+		$this->seeJsonContains(['type' => 'fairs']);
+		$this->seeJsonContains(['type' => 'fairEvents']);
+		$this->seeJsonContains(['type' => 'comments']);
 	}
 
 	/** @test */
@@ -95,7 +95,7 @@ class UserControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseStatus(201);
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'user']);
+		$this->seeJsonContains(['type' => 'users']);
 	}
 
 	/** @test */
@@ -260,7 +260,7 @@ class UserControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'user']);
+		$this->seeJsonContains(['type' => 'users']);
 	}
 
 	/** @test */

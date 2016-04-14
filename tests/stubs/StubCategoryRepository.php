@@ -84,7 +84,7 @@ class StubCategoryRepository implements CategoryRepository
 	 */
 	public function delete($id)
 	{
-		return collect([$this->createCategory()]);
+		return 1;
 	}
 
 	/**
@@ -127,6 +127,17 @@ class StubCategoryRepository implements CategoryRepository
 	 * @param $order
 	 */
 	public function prepareOrderBy($parameter, $order)
+	{
+		//
+	}
+
+	/**
+	 * Prepares result limit and offset for effective pagination
+	 *
+	 * @param $limit
+	 * @param int $offset
+	 */
+	public function prepareLimit($limit, $offset = 0)
 	{
 		//
 	}

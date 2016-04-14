@@ -230,6 +230,65 @@ class RepositoryTest extends TestCase
 
 		$this->assertEquals($returnValue, $result);
 	}
+
+	/** @test */
+	public function it_applies_order_by()
+	{
+		$collection = new Collection;
+
+		$this->repository->prepareOrderBy('foo', 'asc');
+
+		$this->modelMock->shouldReceive('query')
+			->withNoArgs()
+			->once()
+			->andReturn($this->modelMock);
+
+		$this->modelMock->shouldReceive('orderBy')
+			->with('foo', 'asc')
+			->once()
+			->andReturn($this->modelMock);
+
+		$this->modelMock->shouldReceive('get')
+			->withNoArgs()
+			->once()
+			->andReturn($collection);
+
+		$result = $this->repository->all();
+
+		$this->assertEquals($collection, $result);
+	}
+
+	/** @test */
+	public function it_applies_limit()
+	{
+		$collection = new Collection;
+
+		$this->repository->prepareLimit(10, 3);
+
+		$this->modelMock->shouldReceive('query')
+			->withNoArgs()
+			->once()
+			->andReturn($this->modelMock);
+
+		$this->modelMock->shouldReceive('skip')
+			->with(3)
+			->once()
+			->andReturn($this->modelMock);
+
+		$this->modelMock->shouldReceive('take')
+			->with(10)
+			->once()
+			->andReturn($this->modelMock);
+
+		$this->modelMock->shouldReceive('get')
+			->withNoArgs()
+			->once()
+			->andReturn($collection);
+
+		$result = $this->repository->all();
+
+		$this->assertEquals($collection, $result);
+	}
 }
 
 class TestRepository extends Repository

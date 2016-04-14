@@ -63,4 +63,12 @@ interface Repository
 	 * @param $order
 	 */
 	public function prepareOrderBy($parameter, $order);
+
+	/**
+	 * Prepares result limit and offset for effective pagination
+	 *
+	 * @param $limit
+	 * @param int $offset
+	 */
+	public function prepareLimit($limit, $offset = 0);
 }

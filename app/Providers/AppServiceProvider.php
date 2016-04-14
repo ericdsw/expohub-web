@@ -4,6 +4,7 @@ namespace ExpoHub\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use League\Fractal\Serializer\JsonApiSerializer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +28,9 @@ class AppServiceProvider extends ServiceProvider
         if(app()->environment('local')) {
 			app()->register(IdeHelperServiceProvider::class);
 		}
+
+		app()->bind(JsonApiSerializer::class, function() {
+			return new JsonApiSerializer(url('api/v1'));
+		});
     }
 }

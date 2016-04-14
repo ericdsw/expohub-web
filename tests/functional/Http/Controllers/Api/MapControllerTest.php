@@ -20,7 +20,7 @@ class MapControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'map']);
+		$this->seeJsonContains(['type' => 'maps']);
 	}
 
 	/** @test */
@@ -30,7 +30,7 @@ class MapControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'map']);
+		$this->seeJsonContains(['type' => 'maps']);
 	}
 
 	/** @test */
@@ -42,8 +42,8 @@ class MapControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'map']);
-		$this->seeJsonContains(['type' => 'fair']);
+		$this->seeJsonContains(['type' => 'maps']);
+		$this->seeJsonContains(['type' => 'fairs']);
 	}
 
 	/** @test */
@@ -85,7 +85,7 @@ class MapControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseStatus(201);
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'map']);
+		$this->seeJsonContains(['type' => 'maps']);
 	}
 
 	/** @test */
@@ -221,7 +221,7 @@ class MapControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'map']);
+		$this->seeJsonContains(['type' => 'maps']);
 	}
 
 	/** @test */
@@ -243,7 +243,7 @@ class MapControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'map']);
+		$this->seeJsonContains(['type' => 'maps']);
 	}
 
 	/** @test */
@@ -376,6 +376,6 @@ class MapControllerTest extends BaseControllerTestCase
 
 		$this->assertResponseOk();
 		$this->seeJson();
-		$this->seeJsonContains(['type' => 'map']);
+		$this->seeJsonContains(['type' => 'maps']);
 	}
 }
