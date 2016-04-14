@@ -3,6 +3,7 @@
 namespace ExpoHub\Console;
 
 use ExpoHub\Console\Commands\AdminCreateCommand;
+use ExpoHub\Console\Commands\ApiTokenCreateCommand;
 use ExpoHub\Console\Commands\Inspire;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -16,7 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Inspire::class,
-		AdminCreateCommand::class
+		AdminCreateCommand::class,
+		ApiTokenCreateCommand::class
     ];
 
     /**
