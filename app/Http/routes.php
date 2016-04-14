@@ -10,7 +10,7 @@ get('/', function() {
 /**
  * Api defined routes
  */
-Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
+Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'api.token'], function() {
 	Route::group(['prefix' => 'v1'], function() {
 
 		// =====================================================

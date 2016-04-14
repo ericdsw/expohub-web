@@ -31,7 +31,7 @@ class CheckApiToken
     public function handle($request, Closure $next)
     {
 		try {
-			if($this->apiAccessController->canUseApi($request->headers)) {
+			if($this->apiAccessController->canUseApi($request->headers->all())) {
 				return $next($request);
 			}
 			else {

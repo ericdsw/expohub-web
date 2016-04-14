@@ -29,7 +29,7 @@ class ApiAccessController
 	{
 		if(array_key_exists('x-api-authorization', $requestHeaders)) {
 
-			$authArray = explode('.', $requestHeaders['x-api-authorization']);
+			$authArray = explode('.', $requestHeaders['x-api-authorization'][0]);
 
 			if(count($authArray) != 2) {
 				throw new MalformedApiAccessTokenException;

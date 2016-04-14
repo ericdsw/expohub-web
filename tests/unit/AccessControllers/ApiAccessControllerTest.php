@@ -32,7 +32,7 @@ class ApiAccessControllerTest extends TestCase
 			->once()
 			->andReturn($apiToken);
 
-		$header = ['x-api-authorization' => $appId . '.' . $appSecret];
+		$header = ['x-api-authorization' => [$appId . '.' . $appSecret]];
 
 		$result = $this->apiAccessController->canUseApi($header);
 
@@ -50,7 +50,7 @@ class ApiAccessControllerTest extends TestCase
 			->once()
 			->andReturn(null);
 
-		$header = ['x-api-authorization' => $appId . '.' . $appSecret];
+		$header = ['x-api-authorization' => [$appId . '.' . $appSecret]];
 
 		$result = $this->apiAccessController->canUseApi($header);
 

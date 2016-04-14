@@ -1,6 +1,7 @@
 <?php
 
 
+use ExpoHub\AccessControllers\ApiAccessController;
 use ExpoHub\User;
 use Mockery\Mock;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -22,6 +23,12 @@ abstract class BaseControllerTestCase extends TestCase
 			->withAnyArgs()
 			->andReturn($this->jwtAuth);
 		$this->jwtAuth->shouldReceive('getToken')->andReturn(false);
+
+		// Disables api token check
+		$this->mock(ApiAccessController::class)
+			->shouldReceive('canUseApi')
+			->withAnyArgs()
+			->andReturn(true);
 	}
 
 	/**
