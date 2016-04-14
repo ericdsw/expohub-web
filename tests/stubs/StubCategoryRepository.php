@@ -84,7 +84,7 @@ class StubCategoryRepository implements CategoryRepository
 	 */
 	public function delete($id)
 	{
-		return collect([$this->createCategory()]);
+		return 1;
 	}
 
 	/**
@@ -139,6 +139,6 @@ class StubCategoryRepository implements CategoryRepository
 	 */
 	public function prepareLimit($limit, $offset = 0)
 	{
-		// TODO: Implement prepareLimit() method.
+		//
 	}
 }

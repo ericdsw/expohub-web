@@ -409,6 +409,20 @@ class DatabaseCreatorTest extends TestCase
 			'fair_id' => $fair->id
 		], $standParameters));
 	}
+
+	/** @test */
+	public function it_creates_api_token()
+	{
+		$parameters = [
+			'name' => 'api_token_name',
+			'app_id' => 'api_token_app_id',
+			'app_secret' => 'api_token_app_secret'
+		];
+
+		$this->systemUnderTest->createApiToken($parameters);
+
+		$this->seeInDatabase('api_tokens', $parameters);
+	}
 }
 
 /**
