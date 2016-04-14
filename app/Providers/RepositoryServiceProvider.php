@@ -15,7 +15,9 @@ use ExpoHub\Repositories\Contracts\SpeakerRepository as SpeakerRepositoryContrac
 use ExpoHub\Repositories\Contracts\SponsorRepository as SponsorRepositoryContract;
 use ExpoHub\Repositories\Contracts\SponsorRankRepository as SponsorRankRepositoryContract;
 use ExpoHub\Repositories\Contracts\StandRepository as StandRepositoryContract;
+use ExpoHub\Repositories\Contracts\ApiTokenRepository as ApiTokenRepositoryContract;
 
+use ExpoHub\Repositories\Eloquent\ApiTokenRepository;
 use ExpoHub\Repositories\Eloquent\CategoryRepository;
 use ExpoHub\Repositories\Eloquent\CommentRepository;
 use ExpoHub\Repositories\Eloquent\FairRepository;
@@ -52,5 +54,6 @@ class RepositoryServiceProvider extends ServiceProvider
 		app()->bind(SponsorRepositoryContract::class, SponsorRepository::class);
 		app()->bind(SponsorRankRepositoryContract::class, SponsorRankRepository::class);
 		app()->bind(StandRepositoryContract::class, StandRepository::class);
+		app()->bind(ApiTokenRepositoryContract::class, ApiTokenRepository::class);
 	}
 }

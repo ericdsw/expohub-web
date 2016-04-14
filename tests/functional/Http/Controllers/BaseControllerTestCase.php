@@ -66,7 +66,7 @@ abstract class BaseControllerTestCase extends TestCase
 	 * Registers logged in user for Api transactions
 	 *
 	 * @param int $id
-	 * @return array
+	 * @return User
 	 */
 	public function loginForApi($id = 1)
 	{
@@ -92,13 +92,15 @@ abstract class BaseControllerTestCase extends TestCase
 		$this->jwtAuth->shouldReceive('authenticate')
 			->with($token)
 			->andReturn($user);
+
+		return $user;
 	}
 
 	/**
 	 * Registers logged in user with expired token
 	 *
 	 * @param int $id
-	 * @return array
+	 * @return User
 	 */
 	public function loginForApiWithExpiredToken($id = 1)
 	{
@@ -124,5 +126,7 @@ abstract class BaseControllerTestCase extends TestCase
 		$this->jwtAuth->shouldReceive('authenticate')
 			->with($token)
 			->andThrow(TokenExpiredException::class, "", 401);
+
+		return $user;
 	}
 }
