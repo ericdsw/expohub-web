@@ -10,7 +10,7 @@ use League\Fractal\Resource\Item;
 class FairTransformer extends BaseTransformer
 {
 	protected $availableIncludes = ['user',
-									'bannedUsers', 'helperUsers', 'sponsors', 'maps', 'categories',
+									'bannedUsers', 'helpingUsers', 'sponsors', 'maps', 'categories',
 											'fairEvents', 'news', 'stands'];
 
 	/**
