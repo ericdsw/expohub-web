@@ -75,7 +75,7 @@ class FairTransformer extends BaseTransformer
 	 * @param Fair $fair
 	 * @return Collection
 	 */
-	public function includeHelperUsers(Fair $fair)
+	public function includeHelpingUsers(Fair $fair)
 	{
 		$helperUsers = $fair->helperUsers;
 		$userTransformer = app()->make(UserTransformer::class);
