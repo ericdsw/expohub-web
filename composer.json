@@ -16,8 +16,7 @@
         "tymon/jwt-auth": "0.5.*",
         "fzaninotto/faker": "~1.4",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "ext-gd": "*",
-        "ext-mbstring": "*"
+        "ext-gd": "*"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
