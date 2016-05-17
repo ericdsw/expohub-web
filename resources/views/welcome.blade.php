@@ -47,6 +47,25 @@
             <div class="content">
                 <div class="title">Expo Hub</div>
                 <div class="sub_title">Plataforma de eventos</div>
+
+                {{-- This section will display the MySQL database credentials --}}
+                {{--<h2 style="color: white; text-align: center;">MySQL Database credentials</h2>--}}
+                {{--<div style="text-align: left; width: 500px; display: inline-block; font-family: Helvetica; color: white;">--}}
+                    {{--Host: {{ parse_url(getenv('CLEARDB_DATABASE_URL'))['host'] }} <br />--}}
+                    {{--User: {{ parse_url(getenv('CLEARDB_DATABASE_URL'))['user'] }} <br />--}}
+                    {{--Password: {{ parse_url(getenv('CLEARDB_DATABASE_URL'))['pass'] }} <br />--}}
+                    {{--Database: {{ substr(parse_url(getenv('CLEARDB_DATABASE_URL'))['path'], 1) }} <br />--}}
+                {{--</div>--}}
+
+                {{-- This section will display the Postgress database credentials --}}
+                {{--<h2 style="color: white; text-align: center;">Postgress Database credentials</h2>--}}
+                {{--<div style="text-align: left; width: 500px; display: inline-block; font-family: Helvetica; color: white;">--}}
+                    {{--Host: {{ parse_url(getenv('DATABASE_URL'))['host'] }} <br />--}}
+                    {{--User: {{ parse_url(getenv('DATABASE_URL'))['user'] }} <br />--}}
+                    {{--Password: {{ parse_url(getenv('DATABASE_URL'))['pass'] }} <br />--}}
+                    {{--Database: {{ substr(parse_url(getenv('DATABASE_URL'))['path'], 1) }} <br />--}}
+                {{--</div>--}}
+
             </div>
         </div>
     </body>
