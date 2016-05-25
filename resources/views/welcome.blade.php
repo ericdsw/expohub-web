@@ -1,52 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Expo Hub</title>
+        <title>{{ Lang::get('strings.app_name') }}</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet' type='text/css'>
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+        <link rel="stylesheet" href="{{ elixir('css/front-page.css') }}" />
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-                background: #673AB7;
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-                color: white;
-            }
-            .sub_title {
-                font-size: 18px;
-                color: #eee;
-                margin-top: 8px;
-            }
-        </style>
     </head>
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Expo Hub</div>
-                <div class="sub_title">Plataforma de eventos</div>
+                <div class="title weak-text">{{ Lang::get('strings.app_name') }}</div>
+                <div class="sub_title weak-text">{{ Lang::get('strings.app_subtitle') }}</div>
+
+                <a style="font-family:'Roboto Mono', Monospace; margin-top: 32px;" href="{{ url('api-explorer') }}" role="button" class="btn btn-primary btn-raised">
+                    Api Explorer
+                </a>
 
                 {{-- This section will display the MySQL database credentials --}}
                 {{--<h2 style="color: white; text-align: center;">MySQL Database credentials</h2>--}}

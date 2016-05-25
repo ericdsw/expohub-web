@@ -1,0 +1,64 @@
+@import '../../../vendor/bower_components/bootstrap/less/bootstrap';
+@import '../../../vendor/bower_components/font-awesome/less/font-awesome';
+@import '../../../vendor/bower_components/bootstrap-material-design/less/bootstrap-material-design';
+@import '../../../vendor/bower_components/bootstrap-material-design/less/ripples';
+
+@title-font-family  : Lato, Helvetica, Arial, sans-serif;
+@code-font-family   : Roboto Mono, Monaco, Monospace;
+@icon-font-path     : "../../fonts/vendor/";
+@fa-font-path       : "../../fonts/vendor";
+
+@primary-color        : #673AB7;
+@dark-color           : #512DA8;
+@light-primary-color  : #D1C4E9;
+@accent-color         : #009688;
+@divider-color        : #B6B6B6;
+@body-color           : #f9f9f9;
+
+@text-color           : #212121;
+@light-text-color     : #727272;
+
+body, html {
+  height: 100%;
+}
+
+.material-nav {
+  height: 200px;
+}
+
+.title, .sub_title {
+  font-family: @title-font-family;
+}
+
+.weak-text {
+  font-weight: 100;
+}
+
+.code-text {
+  font-family: @code-font-family;
+}
+
+nav {
+
+  background-color: @primary-color;
+  color: #fff;
+
+  .brand-logo {
+    padding-left: 16px;
+    font-size: 2.6rem;
+    font-family: @title-font-family;
+  }
+
+  ul a {
+    font-size: 1.4rem;
+  }
+
+}
+
+input[type='text'] {
+  font-size: 1.4rem;
+}
+
+.btn-large i {
+  font-size: 2.5rem;
+}
