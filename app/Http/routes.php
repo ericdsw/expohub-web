@@ -7,6 +7,10 @@ get('/', function() {
 	return view('welcome');
 });
 
+get('api-explorer', function() {
+	return view('api-explorer');
+});
+
 /**
  * Api defined routes
  */
