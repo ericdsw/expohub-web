@@ -20,6 +20,16 @@
   font-family: 'Roboto Mono', Monospace;
 }
 
+#main-card .card-header .header-content {
+  display: table !important;
+  width: 100%;
+  vertical-align: middle;
+}
+
+#main-card .card-header .header-content .header-content-cell {
+  display: table-cell !important;
+}
+
 #main-card pre {
   border: none;
   background: #fafafa;

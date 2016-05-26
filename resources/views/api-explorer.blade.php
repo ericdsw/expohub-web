@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    @include('sub_views/favicons')
+
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet' type='text/css'>
@@ -21,16 +23,18 @@
 <nav class="material-nav"></nav>
 <div class="container">
     <div id="main-card" class="card-panel purple lighten-5 z-depth-3 well">
+        
+        <!-- Header -->
         <div class="card-header">
 
             <h4>{{ Lang::get('strings.api_explorer_title') }}</h4>
 
             <form @submit.prevent="queryApi">
 
-                <div style="display: table; width: 100%; margin-top: 0px; vertical-align: middle;">
+                    <div class="header-content">
 
-                    <div class="form-group label-floating"
-                         style="display: table-cell !important; width: auto; padding-right: 16px; vertical-align: middle;">
+                    <div class="form-group label-floating header-content-cell"
+                         style="width: auto; padding-right: 16px; vertical-align: middle;">
 
                         <input id="api-endpoint"
                                v-model="apiEndpoint"
@@ -39,7 +43,7 @@
 
                     </div>
 
-                    <div style="display: table-cell !important; width: 80px;">
+                    <div class="header-content-cell" style="width: 80px;">
                         <button class="btn btn-raised btn-primary" type="submit" name="action">
                             Ver &nbsp;
                             <i style="font-size: 14px;" class="material-icons right">send</i>
@@ -50,10 +54,15 @@
             </form>
 
         </div>
+
+        <!-- Content -->
         <pre>@{{ jsonMessage | json }}</pre>
+
+        <!-- Info Button -->
         <a id="info-button" data-toggle="modal" data-target="#instructions-modal" class="btn btn-primary btn-fab">
             <i class="material-icons">help</i>
         </a>
+
     </div>
 
 </div>
@@ -88,19 +97,20 @@
             queryApi : function() {
 
                 $.ajax({
+                    
                     url         : 'api/v1/' + this.apiEndpoint,
                     type        : 'GET',
                     dataType    : 'json',
 
-                    success     : function(data) {
+                    success : function(data) {
                         this.jsonMessage = data;
                     }.bind(this),
 
-                    error       : function(response, textStatus, errorThrown) {
+                    error : function(response, textStatus, errorThrown) {
                         this.jsonMessage = JSON.parse(response.responseText);
                     }.bind(this),
 
-                    beforeSend  : function(request) {
+                    beforeSend : function(request) {
                         request.setRequestHeader('x-api-authorization', this.apiToken);
                     }.bind(this)
 
