@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\AccessControllers;
 
 use ExpoHub\Repositories\Contracts\SponsorRepository;
@@ -15,6 +14,7 @@ class SponsorAccessController
 
 	/**
 	 * SponsorAccessController constructor.
+	 *
 	 * @param JWTAuth $jwtAuth
 	 * @param SponsorRepository $sponsorRepository
 	 */
@@ -25,8 +25,10 @@ class SponsorAccessController
 	}
 
 	/**
-	 * @param $fairId
-	 * @return boolean
+	 * Checks if request can create sponsor for specified fair
+	 *
+	 * @param int $fairId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canCreateSponsorForFair($fairId)
@@ -36,8 +38,10 @@ class SponsorAccessController
 	}
 
 	/**
-	 * @param $sponsorId
-	 * @return boolean
+	 * Checks if request can update specified sponsor
+	 *
+	 * @param int $sponsorId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canUpdateSponsor($sponsorId)
@@ -48,8 +52,10 @@ class SponsorAccessController
 	}
 
 	/**
-	 * @param $sponsorId
-	 * @return boolean
+	 * Checks if request can delete specified sponsor
+	 *
+	 * @param int $sponsorId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canDeleteSponsorRank($sponsorId)

@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\AccessControllers;
-
 
 use ExpoHub\Repositories\Contracts\MapRepository;
 use Tymon\JWTAuth\JWTAuth;
@@ -15,7 +13,8 @@ class MapAccessController
 	private $mapRepository;
 
 	/**
-	 * MapAccessController constructor.
+	 * MapAccessController constructor
+	 *
 	 * @param JWTAuth $jwtAuth
 	 * @param MapRepository $mapRepository
 	 */
@@ -26,8 +25,10 @@ class MapAccessController
 	}
 
 	/**
-	 * @param $fairId
-	 * @return boolean
+	 * Checks if request can create map for specified fair
+	 *
+	 * @param int $fairId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canCreateMapForFair($fairId)
@@ -37,8 +38,10 @@ class MapAccessController
 	}
 
 	/**
-	 * @param $mapId
-	 * @return boolean
+	 * Checks if request can update specified map
+	 *
+	 * @param int $mapId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canUpdateMap($mapId)
@@ -49,8 +52,10 @@ class MapAccessController
 	}
 
 	/**
-	 * @param $mapId
-	 * @return boolean
+	 * Checks if request can delete specified map
+	 *
+	 * @param int $mapId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canDeleteMap($mapId)

@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Http\Requests;
 
 use ExpoHub\AccessControllers\StandAccessController;

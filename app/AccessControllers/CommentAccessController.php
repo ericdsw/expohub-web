@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\AccessControllers;
 
 use ExpoHub\Constants\UserType;
@@ -15,7 +14,8 @@ class CommentAccessController
 	private $commentRepository;
 
 	/**
-	 * CommentAccessController constructor.
+	 * CommentAccessController constructor
+	 *
 	 * @param JWTAuth $jwtAuth
 	 * @param CommentRepository $commentRepository
 	 */
@@ -26,8 +26,10 @@ class CommentAccessController
 	}
 
 	/**
-	 * @param $commentId
-	 * @return boolean
+	 * Checks if the request can update the specified comment
+	 *
+	 * @param int $commentId
+	 * @return bool
 	 */
 	public function canUpdateComment($commentId)
 	{
@@ -36,8 +38,10 @@ class CommentAccessController
 	}
 
 	/**
-	 * @param $commentId
-	 * @return boolean
+	 * Checks if the request can delete the specified comment
+	 *
+	 * @param int $commentId
+	 * @return bool
 	 */
 	public function canDeleteComment($commentId)
 	{

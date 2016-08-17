@@ -12,7 +12,7 @@ class CreateFairHelpersTable extends Migration
      */
     public function up()
     {
-        Schema::create("fair_helpers", function(Blueprint $table) {
+        Schema::create("fair_helpers", function (Blueprint $table) {
 			$table->unsignedInteger("fair_id");
 			$table->unsignedInteger("user_id");
 

@@ -12,7 +12,7 @@ class CreateSponsorsTable extends Migration
      */
     public function up()
     {
-        Schema::create("sponsors", function(Blueprint $table) {
+        Schema::create("sponsors", function (Blueprint $table) {
 			$table->increments("id");
 			$table->string("name");
 			$table->string("logo");

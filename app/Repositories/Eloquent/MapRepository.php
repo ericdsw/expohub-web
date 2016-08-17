@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Repositories\Eloquent;
-
 
 use ExpoHub\Map;
 use ExpoHub\Repositories\Contracts\MapRepository as MapRepositoryContract;

@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Transformers;
-
 
 use ExpoHub\News;
 use League\Fractal\Resource\Collection;

@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
 
 use ExpoHub\Http\Requests\ListApiTokensRequest;
@@ -17,9 +16,17 @@ class ApiTokenController extends ApiController
 	/** @var ApiTokenRepository */
 	private $apiTokenRepository;
 
-	public function __construct(Manager $fractal, JsonApiSerializer $serializer,
-								ApiTokenTransformer $transformer, ApiTokenRepository $apiTokenRepository)
-	{
+	/**
+	 * ApiTokenController Constructor
+	 * @param Manager             $fractal
+	 * @param JsonApiSerializer   $serializer
+	 * @param ApiTokenTransformer $transformer
+	 * @param ApiTokenRepository  $apiTokenRepository
+	 */
+	public function __construct(
+		Manager $fractal, JsonApiSerializer $serializer,
+		ApiTokenTransformer $transformer, ApiTokenRepository $apiTokenRepository
+	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->apiTokenRepository = $apiTokenRepository;
 	}

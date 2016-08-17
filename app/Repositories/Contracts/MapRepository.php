@@ -1,8 +1,5 @@
 <?php
-
-
 namespace ExpoHub\Repositories\Contracts;
-
 
 use ExpoHub\Map;
 use Illuminate\Database\Eloquent\Collection;

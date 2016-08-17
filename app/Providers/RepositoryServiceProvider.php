@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Providers;
-
 
 use ExpoHub\Repositories\Contracts\CommentRepository as CommentRepositoryContract;
 use ExpoHub\Repositories\Contracts\FairRepository as FairRepositoryContract;

@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Constants;
-
 
 class UserType
 {

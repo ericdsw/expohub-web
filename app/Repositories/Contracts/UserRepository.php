@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Repositories\Contracts;
 
 use ExpoHub\User;

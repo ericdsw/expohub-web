@@ -22,7 +22,7 @@ class FairEventTableSeeder extends Seeder
         factory(FairEvent::class, 50)->create([
 			'fair_id' => $fairs->first(),
 			'event_type_id' => $eventTypes->first()
-		])->each(function(FairEvent $fairEvent) use ($fairs, $eventTypes, $users) {
+		])->each(function (FairEvent $fairEvent) use ($fairs, $eventTypes, $users) {
 
 			$fairId 		= $fairs->random();
 			$currentFair 	= Fair::find($fairId);
@@ -32,7 +32,7 @@ class FairEventTableSeeder extends Seeder
 			$fairEvent->categories()->attach($currentFair->categories->lists('id')->random());
 
 			if(mt_rand(1, 10) < 5) {
-				$users->random(3)->each(function($userId) use ($fairEvent) {
+				$users->random(3)->each(function ($userId) use ($fairEvent) {
 					$fairEvent->attendingUsers()->attach($userId);
 				});
 			}

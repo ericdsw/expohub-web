@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Specifications;
-
 
 use ExpoHub\Repositories\Contracts\UserRepository;
 
@@ -10,6 +8,11 @@ class UserSpecification
 	/** @var UserRepository */
 	private $userRepository;
 
+	/**
+	 * UserSpecification constructor
+	 *
+	 * @param UserRepository $userRepository
+	 */
 	public function __construct(UserRepository $userRepository)
 	{
 		$this->userRepository = $userRepository;

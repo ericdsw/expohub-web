@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Repositories\Eloquent;
-
 
 use ExpoHub\Category;
 use ExpoHub\Repositories\Contracts\CategoryRepository as CategoryRepositoryContract;

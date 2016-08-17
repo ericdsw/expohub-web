@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Repositories\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +8,7 @@ interface Repository
 {
 	/**
 	 * Returns a list of the specified array
-	 * 
+	 *
 	 * @param  array $eagerLoading
 	 * @return Collection
 	 */
@@ -17,7 +16,7 @@ interface Repository
 
 	/**
 	 * Returns resource with specified id
-	 * 
+	 *
 	 * @param  int $id
 	 * @param  array $eagerLoading
 	 * @return Model
@@ -26,7 +25,7 @@ interface Repository
 
 	/**
 	 * Creates resource with specified parameters
-	 * 
+	 *
 	 * @param  array $parameters
 	 * @return Model
 	 */
@@ -34,7 +33,7 @@ interface Repository
 
 	/**
 	 * Updates specified resource with supplied parameters
-	 * 
+	 *
 	 * @param  int $id
 	 * @param  array $parameters
 	 * @return Model
@@ -43,7 +42,7 @@ interface Repository
 
 	/**
 	 * Deletes specified resource
-	 * 
+	 *
 	 * @param  int $id
 	 * @return int
 	 */

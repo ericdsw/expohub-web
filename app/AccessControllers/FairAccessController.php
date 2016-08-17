@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\AccessControllers;
-
 
 use Tymon\JWTAuth\JWTAuth;
 
@@ -11,7 +9,8 @@ class FairAccessController
 	private $jwtAuth;
 
 	/**
-	 * FairAccessController constructor.
+	 * FairAccessController constructor
+	 *
 	 * @param JWTAuth $JWTAuth
 	 */
 	public function __construct(JWTAuth $JWTAuth)
@@ -20,8 +19,10 @@ class FairAccessController
 	}
 
 	/**
-	 * @param $fairId
-	 * @return boolean
+	 * Checks if request can update specified fair
+	 *
+	 * @param int $fairId
+	 * @return bool
 	 */
 	public function canUpdateFair($fairId)
 	{
@@ -30,6 +31,8 @@ class FairAccessController
 	}
 
 	/**
+	 * Checks if request can delete specified fair
+	 *
 	 * @param $fairId
 	 * @return boolean
 	 */

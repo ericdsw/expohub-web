@@ -1,8 +1,5 @@
 <?php
-
-
 namespace ExpoHub\Repositories\Eloquent;
-
 
 use ExpoHub\News;
 use ExpoHub\Repositories\Contracts\NewsRepository as NewsRepositoryContract;

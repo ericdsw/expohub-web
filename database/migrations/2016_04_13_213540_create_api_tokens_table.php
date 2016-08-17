@@ -12,7 +12,7 @@ class CreateApiTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('api_tokens', function(Blueprint $table) {
+        Schema::create('api_tokens', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
 			$table->string('app_id');

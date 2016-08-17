@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
-
 
 use ExpoHub\Constants\UserType;
 use ExpoHub\Http\Requests\CreateUserRequest;
@@ -29,9 +27,10 @@ class UserController extends ApiController
 	 * @param UserTransformer $transformer
 	 * @param UserRepository $repository
 	 */
-	public function __construct(Manager $fractal, JsonApiSerializer $serializer,
-								UserTransformer $transformer, UserRepository $repository)
-	{
+	public function __construct(
+		Manager $fractal, JsonApiSerializer $serializer,
+		UserTransformer $transformer, UserRepository $repository
+	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->userRepository = $repository;
 	}
@@ -74,7 +73,7 @@ class UserController extends ApiController
 	 */
 	public function store(CreateUserRequest $request, UserSpecification $specification)
 	{
-		if(! $specification->isEmailAvailable($request->get('email'))) {
+		if (! $specification->isEmailAvailable($request->get('email'))) {
 			return $this->respondError([
 				'title' 		=> 'email-taken',
 				'description' 	=> 'Email is already taken',
@@ -82,7 +81,7 @@ class UserController extends ApiController
 			], 409);
 		}
 
-		if(! $specification->isUsernameAvailable($request->get('username'))) {
+		if (! $specification->isUsernameAvailable($request->get('username'))) {
 			return $this->respondError([
 				'title' 		=> 'username-taken',
 				'description' 	=> 'Username is already taken',

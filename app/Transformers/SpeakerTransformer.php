@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Transformers;
-
 
 use ExpoHub\Speaker;
 use League\Fractal\Resource\Item;

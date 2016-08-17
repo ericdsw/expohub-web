@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
@@ -25,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if(app()->environment('local')) {
+        if (app()->environment('local')) {
 			app()->register(IdeHelperServiceProvider::class);
 		}
 

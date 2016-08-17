@@ -1,8 +1,5 @@
 <?php
-
-
 namespace ExpoHub\Repositories\Contracts;
-
 
 use ExpoHub\Sponsor;
 use Illuminate\Database\Eloquent\Collection;

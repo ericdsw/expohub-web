@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Repositories\Contracts;
-
 
 use ExpoHub\Fair;
 use Illuminate\Database\Eloquent\Collection;

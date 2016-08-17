@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Repositories\Eloquent;
-
 
 use ExpoHub\EventType;
 use ExpoHub\Repositories\Contracts\EventTypeRepository as EventTypeRepositoryContract;

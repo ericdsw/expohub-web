@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
-
 
 use ExpoHub\Http\Controllers\Api\ApiController;
 use ExpoHub\Http\Requests\CreateCommentRequest;
@@ -29,9 +27,10 @@ class CommentController extends ApiController
 	 * @param JsonApiSerializer $serializer
 	 * @param CommentTransformer $categoryTransformer
 	 */
-	public function __construct(CommentRepository $commentRepository, Manager $fractal,
-								JsonApiSerializer $serializer, CommentTransformer $categoryTransformer)
-	{
+	public function __construct(
+		CommentRepository $commentRepository, Manager $fractal,
+		JsonApiSerializer $serializer, CommentTransformer $categoryTransformer
+	) {
 		parent::__construct($fractal, $serializer, $categoryTransformer);
 		$this->commentRepository = $commentRepository;
 	}

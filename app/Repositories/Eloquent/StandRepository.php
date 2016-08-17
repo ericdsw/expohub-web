@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Repositories\Eloquent;
-
 
 use ExpoHub\Repositories\Contracts\Collection;
 use ExpoHub\Repositories\Contracts\StandRepository as StandRepositoryContract;

@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
-
 
 use ExpoHub\Http\Controllers\Controller;
 use ExpoHub\Repositories\Contracts\Repository;
@@ -56,17 +54,15 @@ abstract class ApiController extends Controller
 	 */
 	protected function respondJson($data)
 	{
-		if(request()->has('include')) {
+		if (request()->has('include')) {
 			$this->fractal->parseIncludes(request()->get('include'));
 		}
 
-		if($data instanceof Collection) {
+		if ($data instanceof Collection) {
 			return $this->respondWithCollection($data);
-		}
-		else if($data instanceof Model) {
+		} elseif ($data instanceof Model) {
 			return $this->respondWithModel($data);
-		}
-		else {
+		} else {
 			return response()->json($data, $this->statusCode, $this->getHeaders());
 		}
 	}
@@ -181,7 +177,7 @@ abstract class ApiController extends Controller
 	{
 		$resource = new Item($model, $this->transformer, $this->transformer->getType());
 
-		if(! empty($this->meta)) {
+		if (! empty($this->meta)) {
 			$resource->setMeta($this->meta);
 		}
 
@@ -200,23 +196,23 @@ abstract class ApiController extends Controller
 	{
 		$resource = new FractalCollection($collection, $this->transformer, $this->transformer->getType());
 
-		if(request()->has('page')) {
+		if (request()->has('page')) {
 
-			$pageArray = request()->get('page');
+			$pageArray  = request()->get('page');
 
 			$limit 		= $pageArray['limit'];
 			$cursor 	= (int) $pageArray['cursor'];
 			$previous 	= null;
 			$next		= (count($collection) <= $limit) ? null : $limit + $cursor;
 
-			if(array_key_exists('previous', $pageArray)) {
+			if (array_key_exists('previous', $pageArray)) {
 				$previous = $pageArray['previous'];
 			}
 
 			$resource->setCursor(new Cursor($cursor, $previous, $next, count($collection)));
 		}
 
-		if(! empty($this->meta)) {
+		if (! empty($this->meta)) {
 			$resource->setMeta($this->meta);
 		}
 
@@ -230,17 +226,17 @@ abstract class ApiController extends Controller
 	 */
 	protected function prepareRepo(Repository $repository, Request $request)
 	{
-		if($request->has('include')) {
+		if ($request->has('include')) {
 			$repository->prepareEagerLoading(
 				explode(',', $request->get('include'))
 			);
 		}
 
-		if($request->has('page')) {
+		if ($request->has('page')) {
 			$repository->prepareLimit($request->get('page')['limit'], $request->get('page')['cursor']);
 		}
 
-		if($request->has('sort')) {
+		if ($request->has('sort')) {
 			$sortParameterArray = explode(',', $request->get('sort'));
 			foreach($sortParameterArray as $sortParameter) {
 				if(preg_match('#^-#', $sortParameter)) {

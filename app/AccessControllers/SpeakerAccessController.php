@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\AccessControllers;
-
 
 use ExpoHub\Repositories\Contracts\SpeakerRepository;
 use Tymon\JWTAuth\JWTAuth;
@@ -16,6 +14,7 @@ class SpeakerAccessController
 
 	/**
 	 * SpeakerAccessController constructor.
+	 *
 	 * @param JWTAuth $jwtAuth
 	 * @param SpeakerRepository $speakerRepository
 	 */
@@ -26,8 +25,10 @@ class SpeakerAccessController
 	}
 
 	/**
-	 * @param $fairId
-	 * @return mixed
+	 * Checks if request can create speaker for specified fair
+	 *
+	 * @param int $fairId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canCreateSpeakerForFair($fairId)
@@ -37,8 +38,10 @@ class SpeakerAccessController
 	}
 
 	/**
-	 * @param $speakerId
-	 * @return mixed
+	 * Checks if request can update specified speaker
+	 *
+	 * @param int $speakerId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canUpdateSpeaker($speakerId)
@@ -49,8 +52,10 @@ class SpeakerAccessController
 	}
 
 	/**
-	 * @param $speakerId
-	 * @return mixed
+	 * Checks if request can delete specified speaker
+	 *
+	 * @param int $speakerId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canDeleteSpeaker($speakerId)

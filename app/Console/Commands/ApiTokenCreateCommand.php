@@ -9,9 +9,17 @@ class ApiTokenCreateCommand extends Command
 	/** @var ApiTokenRepository */
 	private $apiTokenRepository;
 
+	/**
+	 * The command's signature
+	 * @var string
+	 */
 	protected $signature = 'apiToken:create
 							{name : the name of the app using this api token}';
 
+	/**
+	 * The command's description
+	 * @var string
+	 */
 	protected $description = 'Creates a new ApiToken to consume the public api';
 
 	/**

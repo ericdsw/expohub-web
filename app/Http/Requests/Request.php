@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;

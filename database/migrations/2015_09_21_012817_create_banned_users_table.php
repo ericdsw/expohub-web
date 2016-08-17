@@ -12,7 +12,7 @@ class CreateBannedUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create("banned_users", function(Blueprint $table) {
+        Schema::create("banned_users", function (Blueprint $table) {
 			$table->unsignedInteger("fair_id");
 			$table->unsignedInteger("user_id");
 			$table->timestamps();

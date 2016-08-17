@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\AccessControllers;
 
 use ExpoHub\Repositories\Contracts\CategoryRepository;
@@ -14,7 +13,8 @@ class CategoryAccessController
 	private $categoryRepository;
 
 	/**
-	 * CategoryAccessController constructor.
+	 * CategoryAccessController constructor
+	 *
 	 * @param JWTAuth $jwtAuth
 	 * @param CategoryRepository $categoryRepository
 	 */
@@ -25,8 +25,10 @@ class CategoryAccessController
 	}
 
 	/**
-	 * @param $fairId
-	 * @return boolean
+	 * Checks if request can create a new category for the specified fair
+	 *
+	 * @param int $fairId
+	 * @return bool
 	 */
 	public function canCreateCategoryForFair($fairId)
 	{
@@ -35,8 +37,10 @@ class CategoryAccessController
 	}
 
 	/**
-	 * @param $categoryId
-	 * @return boolean
+	 * Checks if request can update category
+	 *
+	 * @param int $categoryId
+	 * @return bool
 	 */
 	public function canUpdateCategory($categoryId)
 	{
@@ -47,8 +51,10 @@ class CategoryAccessController
 	}
 
 	/**
-	 * @param $categoryId
-	 * @return boolean
+	 * Checks if request can delete category
+	 *
+	 * @param int $categoryId
+	 * @return bool
 	 */
 	public function canDeleteCategory($categoryId)
 	{

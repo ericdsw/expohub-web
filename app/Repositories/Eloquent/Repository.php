@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -24,21 +23,21 @@ abstract class Repository implements RepositoryContract
 	{
 		$this->model = $model;
 	}
-	
+
 	/**
 	 * Returns a list of the specified array
-	 * 
+	 *
 	 * @param  array $eagerLoading
 	 * @return Collection
 	 */
-	public function all(array $eagerLoading = []) 
+	public function all(array $eagerLoading = [])
 	{
 		return $this->prepareQuery()->get();
 	}
 
 	/**
 	 * Returns resource with specified id
-	 * 
+	 *
 	 * @param  int $id
 	 * @param  array $eagerLoading
 	 * @return Model
@@ -50,7 +49,7 @@ abstract class Repository implements RepositoryContract
 
 	/**
 	 * Creates resource with specified parameters
-	 * 
+	 *
 	 * @param  array $parameters
 	 * @return Model
 	 */
@@ -61,7 +60,7 @@ abstract class Repository implements RepositoryContract
 
 	/**
 	 * Updates specified resource with supplied parameters
-	 * 
+	 *
 	 * @param  int $id
 	 * @param  array $parameters
 	 * @return Model
@@ -75,7 +74,7 @@ abstract class Repository implements RepositoryContract
 
 	/**
 	 * Deletes specified resource
-	 * 
+	 *
 	 * @param  int $id
 	 * @return int
 	 */
@@ -126,19 +125,19 @@ abstract class Repository implements RepositoryContract
 	protected function prepareQuery($modelQuery = null)
 	{
 		$query = $this->model->query();
-		if($modelQuery != null) {
+		if ($modelQuery != null) {
 			$query = $modelQuery->query();
 		}
 
-		foreach($this->orderParameters as $parameter => $order) {
+		foreach ($this->orderParameters as $parameter => $order) {
 			$query = $query->orderBy($parameter, $order);
 		}
 
-		if($this->eagerLoading != null) {
+		if ($this->eagerLoading != null) {
 			$query = $query->with($this->eagerLoading);
 		}
 
-		if($this->offset !== null && $this->limit !== null) {
+		if ($this->offset !== null && $this->limit !== null) {
 			$query->skip($this->offset)->take($this->limit);
 		}
 

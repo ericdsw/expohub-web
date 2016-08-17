@@ -1,8 +1,5 @@
 <?php
-
-
 namespace ExpoHub\Transformers;
-
 
 use ExpoHub\Sponsor;
 use League\Fractal\Resource\Item;

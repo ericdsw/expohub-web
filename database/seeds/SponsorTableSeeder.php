@@ -19,7 +19,7 @@ class SponsorTableSeeder extends Seeder
 		factory(Sponsor::class, 10)->make([
 			'fair_id' => $fairs->first(),
 			'sponsor_rank_id' => $sponsorRanks->first()
-		])->each(function(Sponsor $sponsor) use ($fairs, $sponsorRanks) {
+		])->each(function (Sponsor $sponsor) use ($fairs, $sponsorRanks) {
 			$sponsor->fair_id = $fairs->random();
 			$sponsor->sponsor_rank_id = $sponsorRanks->random();
 			$sponsor->save();

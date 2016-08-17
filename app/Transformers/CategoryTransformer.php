@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Transformers;
 
 use ExpoHub\Category;

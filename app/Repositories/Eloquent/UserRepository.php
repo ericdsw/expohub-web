@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Repositories\Eloquent;
 
 use ExpoHub\Repositories\Contracts\UserRepository as UserRepositoryContract;

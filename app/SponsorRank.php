@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub;
 
 use Illuminate\Database\Eloquent\Model;

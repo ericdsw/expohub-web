@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Transformers;
-
 
 use ExpoHub\FairEvent;
 use League\Fractal\Resource\Collection;

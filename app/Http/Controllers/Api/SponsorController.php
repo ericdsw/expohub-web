@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
-
 
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Http\Requests\CreateSponsorRequest;
@@ -21,20 +19,24 @@ class SponsorController extends ApiController
 	private $sponsorRepository;
 
 	/**
-	 * SponsorController constructor.
+	 * SponsorController constructor
+	 *
 	 * @param Manager $fractal
 	 * @param JsonApiSerializer $serializer
 	 * @param SponsorTransformer $transformer
 	 * @param SponsorRepository $repository
 	 */
-	public function __construct(Manager $fractal, JsonApiSerializer $serializer,
-								SponsorTransformer $transformer, SponsorRepository $repository)
-	{
+	public function __construct(
+		Manager $fractal, JsonApiSerializer $serializer,
+		SponsorTransformer $transformer, SponsorRepository $repository
+	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->sponsorRepository = $repository;
 	}
 
 	/**
+	 * Shows list of sponsors
+	 *
 	 * @param Request $request
 	 * @return JsonResponse
 	 */
@@ -45,6 +47,8 @@ class SponsorController extends ApiController
 	}
 
 	/**
+	 * Shows specified sponsor
+	 *
 	 * @param Request $request
 	 * @param $id
 	 * @return JsonResponse
@@ -56,6 +60,8 @@ class SponsorController extends ApiController
 	}
 
 	/**
+	 * Creates new sponsor
+	 *
 	 * @param CreateSponsorRequest $request
 	 * @param FileManager $fileManager
 	 * @return JsonResponse
@@ -75,6 +81,8 @@ class SponsorController extends ApiController
 	}
 
 	/**
+	 * Updates specified sponsor
+	 *
 	 * @param UpdateSponsorRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
@@ -85,7 +93,7 @@ class SponsorController extends ApiController
 		$sponsor 	= $this->sponsorRepository->find($id);
 		$imageUrl 	= $sponsor->logo;
 
-		if($request->hasFile('image')) {
+		if ($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
 			$imageUrl = $fileManager->uploadFile('uploads/', $request->file('image'));
 		}
@@ -101,6 +109,8 @@ class SponsorController extends ApiController
 	}
 
 	/**
+	 * Deletes specified sponsor
+	 *
 	 * @param DeleteSponsorRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
@@ -117,6 +127,8 @@ class SponsorController extends ApiController
 	}
 
 	/**
+	 * Shows sponsors by fair
+	 *
 	 * @param Request $request
 	 * @param $fairId
 	 * @return JsonResponse
@@ -128,6 +140,8 @@ class SponsorController extends ApiController
 	}
 
 	/**
+	 * Shows sponsors by sponsorRank
+	 *
 	 * @param Request $request
 	 * @param $sponsorRankId
 	 * @return JsonResponse

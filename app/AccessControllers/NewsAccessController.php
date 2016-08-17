@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\AccessControllers;
 
 use ExpoHub\Repositories\Contracts\NewsRepository;
@@ -14,7 +13,8 @@ class NewsAccessController
 	private $newsRepository;
 
 	/**
-	 * NewsAccessController constructor.
+	 * NewsAccessController constructor
+	 *
 	 * @param JWTAuth $jwtAuth
 	 * @param NewsRepository $newsRepository
 	 */
@@ -25,8 +25,10 @@ class NewsAccessController
 	}
 
 	/**
-	 * @param $fairId
-	 * @return boolean
+	 * Checks if request can create news entry for specified fair
+	 *
+	 * @param int $fairId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canCreateNewsForFair($fairId)
@@ -36,8 +38,10 @@ class NewsAccessController
 	}
 
 	/**
-	 * @param $newsId
-	 * @return boolean
+	 * Checks if request can update specified news entry
+	 *
+	 * @param int $newsId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canUpdateNews($newsId)
@@ -48,8 +52,10 @@ class NewsAccessController
 	}
 
 	/**
-	 * @param $newsId
-	 * @return boolean
+	 * Checks if request can delete specified news entry
+	 *
+	 * @param int $newsId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canDeleteNews($newsId)

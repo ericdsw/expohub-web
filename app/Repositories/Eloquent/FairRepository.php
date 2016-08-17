@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Repositories\Eloquent;
-
 
 use Carbon\Carbon;
 use ExpoHub\Fair;
@@ -38,11 +36,11 @@ class FairRepository extends Repository implements FairRepositoryContract
 	 */
 	public function getHelpingFairsByUser($userId)
 	{
-		$bannedFairIds = $this->model->whereHas('bannedUsers', function($query) use ($userId) {
+		$bannedFairIds = $this->model->whereHas('bannedUsers', function ($query) use ($userId) {
 			$query->where('id', $userId);
 		})->get()->lists('id');
 
-		return $this->prepareQuery()->whereHas('helperUsers', function($query) use ($userId) {
+		return $this->prepareQuery()->whereHas('helperUsers', function ($query) use ($userId) {
 			$query->where('id', $userId);
 		})->where('user_id', '!=', $userId)->whereNotIn('id', $bannedFairIds)->get();
 	}
@@ -55,7 +53,7 @@ class FairRepository extends Repository implements FairRepositoryContract
 	 */
 	public function getBannedFairsByUser($userId)
 	{
-		return $this->prepareQuery()->whereHas('bannedUsers', function($query) use ($userId) {
+		return $this->prepareQuery()->whereHas('bannedUsers', function ($query) use ($userId) {
 			$query->where('id', $userId);
 		})->get();
 	}

@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Http\Middleware;
 
 use Closure;
@@ -31,10 +30,9 @@ class CheckApiToken
     public function handle($request, Closure $next)
     {
 		try {
-			if($this->apiAccessController->canUseApi($request->headers->all())) {
+			if ($this->apiAccessController->canUseApi($request->headers->all())) {
 				return $next($request);
-			}
-			else {
+			} else {
 				return response()->json([
 					'errors' => [[
 						'title' 	=> 'invalid_api_token',
@@ -43,8 +41,7 @@ class CheckApiToken
 					]]
 				], 403, ['Content-Type' => 'application/vnd.api+json']);
 			}
-		}
-		catch(NoApiAccessTokenException $e) {
+		} catch(NoApiAccessTokenException $e) {
 			return response()->json([
 				'errors' => [[
 					'title' 	=> 'no_api_access_token_provided',
@@ -52,8 +49,7 @@ class CheckApiToken
 					'status' 	=> 400
 				]]
 			], 400, ['Content-Type' => 'application/vnd.api+json']);
-		}
-		catch(MalformedApiAccessTokenException $e) {
+		} catch(MalformedApiAccessTokenException $e) {
 			return response()->json([
 				'errors' => [[
 					'title' 	=> 'malformed_api_token',

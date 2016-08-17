@@ -16,7 +16,7 @@ class CategoryTableSeeder extends Seeder
         $fairs = Fair::all()->lists('id');
 		factory(Category::class, 40)->create([
 			'fair_id' => $fairs->first()
-		])->each(function(Category $category) use ($fairs) {
+		])->each(function (Category $category) use ($fairs) {
 			$category->fair_id = $fairs->random();
 			$category->save();
 		});
