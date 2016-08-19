@@ -1,3 +1,4 @@
+'use strict';
 
 // Basic elixir requirement
 var elixir = require('laravel-elixir');
@@ -20,6 +21,11 @@ elixir(function(mix) {
 		'bootstrap-material-design/dist/js/ripples.min.js',
 		'vue/dist/vue.min.js'
 	], 'public/js/vendor.js', baseBowerPath);
+
+	// Mix standalone scripts
+	mix.scripts([
+		'api-explorer.js'
+	], 'public/js/api-explorer.js')
 
 	// Copy required fonts
 	mix.copy(baseBowerPath + 'bootstrap/dist/fonts', 'public/fonts/vendor');

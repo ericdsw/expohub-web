@@ -8,6 +8,12 @@ use Illuminate\Http\Response;
 
 abstract class Request extends FormRequest
 {
+	/**
+	 * Overrides parent's failedValidation method
+	 * throws exception adjusting to JSON Api's standard
+	 *
+	 * @param  Validator $validator
+	 */
     protected function failedValidation(Validator $validator)
 	{
 		$errorArray = [];
@@ -26,9 +32,8 @@ abstract class Request extends FormRequest
 	}
 
 	/**
-	 * Handle a failed authorization attempt.
-	 *
-	 * @return mixed
+	 * Overrides parent's failedAuthorization method
+	 * Handle a failed authorization attempt and throws a JSON Api compatible exception
 	 */
 	protected function failedAuthorization()
 	{

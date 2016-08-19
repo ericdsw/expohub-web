@@ -23,7 +23,7 @@
 <nav class="material-nav"></nav>
 <div class="container">
     <div id="main-card" class="card-panel purple lighten-5 z-depth-3 well">
-        
+
         <!-- Header -->
         <div class="card-header">
 
@@ -71,57 +71,7 @@
 @include('sub_views.instructions_modal')
 
 <script src="{{ elixir('js/vendor.js') }}"></script>
-
-<script>
-
-    // Initialize bootstrap material
-    $.material.init()
-
-    // Main Vue element
-    new Vue({
-
-        el : '#main-card',
-
-        data : {
-            apiEndpoint : '',
-            jsonMessage : "Por favor especifique un endpoint para mostrar su contenido",
-            apiToken    : '',
-        },
-
-        ready : function() {
-            this.apiToken = $('meta[name="api-token"]').attr('content');
-        },
-
-        methods : {
-
-            queryApi : function() {
-
-                $.ajax({
-                    
-                    url         : 'api/v1/' + this.apiEndpoint,
-                    type        : 'GET',
-                    dataType    : 'json',
-
-                    success : function(data) {
-                        this.jsonMessage = data;
-                    }.bind(this),
-
-                    error : function(response, textStatus, errorThrown) {
-                        this.jsonMessage = JSON.parse(response.responseText);
-                    }.bind(this),
-
-                    beforeSend : function(request) {
-                        request.setRequestHeader('x-api-authorization', this.apiToken);
-                    }.bind(this)
-
-                })
-
-            }
-        }
-
-    });
-
-</script>
+<script src="{{ elixir('js/api-explorer.js') }}"></script>
 
 </body>
 
