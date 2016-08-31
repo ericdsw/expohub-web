@@ -35,6 +35,7 @@ elixir(function(mix) {
 	// Version all generated files
 	mix.version([
 		'js/vendor.js',
+		'js/api-explorer.js',
 		'css/app.css',
 		'css/front-page.css',
 		'css/api-explorer.css',

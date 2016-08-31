@@ -1,9 +1,16 @@
 {
     "name": "ericDS/expohub",
-    "description": "Panama expo repository",
+    "description": "Panama expositions repository",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "authors": [
+        {
+            "name" : "Eric De Sedas",
+            "email" : "eric.desedas.w@gmail.com",
+            "role" : "Administrator, Developer"
+        }
+    ],
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
@@ -48,9 +55,6 @@
         "pre-update-cmd": [
             "php artisan clear-compiled",
             "php artisan ide-helper:generate -M",
-            "php artisan optimize"
-        ],
-        "post-update-cmd": [
             "php artisan optimize"
         ],
         "post-root-package-install": [
