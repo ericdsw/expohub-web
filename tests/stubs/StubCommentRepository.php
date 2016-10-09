@@ -101,7 +101,7 @@ class StubCommentRepository implements CommentRepository
 
 		// Relationships
 		$comment->setRelation('user', new User);
-		$comment->setRelation('ownerNews', collect([new News]));
+		$comment->setRelation('ownerNews', new News);
 
 		return $comment;
 	}
