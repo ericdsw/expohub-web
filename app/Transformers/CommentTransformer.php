@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Transformers;
-
 
 use ExpoHub\Comment;
 use League\Fractal\Resource\Item;

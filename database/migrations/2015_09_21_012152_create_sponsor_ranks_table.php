@@ -12,7 +12,7 @@ class CreateSponsorRanksTable extends Migration
      */
     public function up()
     {
-        Schema::create("sponsor_ranks", function(Blueprint $table) {
+        Schema::create("sponsor_ranks", function (Blueprint $table) {
 			$table->increments("id");
 			$table->string("name");
 			$table->timestamps();

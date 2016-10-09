@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as BaseEncrypter;

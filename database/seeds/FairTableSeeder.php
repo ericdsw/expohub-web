@@ -14,9 +14,10 @@ class FairTableSeeder extends Seeder
     public function run()
     {
 		$users = User::all()->lists('id');
+
         factory(Fair::class, 100)->create([
 			'user_id' => $users->first()
-		])->each(function(Fair $fair) use ($users) {
+		])->each(function (Fair $fair) use ($users) {
 			$fair->user_id = $users->random();
 			$fair->save();
 		});

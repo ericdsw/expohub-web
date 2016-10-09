@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Repositories\Eloquent;
-
 
 use ExpoHub\Comment;
 use ExpoHub\Repositories\Contracts\CommentRepository as CommentRepositoryContract;

@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
 
 use ExpoHub\Http\Requests\CreateCategoryRequest;
@@ -26,9 +25,10 @@ class CategoryController extends ApiController
 	 * @param JsonApiSerializer $serializer
 	 * @param CategoryTransformer $categoryTransformer
 	 */
-	public function __construct(CategoryRepository $categoryRepository, Manager $fractal,
-								JsonApiSerializer $serializer, CategoryTransformer $categoryTransformer)
-	{
+	public function __construct(
+		CategoryRepository $categoryRepository, Manager $fractal,
+		JsonApiSerializer $serializer, CategoryTransformer $categoryTransformer
+	) {
 		parent::__construct($fractal, $serializer, $categoryTransformer);
 		$this->categoryRepository = $categoryRepository;
 	}

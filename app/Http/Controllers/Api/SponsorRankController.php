@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
-
 
 use ExpoHub\Http\Requests\CreateSponsorRankRequest;
 use ExpoHub\Http\Requests\DeleteSponsorRankRequest;
@@ -16,23 +14,28 @@ use League\Fractal\Serializer\JsonApiSerializer;
 
 class SponsorRankController extends ApiController
 {
+	/** @var SponsorRankRepository */
 	private $sponsorRankRepository;
 
 	/**
-	 * SponsorRankController constructor.
+	 * SponsorRankController constructor
+	 *
 	 * @param Manager $fractal
 	 * @param JsonApiSerializer $serializer
 	 * @param SponsorRankTransformer $transformer
 	 * @param SponsorRankRepository $repository
 	 */
-	public function __construct(Manager $fractal, JsonApiSerializer $serializer,
-								SponsorRankTransformer $transformer, SponsorRankRepository $repository)
-	{
+	public function __construct(
+		Manager $fractal, JsonApiSerializer $serializer,
+ 		SponsorRankTransformer $transformer, SponsorRankRepository $repository
+ 	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->sponsorRankRepository = $repository;
 	}
 
 	/**
+	 * Shows list of sponsorRanks
+	 *
 	 * @param Request $request
 	 * @return JsonResponse
 	 */
@@ -45,6 +48,8 @@ class SponsorRankController extends ApiController
 	}
 
 	/**
+	 * Shows specified sponsorRank
+	 *
 	 * @param Request $request
 	 * @param $id
 	 * @return JsonResponse
@@ -58,6 +63,8 @@ class SponsorRankController extends ApiController
 	}
 
 	/**
+	 * Stores new sponsorRank
+	 *
 	 * @param CreateSponsorRankRequest $request
 	 * @return JsonResponse
 	 */
@@ -73,6 +80,8 @@ class SponsorRankController extends ApiController
 	}
 
 	/**
+	 * Updates specified sponsorRank
+	 *
 	 * @param UpdateSponsorRankRequest $request
 	 * @param $id
 	 * @return JsonResponse
@@ -89,6 +98,8 @@ class SponsorRankController extends ApiController
 	}
 
 	/**
+	 * Deletes specified sponsorRank
+	 *
 	 * @param DeleteSponsorRankRequest $request
 	 * @param $id
 	 * @return JsonResponse

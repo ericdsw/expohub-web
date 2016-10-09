@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Exceptions;
 
 use Exception;

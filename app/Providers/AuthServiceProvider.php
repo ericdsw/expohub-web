@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;

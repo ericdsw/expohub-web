@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\AccessControllers;
 
 
@@ -11,12 +10,19 @@ class SponsorRankAccessController
 	/** @var JWTAuth  */
 	private $jwtAuth;
 
+	/**
+	 * SponsorRankAccessController Constructor
+	 *
+	 * @param JWTAuth $jwtAuth
+	 */
 	public function __construct(JWTAuth $jwtAuth)
 	{
 		$this->jwtAuth = $jwtAuth;
 	}
 
 	/**
+	 * Checks if request can create sponsor rank
+	 *
 	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
@@ -26,6 +32,8 @@ class SponsorRankAccessController
 	}
 
 	/**
+	 * Checks if request can update specified sponsor rank
+	 *
 	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
@@ -35,6 +43,8 @@ class SponsorRankAccessController
 	}
 
 	/**
+	 * Checks if request can delete specified sponsor rank
+	 *
 	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */

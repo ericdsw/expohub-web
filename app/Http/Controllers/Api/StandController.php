@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
-
 
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Http\Requests\CreateStandRequest;
@@ -20,14 +18,25 @@ class StandController extends ApiController
 	/** @var StandRepository */
 	private $standRepository;
 
-	public function __construct(Manager $fractal, JsonApiSerializer $serializer,
-								StandTransformer $transformer, StandRepository $standRepository)
-	{
+	/**
+	 * StandController Constructor
+	 *
+	 * @param Manager           $fractal
+	 * @param JsonApiSerializer $serializer
+	 * @param StandTransformer  $transformer
+	 * @param StandRepository   $standRepository
+	 */
+	public function __construct(
+		Manager $fractal, JsonApiSerializer $serializer,
+ 		StandTransformer $transformer, StandRepository $standRepository
+ 	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->standRepository = $standRepository;
 	}
 
 	/**
+	 * Shows a list of stands
+	 *
 	 * @param Request $request
 	 * @return JsonResponse
 	 */
@@ -38,6 +47,8 @@ class StandController extends ApiController
 	}
 
 	/**
+	 * Shows specified stand
+	 *
 	 * @param Request $request
 	 * @param $id
 	 * @return JsonResponse
@@ -49,6 +60,8 @@ class StandController extends ApiController
 	}
 
 	/**
+	 * Creates new stand
+	 *
 	 * @param CreateStandRequest $request
 	 * @param FileManager $fileManager
 	 * @return JsonResponse
@@ -68,6 +81,8 @@ class StandController extends ApiController
 	}
 
 	/**
+	 * Updates specified stand
+	 *
 	 * @param UpdateStandRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
@@ -78,7 +93,7 @@ class StandController extends ApiController
 		$stand 		= $this->standRepository->find($id);
 		$imageUrl 	= $stand->image;
 
-		if($request->hasFile('image')) {
+		if ($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
 			$imageUrl = $fileManager->uploadFile('uploads/', $request->file('image'));
 		}
@@ -93,6 +108,8 @@ class StandController extends ApiController
 	}
 
 	/**
+	 * Deletes specified stand
+	 *
 	 * @param DeleteStandRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
@@ -109,6 +126,8 @@ class StandController extends ApiController
 	}
 
 	/**
+	 * Gets stands by fair
+	 *
 	 * @param Request $request
 	 * @param $fairId
 	 * @return JsonResponse

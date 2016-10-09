@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
-
 
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Http\Requests\CreateSpeakerRequest;
@@ -17,23 +15,28 @@ use League\Fractal\Serializer\JsonApiSerializer;
 
 class SpeakerController extends ApiController
 {
+	/** @var SpeakerRepository */
 	private $speakerRepository;
 
 	/**
-	 * SpeakerController constructor.
+	 * SpeakerController constructor
+	 *
 	 * @param Manager $fractal
 	 * @param JsonApiSerializer $serializer
 	 * @param SpeakerTransformer $transformer
 	 * @param SpeakerRepository $repository
 	 */
-	public function __construct(Manager $fractal, JsonApiSerializer $serializer,
-								SpeakerTransformer $transformer, SpeakerRepository $repository)
-	{
+	public function __construct(
+		Manager $fractal, JsonApiSerializer $serializer,
+		SpeakerTransformer $transformer, SpeakerRepository $repository
+	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->speakerRepository = $repository;
 	}
 
 	/**
+	 * Shows list of speakers
+	 *
 	 * @param Request $request
 	 * @return JsonResponse
 	 */
@@ -44,6 +47,8 @@ class SpeakerController extends ApiController
 	}
 
 	/**
+	 * Shows specified speaker
+	 *
 	 * @param Request $request
 	 * @param $id
 	 * @return JsonResponse
@@ -55,6 +60,8 @@ class SpeakerController extends ApiController
 	}
 
 	/**
+	 * Creates new speaker
+	 *
 	 * @param CreateSpeakerRequest $request
 	 * @param FileManager $fileManager
 	 * @return JsonResponse
@@ -74,6 +81,8 @@ class SpeakerController extends ApiController
 	}
 
 	/**
+	 * Updates specified speaker
+	 *
 	 * @param UpdateSpeakerRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
@@ -84,7 +93,7 @@ class SpeakerController extends ApiController
 		$speaker 	= $this->speakerRepository->find($id);
 		$imageUrl 	= $speaker->picture;
 
-		if($request->hasFile('image')) {
+		if ($request->hasFile('image')) {
 			$fileManager->deleteFile($imageUrl);
 			$imageUrl = $fileManager->uploadFile('uploads/', $request->file('image'));
 		}
@@ -99,6 +108,8 @@ class SpeakerController extends ApiController
 	}
 
 	/**
+	 * Deletes specified speaker
+	 *
 	 * @param DeleteSpeakerRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
@@ -115,6 +126,8 @@ class SpeakerController extends ApiController
 	}
 
 	/**
+	 * Gets speakers by fairEvent
+	 *
 	 * @param Request $request
 	 * @param $fairEventId
 	 * @return JsonResponse

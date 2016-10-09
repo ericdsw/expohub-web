@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\AccessControllers;
-
 
 use ExpoHub\Repositories\Contracts\StandRepository;
 use Tymon\JWTAuth\JWTAuth;
@@ -15,7 +13,8 @@ class StandAccessController
 	private $standRepository;
 
 	/**
-	 * StandAccessController constructor.
+	 * StandAccessController constructor
+	 *
 	 * @param JWTAuth $jwtAuth
 	 * @param StandRepository $standRepository
 	 */
@@ -26,8 +25,10 @@ class StandAccessController
 	}
 
 	/**
-	 * @param $fairId
-	 * @return mixed
+	 * Checks if request can create stand for specified fair
+	 *
+	 * @param int $fairId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canCreateStandForFair($fairId)
@@ -37,8 +38,10 @@ class StandAccessController
 	}
 
 	/**
-	 * @param $standId
-	 * @return mixed
+	 * Checks if request can update specified stand
+	 *
+	 * @param int $standId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canUpdateStand($standId)
@@ -48,6 +51,12 @@ class StandAccessController
 			->contains($fairId);
 	}
 
+	/**
+	 * Checks if request can delete specified stand
+	 *
+	 * @param  int $standId
+	 * @return boolean
+	 */
 	public function canDeleteStand($standId)
 	{
 		$fairId = $this->standRepository->find($standId)->fair_id;

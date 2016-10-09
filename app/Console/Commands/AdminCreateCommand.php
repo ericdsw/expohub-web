@@ -10,6 +10,11 @@ class AdminCreateCommand extends Command
 	/** @var UserRepository */
 	private $userRepository;
 
+	/**
+	 * AdminCreateCommand constructor
+	 *
+	 * @param UserRepository $userRepository
+	 */
 	public function __construct(UserRepository $userRepository)
 	{
 		parent::__construct();
@@ -17,7 +22,7 @@ class AdminCreateCommand extends Command
 	}
 
 	/**
-	 * The name and signature of the console command.
+	 * The name and signature of the console command
 	 *
 	 * @var string
 	 */
@@ -27,7 +32,7 @@ class AdminCreateCommand extends Command
                             {--password= : The password of the new admin user}';
 
 	/**
-	 * The console command description.
+	 * The console command description
 	 *
 	 * @var string
 	 */

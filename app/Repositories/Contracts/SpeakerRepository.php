@@ -1,8 +1,5 @@
 <?php
-
-
 namespace ExpoHub\Repositories\Contracts;
-
 
 use ExpoHub\Speaker;
 use Illuminate\Database\Eloquent\Collection;

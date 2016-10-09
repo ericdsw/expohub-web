@@ -12,7 +12,7 @@ class CreateAttendanceTable extends Migration
      */
     public function up()
     {
-        Schema::create("attendance", function(Blueprint $table) {
+        Schema::create("attendance", function (Blueprint $table) {
 			$table->unsignedInteger("user_id");
 			$table->unsignedInteger("fair_event_id");
 			$table->integer("score")->nullable();

@@ -12,7 +12,7 @@ class CreateEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create("fair_events", function(Blueprint $table) {
+        Schema::create("fair_events", function (Blueprint $table) {
 			$table->increments("id");
 			$table->string("title");
 			$table->string("image")->nullable();

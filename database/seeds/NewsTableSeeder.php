@@ -16,7 +16,7 @@ class NewsTableSeeder extends Seeder
         $fairs = Fair::all()->lists('id');
 		factory(News::class, 100)->create([
 			'fair_id' => $fairs->first()
-		])->each(function(News $news) use ($fairs) {
+		])->each(function (News $news) use ($fairs) {
 			$news->fair_id = $fairs->random();
 			$news->save();
 		});

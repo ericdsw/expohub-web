@@ -11,6 +11,9 @@
 |
 */
 
+/**
+ * User
+ */
 $factory->define(ExpoHub\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
@@ -21,25 +24,37 @@ $factory->define(ExpoHub\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(ExpoHub\Category::class, function(Faker\Generator $faker) {
+/**
+ * Category
+ */
+$factory->define(ExpoHub\Category::class, function (Faker\Generator $faker) {
 	return [
 		'name' => $faker->word
 	];
 });
 
-$factory->define(\ExpoHub\Comment::class, function(Faker\Generator $faker) {
+/**
+ * Comment
+ */
+$factory->define(\ExpoHub\Comment::class, function (Faker\Generator $faker) {
 	return [
 		'text' => $faker->paragraph()
 	];
 });
 
-$factory->define(\ExpoHub\EventType::class, function(\Faker\Generator $faker) {
+/**
+ * EventType
+ */
+$factory->define(\ExpoHub\EventType::class, function (\Faker\Generator $faker) {
 	return [
 		'name' => $faker->word
 	];
 });
 
-$factory->define(\ExpoHub\Fair::class, function(\Faker\Generator $faker) {
+/**
+ * Fair
+ */
+$factory->define(\ExpoHub\Fair::class, function (\Faker\Generator $faker) {
 	return [
 		'name' => $faker->catchPhrase,
 		'image' => $faker->imageUrl(),
@@ -53,7 +68,10 @@ $factory->define(\ExpoHub\Fair::class, function(\Faker\Generator $faker) {
 	];
 });
 
-$factory->define(\ExpoHub\FairEvent::class, function(\Faker\Generator $faker) {
+/**
+ * FairEvent
+ */
+$factory->define(\ExpoHub\FairEvent::class, function (\Faker\Generator $faker) {
 	return [
 		'title' => $faker->title,
 		'image' => $faker->imageUrl(),
@@ -63,14 +81,20 @@ $factory->define(\ExpoHub\FairEvent::class, function(\Faker\Generator $faker) {
 	];
 });
 
-$factory->define(\ExpoHub\Map::class, function(\Faker\Generator $faker) {
+/**
+ * Map
+ */
+$factory->define(\ExpoHub\Map::class, function (\Faker\Generator $faker) {
 	return [
 		'name' => $faker->word,
 		'image' => $faker->imageUrl()
 	];
 });
 
-$factory->define(\ExpoHub\News::class, function(\Faker\Generator $faker) {
+/**
+ * News
+ */
+$factory->define(\ExpoHub\News::class, function (\Faker\Generator $faker) {
 	return [
 		'title' => $faker->title,
 		'content' => $faker->paragraph(),
@@ -78,7 +102,10 @@ $factory->define(\ExpoHub\News::class, function(\Faker\Generator $faker) {
 	];
 });
 
-$factory->define(\ExpoHub\Speaker::class, function(\Faker\Generator $faker) {
+/**
+ * Speaker
+ */
+$factory->define(\ExpoHub\Speaker::class, function (\Faker\Generator $faker) {
 	return [
 		'name' => $faker->name,
 		'picture' => $faker->imageUrl(),
@@ -86,7 +113,10 @@ $factory->define(\ExpoHub\Speaker::class, function(\Faker\Generator $faker) {
 	];
 });
 
-$factory->define(\ExpoHub\Sponsor::class, function(\Faker\Generator $faker) {
+/**
+ * Sponsor
+ */
+$factory->define(\ExpoHub\Sponsor::class, function (\Faker\Generator $faker) {
 	return [
 		'name' => $faker->name,
 		'logo' => $faker->imageUrl(),
@@ -95,13 +125,19 @@ $factory->define(\ExpoHub\Sponsor::class, function(\Faker\Generator $faker) {
 	];
 });
 
-$factory->define(\ExpoHub\SponsorRank::class, function(\Faker\Generator $faker) {
+/**
+ * SponsorRank
+ */
+$factory->define(\ExpoHub\SponsorRank::class, function (\Faker\Generator $faker) {
 	return [
 		'name' => $faker->word
 	];
 });
 
-$factory->define(\ExpoHub\Stand::class, function(\Faker\Generator $faker) {
+/**
+ * Stand
+ */
+$factory->define(\ExpoHub\Stand::class, function (\Faker\Generator $faker) {
 	return [
 		'name' => $faker->word,
 		'description' => $faker->paragraph(),

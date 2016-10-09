@@ -12,7 +12,7 @@ class CreateEventCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create("event_category", function(Blueprint $table) {
+        Schema::create("event_category", function (Blueprint $table) {
 			$table->unsignedInteger("fair_event_id");
 			$table->unsignedBigInteger("category_id");
 

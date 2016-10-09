@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\AccessControllers;
 
 use ExpoHub\Constants\UserType;
@@ -11,7 +10,8 @@ class EventTypeAccessController
 	private $jwtAuth;
 
 	/**
-	 * EventTypeAccessController constructor.
+	 * EventTypeAccessController constructor
+	 *
 	 * @param JWTAuth $jwtAuth
 	 */
 	public function __construct(JWTAuth $jwtAuth)
@@ -20,7 +20,9 @@ class EventTypeAccessController
 	}
 
 	/**
-	 * @return boolean
+	 * Checks if request can create an eventType
+	 *
+	 * @return bool
 	 */
 	public function canCreateEventType()
 	{
@@ -28,7 +30,9 @@ class EventTypeAccessController
 	}
 
 	/**
-	 * @return boolean
+	 * Checks if request can update the specified eventType
+	 *
+	 * @return bool
 	 */
 	public function canUpdateEventType()
 	{
@@ -36,7 +40,9 @@ class EventTypeAccessController
 	}
 
 	/**
-	 * @return boolean
+	 * Checks if request can delete the specified eventType
+	 *
+	 * @return bool
 	 */
 	public function canDeleteEventType()
 	{

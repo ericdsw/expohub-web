@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Helpers\Credentials\Contracts;
 
 interface CredentialsHelper

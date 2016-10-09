@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub;
 
 use Illuminate\Database\Eloquent\Model;
@@ -41,7 +40,7 @@ class Sponsor extends Model
 	 */
 	public function imageUrl()
 	{
-		if(getenv('FILESYSTEM') == 'local') {
+		if (getenv('FILESYSTEM') == 'local') {
 			return asset($this->logo);
 		} else {
 			return 'https://s3.amazonaws.com/expo-hub/' . $this->logo;

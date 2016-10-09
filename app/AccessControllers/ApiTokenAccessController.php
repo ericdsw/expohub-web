@@ -1,7 +1,6 @@
 <?php
 namespace ExpoHub\AccessControllers;
 
-
 use ExpoHub\Constants\UserType;
 use Tymon\JWTAuth\JWTAuth;
 
@@ -11,7 +10,8 @@ class ApiTokenAccessController
 	private $jwtAuth;
 
 	/**
-	 * ApiTokenAccessController constructor.
+	 * ApiTokenAccessController constructor
+	 *
 	 * @param JWTAuth $jwtAuth
 	 */
 	public function __construct(JWTAuth $jwtAuth)
@@ -20,6 +20,8 @@ class ApiTokenAccessController
 	}
 
 	/**
+	 * Checks if request can list ApiTokens
+	 *
 	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
@@ -29,6 +31,8 @@ class ApiTokenAccessController
 	}
 
 	/**
+	 * Checks if request can show specific ApiToken
+	 *
 	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */

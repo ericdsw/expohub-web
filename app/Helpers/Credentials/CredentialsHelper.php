@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Helpers\Credentials;
-
 
 use ExpoHub\Helpers\Credentials\Contracts\CredentialsHelper as CredentialsHelperContract;
 

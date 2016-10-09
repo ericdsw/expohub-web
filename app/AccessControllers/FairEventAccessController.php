@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\AccessControllers;
-
 
 use ExpoHub\Repositories\Contracts\FairEventRepository;
 use Tymon\JWTAuth\JWTAuth;
@@ -15,7 +13,8 @@ class FairEventAccessController
 	private $fairEventRepository;
 
 	/**
-	 * FairEventAccessController constructor.
+	 * FairEventAccessController constructor
+	 *
 	 * @param JWTAuth $jwtAuth
 	 * @param FairEventRepository $fairEventRepository
 	 */
@@ -26,8 +25,10 @@ class FairEventAccessController
 	}
 
 	/**
-	 * @param $fairId
-	 * @return mixed
+	 * Checks if request can create a new fairEvent for specified fair
+	 *
+	 * @param int $fairId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canCreateFairEventForFair($fairId)
@@ -37,8 +38,10 @@ class FairEventAccessController
 	}
 
 	/**
-	 * @param $fairEventId
-	 * @return boolean
+	 * Checks if request can update specified fairEvent
+	 *
+	 * @param int $fairEventId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canUpdateFairEvent($fairEventId)
@@ -50,8 +53,10 @@ class FairEventAccessController
 	}
 
 	/**
-	 * @param $fairEventId
-	 * @return boolean
+	 * Checks if request can delete specified fairEvent
+	 *
+	 * @param int $fairEventId
+	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
 	public function canDeleteFairEvent($fairEventId)

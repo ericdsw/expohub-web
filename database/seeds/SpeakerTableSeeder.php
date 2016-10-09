@@ -16,7 +16,7 @@ class SpeakerTableSeeder extends Seeder
         $fairEvents = FairEvent::all()->lists('id');
 		factory(Speaker::class, 50)->make([
 			'fair_event_id' => $fairEvents->first()
-		])->each(function(Speaker $speaker) use ($fairEvents) {
+		])->each(function (Speaker $speaker) use ($fairEvents) {
 			$speaker->fair_event_id = $fairEvents->random();
 			$speaker->save();
 		});

@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;

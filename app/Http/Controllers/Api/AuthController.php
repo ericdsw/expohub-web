@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
 
 use ExpoHub\Constants\UserType;
@@ -23,15 +22,17 @@ class AuthController extends ApiController
 	private $userRepository;
 
 	/**
-	 * AuthController constructor.
+	 * AuthController constructor
+	 *
 	 * @param Manager $fractal
 	 * @param JsonApiSerializer $serializer
 	 * @param UserTransformer $transformer
 	 * @param UserRepository $userRepository
 	 */
-	public function __construct(Manager $fractal, JsonApiSerializer $serializer,
-								UserTransformer $transformer, UserRepository $userRepository)
-	{
+	public function __construct(
+		Manager $fractal, JsonApiSerializer $serializer,
+		UserTransformer $transformer, UserRepository $userRepository
+	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->userRepository = $userRepository;
 	}
@@ -53,15 +54,14 @@ class AuthController extends ApiController
 		]);
 
 		try {
-			if(! $token = $jwtAuth->attempt($loginParameters)) {
+			if (! $token = $jwtAuth->attempt($loginParameters)) {
 				return $this->respondError([
 					'title' 		=> 'invalid-credentials',
 					'description' 	=> 'Invalid login credentials',
 					'status' 		=> '400'
 				]);
 			}
-		}
-		catch (JWTException $e) {
+		} catch (JWTException $e) {
 			return $this->respondError([
 				'title' 		=> 'jwt-exception',
 				'description' 	=> 'Internal error occurred, please try again later',
@@ -86,14 +86,14 @@ class AuthController extends ApiController
 	 */
 	public function register(UserSpecification $specification, RegisterRequest $request, JWTAuth $jwtAuth)
 	{
-		if(! $specification->isEmailAvailable($request->get('email'))) {
+		if (! $specification->isEmailAvailable($request->get('email'))) {
 			return $this->respondError([
 				'title' 		=> 'email-taken',
 				'description' 	=> 'Email is already taken',
 				'status' 		=> '409'
 			], 409);
 		}
-		if(! $specification->isUsernameAvailable($request->get('username'))) {
+		if (! $specification->isUsernameAvailable($request->get('username'))) {
 			return $this->respondError([
 				'title' 		=> 'username-taken',
 				'description' 	=> 'Username is already taken',

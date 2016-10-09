@@ -1,8 +1,5 @@
 <?php
-
-
 namespace ExpoHub\Repositories\Eloquent;
-
 
 use ExpoHub\FairEvent;
 use ExpoHub\Repositories\Contracts\FairEventRepository as FairEventRepositoryContract;
@@ -63,7 +60,7 @@ class FairEventRepository extends Repository implements FairEventRepositoryContr
 	 */
 	public function getByCategories($categories = [])
 	{
-		return $this->prepareQuery()->whereHas('categories', function($query) use ($categories) {
+		return $this->prepareQuery()->whereHas('categories', function ($query) use ($categories) {
 			$query->whereIn('categories.id', $categories);
 		})->get();
 	}

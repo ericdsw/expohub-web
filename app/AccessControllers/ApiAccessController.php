@@ -11,7 +11,8 @@ class ApiAccessController
 	private $apiTokenRepository;
 
 	/**
-	 * ApiAccessController constructor.
+	 * ApiAccessController constructor
+	 *
 	 * @param ApiTokenRepository $apiTokenRepository
 	 */
 	public function __construct(ApiTokenRepository $apiTokenRepository)
@@ -20,6 +21,8 @@ class ApiAccessController
 	}
 
 	/**
+	 * Checks whether the request contains API authorization
+	 *
 	 * @param array $requestHeaders
 	 * @return bool
 	 * @throws MalformedApiAccessTokenException
@@ -27,11 +30,11 @@ class ApiAccessController
 	 */
 	public function canUseApi(array $requestHeaders)
 	{
-		if(array_key_exists('x-api-authorization', $requestHeaders)) {
+		if (array_key_exists('x-api-authorization', $requestHeaders)) {
 
 			$authArray = explode('.', $requestHeaders['x-api-authorization'][0]);
 
-			if(count($authArray) != 2) {
+			if (count($authArray) != 2) {
 				throw new MalformedApiAccessTokenException;
 			}
 
@@ -39,8 +42,7 @@ class ApiAccessController
 			$appSecret 	= $authArray[1];
 
 			return ($this->apiTokenRepository->getByTokenAndSecret($appId, $appSecret) != null);
-		}
-		else {
+		} else {
 			throw new NoApiAccessTokenException;
 		}
 	}

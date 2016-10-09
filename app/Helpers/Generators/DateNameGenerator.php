@@ -9,6 +9,8 @@ use ExpoHub\Helpers\Generators\Contracts\NameGenerator;
 class DateNameGenerator implements NameGenerator
 {
 	/**
+	 * Generates unique name with specified extension
+	 *
 	 * @param $extension
 	 * @return string
 	 */

@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Repositories\Eloquent;
-
 
 use ExpoHub\Repositories\Contracts\SponsorRankRepository as SponsorRankRepositoryContract;
 use ExpoHub\SponsorRank;

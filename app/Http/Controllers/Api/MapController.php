@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
-
 
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Http\Requests\CreateMapRequest;
@@ -28,9 +26,10 @@ class MapController extends ApiController
 	 * @param MapTransformer $transformer
 	 * @param MapRepository $repository
 	 */
-	public function __construct(Manager $fractal, JsonApiSerializer $serializer,
-								MapTransformer $transformer, MapRepository $repository)
-	{
+	public function __construct(
+		Manager $fractal, JsonApiSerializer $serializer,
+		MapTransformer $transformer, MapRepository $repository
+	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->repository = $repository;
 	}
@@ -85,7 +84,7 @@ class MapController extends ApiController
 		$map 		= $this->repository->find($id);
 		$imageUrl 	= $map->image;
 
-		if($request->hasFile('image')) {
+		if ($request->hasFile('image')) {
 			$imageUrl = $fileManager->uploadFile('uploads/', $request->file('image'));
 			$fileManager->deleteFile($map->image);
 		}

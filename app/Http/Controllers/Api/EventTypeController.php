@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
-
 
 use ExpoHub\Http\Requests\CreateEventTypeRequest;
 use ExpoHub\Http\Requests\DeleteEventTypeRequest;
@@ -27,14 +25,17 @@ class EventTypeController extends ApiController
 	 * @param JsonApiSerializer $serializer
 	 * @param EventTypeTransformer $transformer
 	 */
-	public function __construct(EventTypeRepository $repository, Manager $fractal,
-								JsonApiSerializer $serializer, EventTypeTransformer $transformer)
-	{
+	public function __construct(
+		EventTypeRepository $repository, Manager $fractal,
+		JsonApiSerializer $serializer, EventTypeTransformer $transformer
+	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->eventTypeRepository = $repository;
 	}
 
 	/**
+	 * Shows a list of eventTypes
+	 *
 	 * @param Request $request
 	 * @return JsonResponse
 	 */
@@ -45,6 +46,8 @@ class EventTypeController extends ApiController
 	}
 
 	/**
+	 * Shows specified eventType
+	 *
 	 * @param Request $request
 	 * @param $id
 	 * @return JsonResponse
@@ -56,6 +59,8 @@ class EventTypeController extends ApiController
 	}
 
 	/**
+	 * Creates new eventType
+	 *
 	 * @param CreateEventTypeRequest $request
 	 * @return JsonResponse
 	 */
@@ -71,6 +76,8 @@ class EventTypeController extends ApiController
 	}
 
 	/**
+	 * Updates existing eventType
+	 *
 	 * @param UpdateEventTypeRequest $request
 	 * @param $id
 	 * @return JsonResponse
@@ -86,6 +93,8 @@ class EventTypeController extends ApiController
 	}
 
 	/**
+	 * Deletes specified eventType
+	 *
 	 * @param DeleteEventTypeRequest $request
 	 * @param $id
 	 * @return JsonResponse

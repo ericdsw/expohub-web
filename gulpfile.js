@@ -1,3 +1,4 @@
+'use strict';
 
 // Basic elixir requirement
 var elixir = require('laravel-elixir');
@@ -21,6 +22,11 @@ elixir(function(mix) {
 		'vue/dist/vue.min.js'
 	], 'public/js/vendor.js', baseBowerPath);
 
+	// Mix standalone scripts
+	mix.scripts([
+		'api-explorer.js'
+	], 'public/js/api-explorer.js')
+
 	// Copy required fonts
 	mix.copy(baseBowerPath + 'bootstrap/dist/fonts', 'public/fonts/vendor');
 	mix.copy(baseBowerPath + 'font-awesome/fonts', 'public/fonts/vendor');
@@ -29,6 +35,7 @@ elixir(function(mix) {
 	// Version all generated files
 	mix.version([
 		'js/vendor.js',
+		'js/api-explorer.js',
 		'css/app.css',
 		'css/front-page.css',
 		'css/api-explorer.css',

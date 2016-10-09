@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Http\Middleware;
 
 use Closure;

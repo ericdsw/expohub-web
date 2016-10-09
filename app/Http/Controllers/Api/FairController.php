@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
-
 
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Http\Requests\CreateFairRequest;
@@ -29,14 +27,17 @@ class FairController extends ApiController
 	 * @param JsonApiSerializer $serializer
 	 * @param FairTransformer $transformer
 	 */
-	public function __construct(FairRepository $fairRepository, Manager $fractal,
-								JsonApiSerializer $serializer, FairTransformer $transformer)
-	{
+	public function __construct(
+		FairRepository $fairRepository, Manager $fractal,
+		JsonApiSerializer $serializer, FairTransformer $transformer
+	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->fairRepository = $fairRepository;
 	}
 
 	/**
+	 * Shows a list of fairs
+	 *
 	 * @param Request $request
 	 * @return JsonResponse
 	 */
@@ -47,6 +48,8 @@ class FairController extends ApiController
 	}
 
 	/**
+	 * Shows specified fair
+	 *
 	 * @param Request $request
 	 * @param $id
 	 * @return JsonResponse
@@ -58,6 +61,8 @@ class FairController extends ApiController
 	}
 
 	/**
+	 * Creates a new fair
+	 *
 	 * @param CreateFairRequest $request
 	 * @param FileManager $manager
 	 * @param JWTAuth $jwtAuth
@@ -72,13 +77,15 @@ class FairController extends ApiController
 
 		return $this->respondJson(
 			$this->fairRepository->create(array_merge($parameters, [
-				'image' => $manager->uploadFile('uploads/', $request->file('image')),
-				'user_id' => $jwtAuth->parseToken()->toUser()->id
+				'image' 	=> $manager->uploadFile('uploads/', $request->file('image')),
+				'user_id' 	=> $jwtAuth->parseToken()->toUser()->id
 			]))
 		);
 	}
 
 	/**
+	 * Updates specified fair
+	 *
 	 * @param UpdateFairRequest $request
 	 * @param FileManager $manager
 	 * @param $id
@@ -89,7 +96,7 @@ class FairController extends ApiController
 		$currentFair 	= $this->fairRepository->find($id);
 		$imagePath 		= $currentFair->image;
 
-		if($request->hasFile('image')) {
+		if ($request->hasFile('image')) {
 			$manager->deleteFile($imagePath);
 			$imagePath = $manager->uploadFile('uploads/', $request->file('image'));
 		}
@@ -110,6 +117,8 @@ class FairController extends ApiController
 	}
 
 	/**
+	 * Deletes specified fair
+	 *
 	 * @param DeleteFairRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
@@ -125,6 +134,8 @@ class FairController extends ApiController
 	}
 
 	/**
+	 * Gets fairs created by the specified user
+	 *
 	 * @param Request $request
 	 * @param $userId
 	 * @return JsonResponse
@@ -138,6 +149,8 @@ class FairController extends ApiController
 	}
 
 	/**
+	 * Gets all active fairs
+	 *
 	 * @param Request $request
 	 * @return JsonResponse
 	 */

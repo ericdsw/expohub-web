@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Transformers;
-
 
 use ExpoHub\Fair;
 use League\Fractal\Resource\Collection;
@@ -27,8 +25,8 @@ class FairTransformer extends BaseTransformer
 			'image' 		=> $fair->imageUrl(),
 			'description' 	=> $fair->description,
 			'website' 		=> $fair->website,
-			'starting_date' => $fair->starting_date,
-			'ending_date' 	=> $fair->ending_date,
+			'starting_date' => ($fair->starting_date != null) ? $fair->starting_date->toDateTimeString() : "",
+			'ending_date' 	=> ($fair->ending_date != null) ? $fair->ending_date->toDateTimeString() : "",
 			'address' 		=> $fair->address,
 			'latitude' 		=> $fair->latitude,
 			'longitude' 	=> $fair->longitude,

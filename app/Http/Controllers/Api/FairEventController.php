@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Http\Controllers\Api;
-
 
 use ExpoHub\Helpers\Files\Contracts\FileManager;
 use ExpoHub\Http\Requests\CreateFairEventRequest;
@@ -30,14 +28,17 @@ class FairEventController extends ApiController
 	 * @param FairEventTransformer $transformer
 	 * @param FairEventRepository $repository
 	 */
-	public function __construct(Manager $fractal, JsonApiSerializer $serializer,
-								FairEventTransformer $transformer, FairEventRepository $repository)
-	{
+	public function __construct(
+		Manager $fractal, JsonApiSerializer $serializer,
+		FairEventTransformer $transformer, FairEventRepository $repository
+	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->repository = $repository;
 	}
 
 	/**
+	 * Shows list of fairEvents
+	 *
 	 * @param Request $request
 	 * @return JsonResponse
 	 */
@@ -48,6 +49,8 @@ class FairEventController extends ApiController
 	}
 
 	/**
+	 * Shows specified fairEvents
+	 *
 	 * @param Request $request
 	 * @param $id
 	 * @return JsonResponse
@@ -59,6 +62,8 @@ class FairEventController extends ApiController
 	}
 
 	/**
+	 * Creates new fairEvents
+	 *
 	 * @param CreateFairEventRequest $request
 	 * @param FileManager $fileManager
 	 * @return JsonResponse
@@ -77,6 +82,8 @@ class FairEventController extends ApiController
 	}
 
 	/**
+	 * Updates specified fairEvent
+	 *
 	 * @param UpdateFairEventRequest $request
 	 * @param FileManager $fileManager
 	 * @param $id
@@ -87,7 +94,7 @@ class FairEventController extends ApiController
 		$fairEvent 		= $this->repository->find($id);
 		$currentImage 	= $fairEvent->image;
 
-		if($request->hasFile('image')) {
+		if ($request->hasFile('image')) {
 			$currentImage = $fileManager->uploadFile('uploads/', $request->file('image'));
 		}
 
@@ -102,6 +109,8 @@ class FairEventController extends ApiController
 	}
 
 	/**
+	 * Destroys specified fairEvent
+	 *
 	 * @param $id
 	 * @param FileManager $fileManager
 	 * @param DeleteFairEventRequest $request
@@ -116,6 +125,8 @@ class FairEventController extends ApiController
 	}
 
 	/**
+	 * Gets fairEvents by specified fair
+	 *
 	 * @param Request $request
 	 * @param $fairId
 	 * @return JsonResponse
@@ -127,6 +138,8 @@ class FairEventController extends ApiController
 	}
 
 	/**
+	 * Gets fairEvents by eventType
+	 *
 	 * @param Request $request
 	 * @param $eventTypeId
 	 * @return JsonResponse
@@ -138,6 +151,8 @@ class FairEventController extends ApiController
 	}
 
 	/**
+	 * Gets fairEvents where specified user is attending
+	 *
 	 * @param Request $request
 	 * @param $userId
 	 * @return JsonResponse
@@ -149,6 +164,8 @@ class FairEventController extends ApiController
 	}
 
 	/**
+	 * Adds logged user to attending events list
+	 *
 	 * @param JWTAuth $jwtAuth
 	 * @param $id
 	 * @return JsonResponse
@@ -163,6 +180,8 @@ class FairEventController extends ApiController
 	}
 
 	/**
+	 * Removes logged user from attending events list
+	 *
 	 * @param JWTAuth $jwtAuth
 	 * @param $id
 	 * @return JsonResponse
