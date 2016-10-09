@@ -54,6 +54,6 @@ class CommentTransformer extends BaseTransformer
 	{
 		$news = $comment->ownerNews;
 		$newsTransformer = app()->make(NewsTransformer::class);
-		return $this->collection($news, $newsTransformer, $newsTransformer->getType());
+		return $this->item($news, $newsTransformer, $newsTransformer->getType());
 	}
 }
