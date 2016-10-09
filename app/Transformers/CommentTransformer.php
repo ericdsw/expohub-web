@@ -7,7 +7,7 @@ use League\Fractal\Resource\Item;
 class CommentTransformer extends BaseTransformer
 {
 	protected $availableIncludes = ['user',
-									'news'];
+									'ownerNews'];
 
 	/**
 	 * Convert Comments to valid json representation
@@ -50,7 +50,7 @@ class CommentTransformer extends BaseTransformer
 	 * @param Comment $comment
 	 * @return Item
 	 */
-	public function includeNews(Comment $comment)
+	public function includeOwnerNews(Comment $comment)
 	{
 		$news = $comment->ownerNews;
 		$newsTransformer = app()->make(NewsTransformer::class);

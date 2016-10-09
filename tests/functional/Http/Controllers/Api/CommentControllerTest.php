@@ -36,7 +36,7 @@ class CommentControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_shows_specific_comment_with_includes()
 	{
-		$includes = 'user,news';
+		$includes = 'user,ownerNews';
 
 		$this->get('api/v1/comments/1?include=' . $includes);
 
