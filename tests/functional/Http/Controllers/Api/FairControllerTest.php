@@ -36,7 +36,7 @@ class FairControllerTest extends BaseControllerTestCase
 	/** @test */
 	public function it_displays_specific_fair_with_includes()
 	{
-		$includes = 'user,bannedUsers,helpingUsers,sponsors,maps,categories,fairEvents,news,stands';
+		$includes = 'user,bannedUsers,helperUsers,sponsors,maps,categories,fairEvents,news,stands';
 
 		$this->get('api/v1/fairs/1?include=' . $includes);
 
