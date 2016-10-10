@@ -8,7 +8,7 @@ use League\Fractal\Resource\Item;
 class FairTransformer extends BaseTransformer
 {
 	protected $availableIncludes = ['user',
-									'bannedUsers', 'helpingUsers', 'sponsors', 'maps', 'categories',
+									'bannedUsers', 'helperUsers', 'sponsors', 'maps', 'categories',
 											'fairEvents', 'news', 'stands'];
 
 	/**
@@ -73,7 +73,7 @@ class FairTransformer extends BaseTransformer
 	 * @param Fair $fair
 	 * @return Collection
 	 */
-	public function includeHelpingUsers(Fair $fair)
+	public function includeHelperUsers(Fair $fair)
 	{
 		$helperUsers = $fair->helperUsers;
 		$userTransformer = app()->make(UserTransformer::class);
