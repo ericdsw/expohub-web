@@ -14,18 +14,23 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-		$this->call(SponsorRankTableSeeder::class);
-		$this->call(UserTableSeeder::class);
-		$this->call(FairTableSeeder::class);
-		$this->call(CategoryTableSeeder::class);
-		$this->call(SponsorTableSeeder::class);
-		$this->call(MapTableSeeder::class);
-		$this->call(EventTypeTableSeeder::class);
-		$this->call(FairEventTableSeeder::class);
-		$this->call(SpeakerTableSeeder::class);
-		$this->call(NewsTableSeeder::class);
-		$this->call(CommentTableSeeder::class);
-		$this->call(StandTableSeeder::class);
+        if (env('APP_ENV') == 'local') {
+        	$this->call(SponsorRankTableSeeder::class);
+			$this->call(UserTableSeeder::class);
+			$this->call(FairTableSeeder::class);
+			$this->call(CategoryTableSeeder::class);
+			$this->call(SponsorTableSeeder::class);
+			$this->call(MapTableSeeder::class);
+			$this->call(EventTypeTableSeeder::class);
+			$this->call(FairEventTableSeeder::class);
+			$this->call(SpeakerTableSeeder::class);
+			$this->call(NewsTableSeeder::class);
+			$this->call(CommentTableSeeder::class);
+			$this->call(StandTableSeeder::class);
+
+        } else {
+        	$this->call(StagingSeeder::class);
+       	}
 
         Model::reguard();
     }

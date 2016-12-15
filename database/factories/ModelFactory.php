@@ -96,7 +96,7 @@ $factory->define(\ExpoHub\Map::class, function (\Faker\Generator $faker) {
  */
 $factory->define(\ExpoHub\News::class, function (\Faker\Generator $faker) {
 	return [
-		'title' => $faker->title,
+		'title' => $faker->sentence,
 		'content' => $faker->paragraph(),
 		'image' => $faker->imageUrl()
 	];
