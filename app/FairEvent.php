@@ -51,7 +51,7 @@ class FairEvent extends Model
 	{
 		if (env('FILESYSTEM') == 'local') {
 			return asset($this->image);
-		} else if (env('FILESYSTEM' == 'none')) {
+		} else if (env('FILESYSTEM') == 'none') {
 			return $this->image;
 		} else {
 			return 'https://s3.amazonaws.com/expo-hub/' . $this->image;
