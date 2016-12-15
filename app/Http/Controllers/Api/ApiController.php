@@ -200,16 +200,19 @@ abstract class ApiController extends Controller
 
 			$pageArray  = request()->get('page');
 
-			$limit 		= $pageArray['limit'];
-			$cursor 	= (int) $pageArray['cursor'];
-			$previous 	= null;
-			$next		= (count($collection) <= $limit) ? null : $limit + $cursor;
+			if (array_key_exists('limit', $pageArray) && array_key_exists('cursor', $pageArray)) {
+				
+				$limit 		= $pageArray['limit'];
+				$cursor 	= (int) $pageArray['cursor'];
+				$previous 	= null;
+				$next		= (count($collection) <= $limit) ? null : $limit + $cursor;
 
-			if (array_key_exists('previous', $pageArray)) {
-				$previous = $pageArray['previous'];
+				if (array_key_exists('previous', $pageArray)) {
+					$previous = $pageArray['previous'];
+				}
+
+				$resource->setCursor(new Cursor($cursor, $previous, $next, count($collection)));
 			}
-
-			$resource->setCursor(new Cursor($cursor, $previous, $next, count($collection)));
 		}
 
 		if (! empty($this->meta)) {

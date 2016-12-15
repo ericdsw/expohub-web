@@ -35,8 +35,10 @@ class Speaker extends Model
 	 */
 	public function imageUrl()
 	{
-		if (getenv('FILESYSTEM') == 'local') {
+		if (env('FILESYSTEM') == 'local') {
 			return asset($this->picture);
+		} else if (env('FILESYSTEM' == 'none')) {
+			return $this->picture;
 		} else {
 			return 'https://s3.amazonaws.com/expo-hub/' . $this->picture;
 		}
