@@ -29,4 +29,17 @@ class ApiTokenRepositoryTest extends TestCase
 
 		$this->assertNotNull($apiToken);
 	}
+
+	/** @test */
+	public function it_gets_api_token_by_app_id()
+	{
+		$this->createApiToken([
+			'app_id' => 'fooAppId',
+			'app_secret' => 'fooAppSecret'
+		]);
+
+		$apiToken = $this->repository->getByToken('fooAppId');
+
+		$this->assertNotNull($apiToken);
+	}
 }

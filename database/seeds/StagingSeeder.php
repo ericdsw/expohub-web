@@ -201,7 +201,7 @@ class StagingSeeder extends Seeder
 
         $fifthFairEvent = factory(FairEvent::class)->create([
         	'title' 		=> 'Endangered Exotic Plant Specimens Exhibition',
-        	'image' 		=> 'http://lorempixel.com/900/600/nature/10/',
+        	'image' 		=> 'http://lorempixel.com/900/600/nature/6/',
         	'description' 	=> 'Donec blandit sit amet erat a ornare. Vestibulum a massa at odio fringilla faucibus et vitae eros. Quisque cursus vitae lorem ac scelerisque. Donec ut justo orci. Phasellus fringilla tempus sapien quis mattis. Mauris a arcu gravida, sodales urna vitae, vestibulum ante. Cras elementum pretium egestas. Nullam scelerisque dignissim iaculis. Duis nec nibh venenatis, laoreet lorem nec, pellentesque nibh. Phasellus ultricies dui id velit pellentesque laoreet. Maecenas et lectus imperdiet diam pellentesque maximus. Ut nunc sem, maximus cursus dapibus a, pulvinar facilisis purus. Sed interdum, eros sit amet dapibus pharetra, nibh diam efficitur lacus, et fringilla mi lectus a felis. Donec sit amet aliquet lacus. Pellentesque diam velit, semper at ante sed, placerat lacinia lacus. Maecenas quis justo interdum, bibendum nulla ac, euismod justo.',
         	'date' 			=>  \Carbon\Carbon::now()->addDays(5),
         	'location' 		=> 'Biodiversity Gallery',
@@ -237,6 +237,46 @@ class StagingSeeder extends Seeder
         	'location' 		=> 'Farnia #1 Meeting Room',
         	'fair_id' 		=> $thirdFair->id,
         	'event_type_id' => $seminarEventType->id
+        ]);
+
+        $ninthFairEvent = factory(FairEvent::class)->create([
+            'title'         => 'How Real State could mean Financial Success',
+            'image'         => 'http://lorempixel.com/900/600/abstract/8/',
+            'description'   => 'Donec blandit sit amet erat a ornare. Vestibulum a massa at odio fringilla faucibus et vitae eros. Quisque cursus vitae lorem ac scelerisque. Donec ut justo orci. Phasellus fringilla tempus sapien quis mattis. Mauris a arcu gravida, sodales urna vitae, vestibulum ante. Cras elementum pretium egestas. Nullam scelerisque dignissim iaculis. Duis nec nibh venenatis, laoreet lorem nec, pellentesque nibh. Phasellus ultricies dui id velit pellentesque laoreet. Maecenas et lectus imperdiet diam pellentesque maximus. Ut nunc sem, maximus cursus dapibus a, pulvinar facilisis purus. Sed interdum, eros sit amet dapibus pharetra, nibh diam efficitur lacus, et fringilla mi lectus a felis. Donec sit amet aliquet lacus. Pellentesque diam velit, semper at ante sed, placerat lacinia lacus. Maecenas quis justo interdum, bibendum nulla ac, euismod justo.',
+            'date' => \Carbon\Carbon::now()->addDays(6),
+            'location'      => 'Second Floor',
+            'fair_id'       => $firstFair->id,
+            'event_type_id' => $seminarEventType->id
+        ]);
+
+        $ninthFairEvent = factory(FairEvent::class)->create([
+            'title'         => 'How Real State could mean Financial Success',
+            'image'         => 'http://lorempixel.com/900/600/abstract/8/',
+            'description'   => 'Donec blandit sit amet erat a ornare. Vestibulum a massa at odio fringilla faucibus et vitae eros. Quisque cursus vitae lorem ac scelerisque. Donec ut justo orci. Phasellus fringilla tempus sapien quis mattis. Mauris a arcu gravida, sodales urna vitae, vestibulum ante. Cras elementum pretium egestas. Nullam scelerisque dignissim iaculis. Duis nec nibh venenatis, laoreet lorem nec, pellentesque nibh. Phasellus ultricies dui id velit pellentesque laoreet. Maecenas et lectus imperdiet diam pellentesque maximus. Ut nunc sem, maximus cursus dapibus a, pulvinar facilisis purus. Sed interdum, eros sit amet dapibus pharetra, nibh diam efficitur lacus, et fringilla mi lectus a felis. Donec sit amet aliquet lacus. Pellentesque diam velit, semper at ante sed, placerat lacinia lacus. Maecenas quis justo interdum, bibendum nulla ac, euismod justo.',
+            'date' => \Carbon\Carbon::now()->addDays(6),
+            'location'      => 'Second Floor',
+            'fair_id'       => $firstFair->id,
+            'event_type_id' => $seminarEventType->id
+        ]);
+
+        $tenthFairEvent = factory(FairEvent::class)->create([
+            'title'         => 'Current state of Polar Ice Caps',
+            'image'         => 'http://blogs-images.forbes.com/jamestaylor/files/2015/05/polar-ice.jpg?width=960',
+            'description'   => 'Donec blandit sit amet erat a ornare. Vestibulum a massa at odio fringilla faucibus et vitae eros. Quisque cursus vitae lorem ac scelerisque. Donec ut justo orci. Phasellus fringilla tempus sapien quis mattis. Mauris a arcu gravida, sodales urna vitae, vestibulum ante. Cras elementum pretium egestas. Nullam scelerisque dignissim iaculis. Duis nec nibh venenatis, laoreet lorem nec, pellentesque nibh. Phasellus ultricies dui id velit pellentesque laoreet. Maecenas et lectus imperdiet diam pellentesque maximus. Ut nunc sem, maximus cursus dapibus a, pulvinar facilisis purus. Sed interdum, eros sit amet dapibus pharetra, nibh diam efficitur lacus, et fringilla mi lectus a felis. Donec sit amet aliquet lacus. Pellentesque diam velit, semper at ante sed, placerat lacinia lacus. Maecenas quis justo interdum, bibendum nulla ac, euismod justo.',
+            'date' => \Carbon\Carbon::now()->addDays(6),
+            'location'      => 'Atrium',
+            'fair_id'       => $secondFair->id,
+            'event_type_id' => $seminarEventType->id
+        ]);
+
+        $eleventhFairEvent = factory(FairEvent::class)->create([
+            'title'         => 'Media and Sustainability Workshop',
+            'image'         => 'https://www.phoenix.gov/sustainabilitysite/MediaAssets/sustainability%20main%20page%20image.jpg',
+            'description'   => 'Donec blandit sit amet erat a ornare. Vestibulum a massa at odio fringilla faucibus et vitae eros. Quisque cursus vitae lorem ac scelerisque. Donec ut justo orci. Phasellus fringilla tempus sapien quis mattis. Mauris a arcu gravida, sodales urna vitae, vestibulum ante. Cras elementum pretium egestas. Nullam scelerisque dignissim iaculis. Duis nec nibh venenatis, laoreet lorem nec, pellentesque nibh. Phasellus ultricies dui id velit pellentesque laoreet. Maecenas et lectus imperdiet diam pellentesque maximus. Ut nunc sem, maximus cursus dapibus a, pulvinar facilisis purus. Sed interdum, eros sit amet dapibus pharetra, nibh diam efficitur lacus, et fringilla mi lectus a felis. Donec sit amet aliquet lacus. Pellentesque diam velit, semper at ante sed, placerat lacinia lacus. Maecenas quis justo interdum, bibendum nulla ac, euismod justo.',
+            'date' => \Carbon\Carbon::now()->addDays(3),
+            'location'      => 'Atrium',
+            'fair_id'       => $secondFair->id,
+            'event_type_id' => $workShopEventType->id
         ]);
 
         // Speakers

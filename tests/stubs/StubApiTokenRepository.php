@@ -16,6 +16,15 @@ class StubApiTokenRepository implements ApiTokenRepository
 	}
 
 	/**
+	 * Returns the app corresponding to the specified token
+	 * @param  String $appToken The app token
+	 * @return ApiToken         The specified api token
+	 */
+	public function getByToken($appToken) {
+		return $this->createApiToken();
+	}
+
+	/**
 	 * Returns a list of the specified array
 	 *
 	 * @param  array $eagerLoading
