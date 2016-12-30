@@ -88,6 +88,7 @@ class StubNewsRepository implements NewsRepository
 		$news->title = "foo";
 		$news->content = "bar";
 		$news->image = "baz.jpg";
+		$news->created_at = \Carbon\Carbon::now();
 
 		// Relations
 		$news->setRelation('fair', new Fair);
