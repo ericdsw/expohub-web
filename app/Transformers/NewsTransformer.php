@@ -19,10 +19,11 @@ class NewsTransformer extends BaseTransformer
 	public function transform(News $news)
 	{
 		return [
-			'id' 		=> (int) $news->id,
-			'title' 	=> $news->title,
-			'content' 	=> $news->content,
-			'image' 	=> $news->imageUrl()
+			'id' 			=> (int) $news->id,
+			'title' 		=> $news->title,
+			'content' 		=> $news->content,
+			'image' 		=> $news->imageUrl(),
+			'created_at'	=> ($news->created_at != null) ? $news->created_at->toDateTimeString() : ""
 		];
 	}
 

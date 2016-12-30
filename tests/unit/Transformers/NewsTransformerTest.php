@@ -25,7 +25,8 @@ class NewsTransformerTest extends TestCase
 			'id' => 1,
 			'title' => 'news-title',
 			'content' => 'news-content',
-			'image' => asset('news-image')
+			'image' => asset('news-image'),
+			'created_at' => \Carbon\Carbon::now()->toDateTimeString()
 		], $transformedArray);
 	}
 
@@ -39,6 +40,7 @@ class NewsTransformerTest extends TestCase
 		$news->title = 'news-title';
 		$news->content = 'news-content';
 		$news->image = 'news-image';
+		$news->created_at = \Carbon\Carbon::now();
 
 		return $news;
 	}
