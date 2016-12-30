@@ -16,7 +16,7 @@ class ApiTokenRepository extends Repository implements ApiTokenRepositoryContrac
 	}
 
 	/**
-	 * @param $appId
+	 * @param String $appId
 	 * @param $secret
 	 * @return ApiToken
 	 */
@@ -24,5 +24,14 @@ class ApiTokenRepository extends Repository implements ApiTokenRepositoryContrac
 	{
 		return $this->prepareQuery()->where('app_id', $appId)
 			->where('app_secret', $secret)->first();
+	}
+
+	/**
+	 * Returns the app corresponding to the specified token
+	 * @param  String $appToken The app token
+	 * @return ApiToken         The specified api token
+	 */
+	public function getByToken($appToken) {
+		return $this->prepareQuery()->where('app_id', $appToken)->first();
 	}
 }
