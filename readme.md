@@ -4,7 +4,7 @@
 
 Web component for the application **Expo Hub**. This component will expose resources using standard API rules defined for JSONApi (more information about this specification can be found here: http://jsonapi.org/format/).
 
-This project is based on **Laravel v5.1**.
+This project is based on **Laravel v5.1**, so it requires the same technologies to work.
 
 **Disclaimer:** ExpoHub is a thesis project used to demonstrate a client-server architecture development, and thus it should be considered to be in an **exprimental phase**. An example client implementation can be found here: https://github.com/ericdsw/expohub-android
 
