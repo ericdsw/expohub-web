@@ -39,7 +39,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class FairEvent extends Model
 {
 	protected $table 	= "fair_events";
-    protected $fillable = ["title", "image", "description", "date", "location", "fair_id", "event_type_id"];
+    protected $fillable = ["title", "image", "description", "date", "location", "attendace", "fair_id", "event_type_id"];
 	protected $dates	= ['date'];
 
 	/**

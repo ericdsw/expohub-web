@@ -24,8 +24,10 @@ class ApiTokenController extends ApiController
 	 * @param ApiTokenRepository  $apiTokenRepository
 	 */
 	public function __construct(
-		Manager $fractal, JsonApiSerializer $serializer,
-		ApiTokenTransformer $transformer, ApiTokenRepository $apiTokenRepository
+		Manager $fractal, 
+		JsonApiSerializer $serializer,
+		ApiTokenTransformer $transformer,
+		ApiTokenRepository $apiTokenRepository
 	) {
 		parent::__construct($fractal, $serializer, $transformer);
 		$this->apiTokenRepository = $apiTokenRepository;

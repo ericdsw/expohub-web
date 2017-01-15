@@ -1,6 +1,7 @@
 <?php
 namespace ExpoHub\Http\Controllers\Api;
 
+use ExpoHub\JsonError;
 use ExpoHub\Constants\UserType;
 use ExpoHub\Helpers\Credentials\Contracts\CredentialsHelper;
 use ExpoHub\Http\Requests\LoginRequest;
@@ -55,18 +56,14 @@ class AuthController extends ApiController
 
 		try {
 			if (! $token = $jwtAuth->attempt($loginParameters)) {
-				return $this->respondError([
-					'title' 		=> 'invalid-credentials',
-					'description' 	=> 'Invalid login credentials',
-					'status' 		=> '400'
-				]);
+				return $this->jsonErrorGenerator->setStatus(400)
+					->appendError(new JsonError("invalid-credentials", "Invalid login credentials", "400", ""))
+					->generateErrorResponse();
 			}
 		} catch (JWTException $e) {
-			return $this->respondError([
-				'title' 		=> 'jwt-exception',
-				'description' 	=> 'Internal error occurred, please try again later',
-				'status' 		=> '400'
-			]);
+			return $this->jsonErrorGenerator->setStatus(400)
+				->appendError(new JsonError("jwt-exception", "Internal error ocurred, please try again later", "400", ""))
+				->generateErrorResponse();
 		}
 
 		$user = $jwtAuth->toUser($token);
@@ -87,24 +84,20 @@ class AuthController extends ApiController
 	public function register(UserSpecification $specification, RegisterRequest $request, JWTAuth $jwtAuth)
 	{
 		if (! $specification->isEmailAvailable($request->get('email'))) {
-			return $this->respondError([
-				'title' 		=> 'email-taken',
-				'description' 	=> 'Email is already taken',
-				'status' 		=> '409'
-			], 409);
+			return $this->jsonErrorGenerator->setStatus(409)
+					->appendError(new JsonError("email-taken", "Email is already taken", "409", ""))
+					->generateErrorResponse();
 		}
 		if (! $specification->isUsernameAvailable($request->get('username'))) {
-			return $this->respondError([
-				'title' 		=> 'username-taken',
-				'description' 	=> 'Username is already taken',
-				'status' 		=> '409'
-			], 409);
+			return $this->jsonErrorGenerator->setStatus(409)
+					->appendError(new JsonError("username-taken", "Username is alredy taken", "409", ""))
+					->generateErrorResponse();
 		}
 
 		$parameters = $request->only('name', 'username', 'email');
 
 		$user = $this->userRepository->create(array_merge($parameters, [
-			'password' => bcrypt($request->get('password')),
+			'password' 	=> bcrypt($request->get('password')),
 			'user_type' => UserType::TYPE_USER
 		]));
 

@@ -28,7 +28,8 @@ class FairEventTransformerTest extends TestCase
 			'image' => asset('fair-event-image'),
 			'description' => 'fair-event-description',
 			'date' => Carbon::now(),
-			'location' => 'fair-event-location'
+			'location' => 'fair-event-location',
+			'attendance' => 10
 		], $transformedArray);
 	}
 
@@ -44,6 +45,7 @@ class FairEventTransformerTest extends TestCase
 		$fairEvent->description = 'fair-event-description';
 		$fairEvent->date = Carbon::now();
 		$fairEvent->location = 'fair-event-location';
+		$fairEvent->attendance = 10;
 
 		return $fairEvent;
 	}
