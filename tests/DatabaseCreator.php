@@ -126,7 +126,8 @@ trait DatabaseCreator
 			'date' => Carbon::now(),
 			'location' => 'qux',
 			'fair_id' => $fairId,
-			'event_type_id' => $eventTypeId
+			'event_type_id' => $eventTypeId,
+			'attendance' => 0
 		], $parameters));
 		FairEvent::reguard();
 		return $fairEvent;

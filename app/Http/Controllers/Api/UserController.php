@@ -1,6 +1,7 @@
 <?php
 namespace ExpoHub\Http\Controllers\Api;
 
+use ExpoHub\JsonError;
 use ExpoHub\Constants\UserType;
 use ExpoHub\Http\Requests\CreateUserRequest;
 use ExpoHub\Http\Requests\DeleteUserRequest;
@@ -74,19 +75,15 @@ class UserController extends ApiController
 	public function store(CreateUserRequest $request, UserSpecification $specification)
 	{
 		if (! $specification->isEmailAvailable($request->get('email'))) {
-			return $this->respondError([
-				'title' 		=> 'email-taken',
-				'description' 	=> 'Email is already taken',
-				'status' 		=> '409'
-			], 409);
+			return $this->jsonErrorGenerator->setStatus(409)
+					->appendError(new JsonError("email-taken", "Email is already taken", "409", ""))
+					->generateErrorResponse();
 		}
 
 		if (! $specification->isUsernameAvailable($request->get('username'))) {
-			return $this->respondError([
-				'title' 		=> 'username-taken',
-				'description' 	=> 'Username is already taken',
-				'status' 		=> '409'
-			], 409);
+			return $this->jsonErrorGenerator->setStatus(409)
+					->appendError(new JsonError("username-taken", "Username is already taken", "409", ""))
+					->generateErrorResponse();
 		}
 
 		$parameters = $request->only('name', 'username', 'email');

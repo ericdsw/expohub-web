@@ -4,6 +4,8 @@ namespace ExpoHub\Http\Controllers\Api;
 use ExpoHub\Http\Controllers\Controller;
 use ExpoHub\Repositories\Contracts\Repository;
 use ExpoHub\Transformers\BaseTransformer;
+use ExpoHub\Helpers\Generators\Contracts\JsonErrorGenerator;
+use ExpoHub\JsonError;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
@@ -23,6 +25,9 @@ abstract class ApiController extends Controller
 	/** @var Manager */
 	protected $fractal;
 
+	/** @var JsonErrorGenerator */
+	protected $jsonErrorGenerator;
+
 	/** @var int */
 	private $statusCode = Response::HTTP_OK;
 
@@ -41,8 +46,9 @@ abstract class ApiController extends Controller
 	 */
 	public function __construct(Manager $fractal, SerializerAbstract $serializer, BaseTransformer $transformer)
 	{
-		$this->fractal = $fractal;
-		$this->transformer = $transformer;
+		$this->fractal 				= $fractal;
+		$this->transformer 			= $transformer;
+		$this->jsonErrorGenerator 	= app()->make(JsonErrorGenerator::class);
 		$this->fractal->setSerializer($serializer);
 	}
 
@@ -77,20 +83,7 @@ abstract class ApiController extends Controller
 		$this->setStatus(Response::HTTP_NO_CONTENT);
 		return $this->respondJson('');
 	}
-
-	/**
-	 * Returns formatted json error with appropriated status code
-	 *
-	 * @param array $errors
-	 * @param int $statusCode
-	 * @return JsonResponse
-	 */
-	protected function respondError($errors, $statusCode = Response::HTTP_BAD_REQUEST)
-	{
-		$this->setStatus($statusCode);
-		return $this->respondJson(['errors' => $errors]);
-	}
-
+	
 	/**
 	 * Returns formatted error response when user is not authorized to view the resource
 	 *
@@ -99,13 +92,11 @@ abstract class ApiController extends Controller
 	protected function respondUnauthorized()
 	{
 		$this->setStatus(Response::HTTP_FORBIDDEN);
-		return $this->respondJson([
-			'errors' => [
-				'title' 		=> 'unauthorized',
-				'description' 	=> 'not authorized to perform this request',
-				'status' 		=> '403'
-			]
-		]);
+		$responseBody = $this->jsonErrorGenerator->setStatus($this->status)
+			->appendError(new JsonError("unauthorized", "not authorized to perform this request", (string) $this->status, ""))
+			->generateErrorJson();
+
+		return $this->respondJson($responseBody);
 	}
 
 	/**

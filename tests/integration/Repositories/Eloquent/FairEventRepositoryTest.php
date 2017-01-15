@@ -112,6 +112,7 @@ class FairEventRepositoryTest extends TestCase
 		$this->repository->attendEvent($attendingUser->id, $fairEvent->id);
 
 		$this->assertCount(1, $fairEvent->attendingUsers);
+		$this->assertEquals(1, $fairEvent->fresh()->attendance);
 	}
 
 	/** @test */
@@ -121,12 +122,13 @@ class FairEventRepositoryTest extends TestCase
 		$attendingUser	= $this->createUser();
 		$fair 			= $this->createFair($creatingUser->id);
 		$category 		= $this->createCategory($fair->id);
-		$fairEvent 		= $this->createFairEvent($fair->id, $category->id);
+		$fairEvent 		= $this->createFairEvent($fair->id, $category->id, ['attendance' => 1]);
 
 		$fairEvent->attendingUsers()->attach($attendingUser->id);
 
 		$this->repository->unAttendEvent($attendingUser->id, $fairEvent->id);
 
 		$this->assertCount(0, $fairEvent->attendingUsers);
+		$this->assertEquals(0, $fairEvent->fresh()->attendance);
 	}
 }

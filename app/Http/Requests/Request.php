@@ -1,13 +1,27 @@
 <?php
 namespace ExpoHub\Http\Requests;
 
+use ExpoHub\Helpers\Generators\Contracts\JsonErrorGenerator;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exception\HttpResponseException;
 use Illuminate\Http\Response;
+use ExpoHub\JsonError;
 
 abstract class Request extends FormRequest
 {
+	/** @var JsonErrorGenerator */
+	private $jsonErrorGenerator;
+
+	/**
+	 * Constructor
+	 * @param JsonErrorGenerator $jsonErrorGenerator
+	 */
+	public function __construct(JsonErrorGenerator $jsonErrorGenerator) 
+	{
+		$this->jsonErrorGenerator = $jsonErrorGenerator;
+	}
+
 	/**
 	 * Overrides parent's failedValidation method
 	 * throws exception adjusting to JSON Api's standard
@@ -16,19 +30,13 @@ abstract class Request extends FormRequest
 	 */
     protected function failedValidation(Validator $validator)
 	{
-		$errorArray = [];
+		$this->jsonErrorGenerator->setStatus(422);
 		foreach($validator->getMessageBag()->toArray() as $key => $error) {
-			array_push($errorArray, [
-				'title' 	=> $key,
-				'message' 	=> $error[0],
-				'status' 	=> '422'
-			]);
+			$this->jsonErrorGenerator->appendError(
+				new JsonError($key, $error[0], "422", "")
+			);
 		}
-
-		throw new HttpResponseException(new Response(
-			['errors' => $errorArray], 422,
-			['Content-Type' => 'application/vnd.api+json']
-		));
+		throw new HttpResponseException($this->jsonErrorGenerator->generateErrorResponse());
 	}
 
 	/**
@@ -37,12 +45,11 @@ abstract class Request extends FormRequest
 	 */
 	protected function failedAuthorization()
 	{
-		throw new HttpResponseException(new Response([
-			'errors' => [[
-				'title'		=> 'forbidden',
-				'message'	=> 'You do not have permission to execute this request',
-				'status'	=> '403'
-			]]
-		], 403, ['Content-Type' => 'application/vnd.api+json']));
+		throw new HttpResponseException(
+			$this->jsonErrorGenerator->setStatus(403)
+				->appendError(
+					new JsonError("forbidden", "You do not have permission to execute this request", "403", "")
+				)->generateErrorResponse()
+		);
 	}
 }

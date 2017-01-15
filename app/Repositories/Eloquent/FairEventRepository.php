@@ -5,7 +5,6 @@ use ExpoHub\FairEvent;
 use ExpoHub\Repositories\Contracts\FairEventRepository as FairEventRepositoryContract;
 use Illuminate\Database\Eloquent\Collection;
 
-
 class FairEventRepository extends Repository implements FairEventRepositoryContract
 {
 	/**
@@ -73,7 +72,10 @@ class FairEventRepository extends Repository implements FairEventRepositoryContr
 	 */
 	public function attendEvent($userId, $eventId)
 	{
-		$this->model->findOrFail($eventId)->attendingUsers()->attach($userId);
+		$event = $this->model->findOrFail($eventId);
+		$event->attendingUsers()->attach($userId);
+		$event->attendance += 1;
+		$event->save();
 	}
 
 	/**
@@ -84,6 +86,9 @@ class FairEventRepository extends Repository implements FairEventRepositoryContr
 	 */
 	public function unAttendEvent($userId, $eventId)
 	{
-		$this->model->findOrFail($eventId)->attendingUsers()->detach($userId);
+		$event = $this->model->findOrFail($eventId);
+		$event->attendingUsers()->detach($userId);
+		$event->attendance -= 1;
+		$event->save();
 	}
 }

@@ -24,7 +24,8 @@ class FairEventTransformer extends BaseTransformer
 			'image' 		=> $fairEvent->imageUrl(),
 			'description' 	=> $fairEvent->description,
 			'date' 			=> ($fairEvent->date != null) ? $fairEvent->date->toDateTimeString() : "",
-			'location' 		=> $fairEvent->location
+			'location' 		=> $fairEvent->location,
+			'attendance'	=> $fairEvent->attendance
 		];
 	}
 
