@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use ExpoHub\Helpers\Generators\Contracts\JsonErrorGenerator;
+use ExpoHub\JsonError;
 
 class Handler extends ExceptionHandler
 {
@@ -46,34 +48,31 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-		if($e instanceof NotFoundHttpException) {
-			return response()->json([
-				'errors' => [[
-					'title' 	=> 'not_found_url',
-					'message' 	=> 'Requested url not found',
-					'status' 	=> 404
-				]]
-			], 404, ['Content-Type' => 'application/vnd.api+json']);
+        $jsonErrorGenerator = app()->make(JsonErrorGenerator::class);
+
+		if ($e instanceof NotFoundHttpException) {
+            return $jsonErrorGenerator->setStatus(404)
+                ->appendError(
+                    new JsonError("not_found_url", "Request url not found", "400", "")
+                )->generateErrorResponse();
 		}
 
         if ($e instanceof ModelNotFoundException) {
-			return response()->json([
-				'errors' => [[
-					'title' 	=> 'not_found',
-					'message' 	=> 'Requested data not found',
-					'status' 	=> 404
-				]]
-			], 404, ['Content-Type' => 'application/vnd.api+json']);
+            return $jsonErrorGenerator->setStatus(404)
+                ->appendError(
+                    new JsonError("not_found_url", "Request data not found", "400", "")
+                )->generateErrorResponse();
         }
 
-		if($e instanceof MethodNotAllowedException) {
-			return response()->json([
-				'errors' => [[
-					'title' 	=> 'method_not_allowed',
-					'message' 	=> 'Method not allowed, allowed HTTP verbs include ' . implode(', ', $e->getAllowedMethods()),
-					'status' 	=> 405
-				]]
-			], Response::HTTP_METHOD_NOT_ALLOWED, ['Content-Type' => 'application/vnd.api+json']);
+		if ($e instanceof MethodNotAllowedException) {
+            return $jsonErrorGenerator->setStatus(Response::HTTP_METHOD_NOT_ALLOWED)
+                ->appendError(
+                    new JsonError(
+                        "method_not_allowed", 
+                        "Method not allowed, allowed HTTP verbs include " . implode(', ', $e->getAllowedMethods()), 
+                        (string) Response::HTTP_METHOD_NOT_ALLOWED, 
+                        "")
+                )->generateErrorResponse();
 		}
 
         return parent::render($request, $e);
