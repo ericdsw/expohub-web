@@ -25,7 +25,7 @@ class JsonErrorGeneratorTest extends TestCase
 		$response = $this->jsonErrorGenerator->generateErrorResponse();
 
 		$expected = json_encode([
-			'errors' => [[
+			'errors' => [
 				[
 					'title' 	=> 'title1',
 					'detail' 	=> 'detail1',
@@ -44,7 +44,7 @@ class JsonErrorGeneratorTest extends TestCase
 					'status' 	=> '412',
 					'code' 		=> 'code3'
 				]
-			]]
+			]
 		]);
 
 		$this->assertEquals($expected, json_encode($response->getOriginalContent()));
@@ -59,14 +59,14 @@ class JsonErrorGeneratorTest extends TestCase
 		$response = $this->jsonErrorGenerator->generateErrorResponse();
 
 		$expected = json_encode([
-			'errors' => [[
+			'errors' => [
 				[
 					'title' 	=> 'title1',
 					'detail' 	=> 'detail1',
 					'status' 	=> '412',
 					'code' 		=> 'code1'
 				]
-			]]
+			]
 		]);
 
 		$this->assertEquals($expected, json_encode($response->getOriginalContent()));
@@ -81,14 +81,14 @@ class JsonErrorGeneratorTest extends TestCase
 		$jsonRepresentation = $this->jsonErrorGenerator->generateErrorJson();
 
 		$expected = json_encode([
-			'errors' => [[
+			'errors' => [
 				[
 					'title' 	=> 'title1',
 					'detail' 	=> 'detail1',
 					'status' 	=> '412',
 					'code' 		=> 'code1'
 				]
-			]]
+			]
 		]);
 
 		$this->assertEquals($expected, json_encode($jsonRepresentation));
