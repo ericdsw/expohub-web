@@ -60,7 +60,7 @@ class Handler extends ExceptionHandler
         if ($e instanceof ModelNotFoundException) {
             return $jsonErrorGenerator->setStatus(404)
                 ->appendError(
-                    new JsonError("not_found_url", "Request data not found", "400", "")
+                    new JsonError("not_found", "Request data not found", "400", "")
                 )->generateErrorResponse();
         }
 
