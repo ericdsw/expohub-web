@@ -58,7 +58,7 @@ class JsonErrorGenerator implements JsonErrorGeneratorContract
 		}
 
 		return [
-			'errors' => [ $responseBody ]
+			'errors' => $responseBody
 		];	
 	}
 }
