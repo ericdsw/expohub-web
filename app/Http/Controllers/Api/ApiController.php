@@ -142,11 +142,12 @@ abstract class ApiController extends Controller
 	/**
 	 * Appends entry to meta array
 	 *
-	 * @param array $data
+	 * @param string $key
+	 * @param string $value
 	 */
-	public function appendMeta(array $data)
+	public function appendMeta($key, $value)
 	{
-		array_push($this->meta, $data);
+		$this->meta[$key] = $value;
 	}
 
 	/**
