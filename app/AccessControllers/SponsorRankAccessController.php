@@ -1,7 +1,6 @@
 <?php
 namespace ExpoHub\AccessControllers;
 
-
 use ExpoHub\Constants\UserType;
 use Tymon\JWTAuth\JWTAuth;
 

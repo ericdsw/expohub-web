@@ -14,7 +14,9 @@ class UpdateUserRequest extends Request
 	 */
     public function authorize(UserAccessController $accessController)
     {
-        return $accessController->canUpdateUser();
+        return $accessController->canUpdateUser(
+            $this->route()->parameter("id")
+        );
     }
 
     /**
