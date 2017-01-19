@@ -1,6 +1,6 @@
 <?php
 
-
+use ExpoHub\Constants\UserType;
 use ExpoHub\AccessControllers\ApiAccessController;
 use ExpoHub\User;
 use Mockery\Mock;

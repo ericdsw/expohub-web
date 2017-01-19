@@ -1,7 +1,5 @@
 <?php
-
 namespace ExpoHub\Helpers\Generators;
-
 
 use Illuminate\Support\Str;
 use ExpoHub\Helpers\Generators\Contracts\NameGenerator;

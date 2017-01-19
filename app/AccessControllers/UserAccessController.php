@@ -33,12 +33,14 @@ class UserAccessController
 	/**
 	 * Checks if request can update specified user
 	 *
+	 * @param int $userId
 	 * @return bool
 	 * @throws \Tymon\JWTAuth\Exceptions\JWTException
 	 */
-	public function canUpdateUser()
+	public function canUpdateUser($userId)
 	{
-		return $this->jwtAuth->parseToken()->toUser()->user_type == UserType::TYPE_ADMIN;
+		return $this->jwtAuth->parseToken()->toUser()->user_type == UserType::TYPE_ADMIN ||
+			   $this->jwtAuth->parseToken()->toUser()->id == $userId;
 	}
 
 	/**

@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Helpers\Generators\Contracts;
 
 interface NameGenerator

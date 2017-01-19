@@ -1,5 +1,4 @@
 <?php
-
 namespace ExpoHub\Console\Commands;
 
 use Illuminate\Console\Command;

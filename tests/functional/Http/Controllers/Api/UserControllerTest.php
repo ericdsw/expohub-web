@@ -1,4 +1,6 @@
 <?php
+
+use ExpoHub\Constants\UserType;
 use ExpoHub\AccessControllers\UserAccessController;
 use ExpoHub\Repositories\Contracts\UserRepository;
 use ExpoHub\Specifications\UserSpecification;
@@ -252,7 +254,7 @@ class UserControllerTest extends BaseControllerTestCase
 
 		$this->mock(UserAccessController::class)
 			->shouldReceive('canUpdateUser')
-			->withNoArgs()
+			->withAnyArgs()
 			->once()
 			->andReturn(true);
 
@@ -270,11 +272,11 @@ class UserControllerTest extends BaseControllerTestCase
 			'name' => 'foo'
 		];
 
-		$this->loginForApi();
+		$user = $this->loginForApi();
 
 		$this->mock(UserAccessController::class)
 			->shouldReceive('canUpdateUser')
-			->withNoArgs()
+			->withAnyArgs()
 			->once()
 			->andReturn(false);
 
