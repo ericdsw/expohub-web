@@ -68,7 +68,7 @@ class AuthController extends ApiController
 
 		$user = $jwtAuth->toUser($token);
 
-		$this->appendMeta(['token' => $token]);
+		$this->appendMeta('token', $token);
 
 		return $this->respondJson($user);
 	}
@@ -103,7 +103,7 @@ class AuthController extends ApiController
 
 		$token = $jwtAuth->fromUser($user);
 
-		$this->appendMeta(['token' => $token]);
+		$this->appendMeta('token', $token);
 
 		$this->setStatus(Response::HTTP_CREATED);
 
