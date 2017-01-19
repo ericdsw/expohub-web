@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -64,12 +65,12 @@ class Handler extends ExceptionHandler
                 )->generateErrorResponse();
         }
 
-		if ($e instanceof MethodNotAllowedException) {
+		if ($e instanceof MethodNotAllowedException || $e instanceof MethodNotAllowedHttpException) {
             return $jsonErrorGenerator->setStatus(Response::HTTP_METHOD_NOT_ALLOWED)
                 ->appendError(
                     new JsonError(
                         "method_not_allowed", 
-                        "Method not allowed, allowed HTTP verbs include " . implode(', ', $e->getAllowedMethods()), 
+                        "Http Method not allowed", 
                         (string) Response::HTTP_METHOD_NOT_ALLOWED, 
                         "")
                 )->generateErrorResponse();
