@@ -81,7 +81,7 @@ abstract class ApiController extends Controller
 	protected function respondNoContent()
 	{
 		$this->setStatus(Response::HTTP_NO_CONTENT);
-		return $this->respondJson('');
+		return $this->respondJson(['data' => null]);
 	}
 	
 	/**
