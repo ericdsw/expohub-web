@@ -214,7 +214,8 @@ class ApiControllerTest extends BaseControllerTestCase
 
 		$this->post('api/v1/logout');
 
-		$this->assertResponseStatus(204);
+		$this->seeJsonContains(['data' => null]);
+		$this->assertResponseStatus(200);
 	}
 
 	/** @test */

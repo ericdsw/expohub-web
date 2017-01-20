@@ -121,6 +121,6 @@ class AuthController extends ApiController
 		$token = $jwtAuth->getToken();
 		$jwtAuth->invalidate($token);
 
-		return $this->respondNoContent();
+		return $this->respondJson(['data' => null]);
 	}
 }
