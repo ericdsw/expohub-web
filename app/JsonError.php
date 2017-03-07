@@ -1,8 +1,8 @@
 <?php
 namespace ExpoHub;
 
-class JsonError {
-
+class JsonError 
+{
 	public $title;
 	public $detail;
 	public $status;

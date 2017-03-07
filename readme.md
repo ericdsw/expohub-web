@@ -60,3 +60,7 @@ Created api token with the following info:
 app_id: {YOUR_APP_ID}
 app_secret: {YOUR_APP_SECRET}
 ```
+
+Copyright © 2016 [Eric De Sedas]
+
+For educational purposes only, commercial use or distribution is prohibited by any other parties other than the original creator, which is stated in the copyright claim.

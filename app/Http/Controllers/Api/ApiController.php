@@ -222,9 +222,7 @@ abstract class ApiController extends Controller
 	protected function prepareRepo(Repository $repository, Request $request)
 	{
 		if ($request->has('include')) {
-			$repository->prepareEagerLoading(
-				explode(',', $request->get('include'))
-			);
+			$repository->prepareEagerLoading(explode(',', $request->get('include')));
 		}
 
 		if ($request->has('page')) {
