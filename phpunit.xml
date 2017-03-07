@@ -20,7 +20,7 @@
 			<directory>./tests/functional</directory>
 		</testsuite>
 		<testsuite name="integration">
-			<directory>./tests/functional</directory>
+			<directory>./tests/integration</directory>
 		</testsuite>
 	</testsuites>
     <filter>
